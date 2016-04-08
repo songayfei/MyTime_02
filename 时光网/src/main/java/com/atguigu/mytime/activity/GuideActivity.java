@@ -1,4 +1,4 @@
-package com.atguigu.mytime;
+package com.atguigu.mytime.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.atguigu.mytime.R;
+import com.atguigu.mytime.Utils.SpUtils;
 
 public class GuideActivity extends Activity {
     private ViewPager guide_pager;
@@ -23,10 +26,13 @@ public class GuideActivity extends Activity {
         guide_btn = (Button)findViewById(R.id.guide_btn);
         guide_pager.setAdapter(new MyPagerAdapter());
         guide_pager.addOnPageChangeListener(new MyOnPageChangeListener());
+        //点击进入主页面
         guide_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GuideActivity.this,MainActivity.class));
+                //点击后就保存一个标识
+                SpUtils.getInitialize(GuideActivity.this).save(SpUtils.GUIDE,true);
+                startActivity(new Intent(GuideActivity.this, MainActivity.class));
                 finish();
             }
         });

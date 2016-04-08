@@ -1,4 +1,4 @@
-package com.atguigu.mytime;
+package com.atguigu.mytime.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
+import com.atguigu.mytime.R;
 import com.atguigu.mytime.Utils.MessageUtils;
 import com.atguigu.mytime.base.BasePager;
 import com.atguigu.mytime.pager.DiscoverPager;

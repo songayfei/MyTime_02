@@ -1,4 +1,4 @@
-package com.atguigu.mytime;
+package com.atguigu.mytime.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,18 +7,24 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
+import com.atguigu.mytime.R;
+import com.atguigu.mytime.Utils.SpUtils;
+
 /**
  * 主页面
  */
 public class WelcomActivity extends Activity {
     private RelativeLayout rl_welcom;
     private Animation animation;
+    private boolean value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcom);
         rl_welcom = (RelativeLayout)findViewById(R.id.rl_welcom);
+        //判断是否进入过引导页面
+        value = SpUtils.getInitialize(this).getValue(SpUtils.GUIDE, false);
         initAnim();
         setAnimListener();
     }
@@ -40,7 +46,12 @@ public class WelcomActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(WelcomActivity.this,GuideActivity.class));
+                if(value) {
+                    //如果进入过引导页面
+                    startActivity(new Intent(WelcomActivity.this, NewThemeActivity.class));
+                }else {
+                    startActivity(new Intent(WelcomActivity.this, GuideActivity.class));
+                }
                 finish();
             }
 
