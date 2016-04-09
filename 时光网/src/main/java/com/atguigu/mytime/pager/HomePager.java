@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.atguigu.mytime.Receiver.NetReceiver;
 import com.atguigu.mytime.base.BasePager;
 
 /**
@@ -15,7 +16,7 @@ import com.atguigu.mytime.base.BasePager;
 public class HomePager extends BasePager {
 
     private TextView textView;
-
+    private NetReceiver receiver;
     public HomePager(Activity mactivity) {
         super(mactivity);
     }
@@ -33,4 +34,5 @@ public class HomePager extends BasePager {
         super.initData();
         textView.setText("主页面");
     }
+
 }

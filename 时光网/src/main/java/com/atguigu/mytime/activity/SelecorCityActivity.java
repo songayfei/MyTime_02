@@ -1,8 +1,13 @@
 package com.atguigu.mytime.activity;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
+import com.atguigu.mytime.Receiver.NetReceiver;
 import com.atguigu.mytime.Utils.PinYinUtils;
 import com.atguigu.mytime.Utils.SpUtils;
 import com.atguigu.mytime.Utils.UrlPath;
@@ -31,7 +37,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SelecorCityActivity extends Activity {
-    private static final String TAG =SelecorCityActivity.class.getSimpleName() ;
+    private static final String TAG = SelecorCityActivity.class.getSimpleName();
     private List<String> hotcitys;//热门城市
     private List<String> cityInfos;
     private List<String> pinying;
@@ -41,10 +47,21 @@ public class SelecorCityActivity extends Activity {
     private TextView tv_currentcity;
 
     @ViewInject(R.id.gv_hotcity)
-    private NoScrollGridView  gv_hotcity;
+    private NoScrollGridView gv_hotcity;
 
     private ListView lvClassifiedCity;
+    private NetReceiver receiver;
+    private ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            isNetwork = service.pingBinder();
+        }
 
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
+    };
+    private boolean isNetwork;
 
     /**
      * 初始化界面布局
@@ -55,32 +72,43 @@ public class SelecorCityActivity extends Activity {
         View view = View.inflate(this, R.layout.hot_ciyts, null);//头文件
         x.view().inject(this, view);
 
-        tvCity = (TextView)findViewById( R.id.tv_city );
-        tvCancel = (TextView)findViewById( R.id.tv_cancel );
-        lvClassifiedCity = (ListView)findViewById( R.id.lv_classified_city );
+        tvCity = (TextView) findViewById(R.id.tv_city);
+        tvCancel = (TextView) findViewById(R.id.tv_cancel);
+        lvClassifiedCity = (ListView) findViewById(R.id.lv_classified_city);
 
         lvClassifiedCity.addHeaderView(view);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         findViews();
-        String  value = SpUtils.getInitialize(this).getValue(SpUtils.CITY, null);
-        if(!TextUtils.isEmpty(value)) {
+        setReceicer();
+        String value = SpUtils.getInitialize(this).getValue(SpUtils.CITY, null);
+        if (!TextUtils.isEmpty(value)) {
             parseJson(value);
-        }else {
+        } else {
             //联网请求数据
             getCityData();
         }
 
 
     }
+    /**
+     * 通过广播监听网络状态
+     */
+    private void setReceicer() {
+        receiver=new NetReceiver();
+        IntentFilter filter=new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(receiver,filter);
+    }
 
     /**
      * 联网请求城市数据
      */
     private void getCityData() {
-        RequestParams params=new RequestParams(UrlPath.CITY_URL);
+        RequestParams params = new RequestParams(UrlPath.CITY_URL);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -109,16 +137,17 @@ public class SelecorCityActivity extends Activity {
 
     /**
      * 解析json
+     *
      * @param json
      */
     private void parseJson(String json) {
-        hotcitys=new ArrayList<>();
-        cityInfos=new ArrayList<>();
-        pinying=new ArrayList<>();
-        if(json!=null) {
+        hotcitys = new ArrayList<>();
+        cityInfos = new ArrayList<>();
+        pinying = new ArrayList<>();
+        if (json != null) {
             SelectorCityInfo citydata = new Gson().fromJson(json, SelectorCityInfo.class);
             List<SelectorCityInfo.PEntity> p = citydata.getP();
-            if(p.size()>0&& p !=null) {
+            if (p.size() > 0 && p != null) {
                 for (int i = 0; i < p.size(); i++) {
                     if (i <= 11) {
                         hotcitys.add(p.get(i).getN());//前12个放入热门城市集合中
@@ -137,14 +166,12 @@ public class SelecorCityActivity extends Activity {
         setCityData();
 
 
-
-
     }
+
     /**
      * 装配数据
      */
     private void setCityData() {
-
         //排序
         Collections.sort(cityInfos, new Comparator<String>() {
             @Override
@@ -163,7 +190,7 @@ public class SelecorCityActivity extends Activity {
                 }
             }
         }
-        CityListAdapter adapter=new CityListAdapter(this, cityInfos, pinying);
+        CityListAdapter adapter = new CityListAdapter(this, cityInfos, pinying);
         //城市分类装配
         lvClassifiedCity.setAdapter(adapter);
         //获取点击的城市名
@@ -183,5 +210,11 @@ public class SelecorCityActivity extends Activity {
             startActivity(intent);
             finish();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(receiver);//广播解注册
+        super.onDestroy();
     }
 }

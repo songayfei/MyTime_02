@@ -1,5 +1,7 @@
 package com.atguigu.mytime.activity;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 import com.atguigu.mytime.R;
+import com.atguigu.mytime.Receiver.NetReceiver;
 import com.atguigu.mytime.Utils.MessageUtils;
 import com.atguigu.mytime.base.BasePager;
 import com.atguigu.mytime.pager.DiscoverPager;
@@ -32,6 +35,8 @@ public class MainActivity extends FragmentActivity {
     private List<BasePager> pagers;
     private int position;
     private boolean isExit=true;
+    private NetReceiver receiver;
+
     private Handler handler = new Handler(){
         public void handleMessage(Message msg){
             switch (msg.what){
@@ -46,6 +51,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rg_main = (RadioGroup)findViewById(R.id.rg_main);
+        setReceicer();
         initArrView();
     }
 
@@ -123,7 +129,15 @@ public class MainActivity extends FragmentActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
+    /**
+     * 通过广播监听网络状态
+     */
+    private void setReceicer() {
+        receiver=new NetReceiver();
+        IntentFilter filter=new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(receiver, filter);
+    }
     @Override
     protected void onDestroy() {
         handler.removeCallbacksAndMessages(null);
