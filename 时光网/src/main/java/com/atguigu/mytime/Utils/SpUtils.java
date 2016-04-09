@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
  */
 public class SpUtils {
     public static final String GUIDE ="guide";//标识是否进入主页面
+    public static final String CITY = "city_name";//城市
     /*public static final String URL = URLPath.WEB_SERVICE_URL;
     public static final String READ_ARRAY_ID = "read_news_id_array_key";//保存点击过的item的id
     public static final String PHOTOS_IMAGE = URLPath.PHOTO_IMAGE_URL;*/
@@ -22,7 +23,7 @@ public class SpUtils {
     public static  SpUtils getInitialize(Context context){
         if(spUtils==null){
             //设置保存数据的存储发方式和文件名称
-            sp=context.getSharedPreferences("beijinnews",Context.MODE_PRIVATE);
+            sp=context.getSharedPreferences("mytime",Context.MODE_PRIVATE);
             spUtils=new SpUtils();
         }
         return spUtils;

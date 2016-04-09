@@ -32,7 +32,7 @@ public class GuideActivity extends Activity {
             public void onClick(View v) {
                 //点击后就保存一个标识
                 SpUtils.getInitialize(GuideActivity.this).save(SpUtils.GUIDE,true);
-                startActivity(new Intent(GuideActivity.this, MainActivity.class));
+                startActivity(new Intent(GuideActivity.this, SelecorCityActivity.class));
                 finish();
             }
         });

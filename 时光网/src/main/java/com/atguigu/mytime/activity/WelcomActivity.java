@@ -47,8 +47,9 @@ public class WelcomActivity extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 if(value) {
+
                     //如果进入过引导页面
-                    startActivity(new Intent(WelcomActivity.this, NewThemeActivity.class));
+                    startActivity(new Intent(WelcomActivity.this, MainActivity.class));
                 }else {
                     startActivity(new Intent(WelcomActivity.this, GuideActivity.class));
                 }
