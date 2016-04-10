@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.atguigu.mytime.base.BasePager;
 
+import okhttp3.OkHttpClient;
+
 /**
  * Created by Administrator on 2016/4/8.
  * 商城
@@ -32,5 +34,8 @@ public class ShopPager extends BasePager {
     public void initData() {
         super.initData();
         textView.setText("商城页面");
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+
     }
 }
