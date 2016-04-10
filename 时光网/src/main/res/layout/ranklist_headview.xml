@@ -24,13 +24,6 @@
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <ImageView
-            android:src="@drawable/img_play"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
     </RelativeLayout>
     <LinearLayout
         android:padding="10dp"
@@ -39,16 +32,19 @@
         android:layout_below="@id/prevue_head_icon"
         android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/image_top_time"
             android:src="@drawable/find_fixedtop100_img0"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />
         <ImageView
+            android:id="@+id/image_top_chinese"
             android:src="@drawable/find_fixedtop100_img1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />
         <ImageView
+            android:id="@+id/image_top_pick"
             android:src="@drawable/find_fixedtop100_img2"
             android:layout_width="0dp"
             android:layout_weight="1"
