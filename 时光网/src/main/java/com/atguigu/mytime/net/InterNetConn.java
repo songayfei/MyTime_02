@@ -1,6 +1,7 @@
 package com.atguigu.mytime.net;
 
-import com.google.gson.Gson;
+import android.util.Log;
+
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -11,14 +12,11 @@ import okhttp3.Call;
  * 联网的类
  * Created by Garbled on 3/19/2016.
  */
-public class InterNetConn<T> {
+public class InterNetConn{
 
-    private Class aClass;
     private String url;
-    private T t;
 
-    public InterNetConn(Class aClass,String url) {
-        this.aClass = aClass;
+    public InterNetConn(String url) {
         this.url = url;
         OkHttpUtils
                 .get()
@@ -31,19 +29,14 @@ public class InterNetConn<T> {
 
         @Override
         public void onError(Call call, Exception e) {
-
+            Log.e("TAG","网络请求失败");
         }
-
         @Override
         public void onResponse(String response) {
-            parseChangeJson(response);
-            ////获取数据成功保存json数据
-            /*SpUtils.getInitialize(mactivity).saveJson(NetUri.DISCOVER_TOP,response);*/
+            Log.e("TAG","网络请求成功");
+            EventBus.getDefault().post(response);
         }
     }
-    private void parseChangeJson(String result) {
-        t = (T) new Gson().fromJson(result, aClass);
-        //转换成功发送通知
-        EventBus.getDefault().post(t);
-    }
+
 }
+
