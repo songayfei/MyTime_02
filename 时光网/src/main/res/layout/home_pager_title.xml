@@ -52,12 +52,13 @@
                 android:background="@drawable/title_bar_search_button_scan_background" />
         </LinearLayout>
 
-        <com.viewpagerindicator.CirclePageIndicator
+        <LinearLayout
             android:id="@+id/indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/ll_seek"
+            android:orientation="horizontal"
             android:padding="5dp" />
     </RelativeLayout>
 
