@@ -127,7 +127,7 @@ public class PrevuePager extends BasePager implements View.OnClickListener {
 
         @Override
         public void onError(Call call, Exception e) {
-            loading_failed.setVisibility(View.VISIBLE);
+//            loading_failed.setVisibility(View.VISIBLE);
         }
 
         @Override
