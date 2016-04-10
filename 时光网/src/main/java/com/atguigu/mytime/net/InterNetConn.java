@@ -1,12 +1,11 @@
 package com.atguigu.mytime.net;
 
 import com.google.gson.Gson;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import de.greenrobot.event.EventBus;
+import okhttp3.Call;
 
 /**
  * 联网的类
@@ -21,33 +20,27 @@ public class InterNetConn<T> {
     public InterNetConn(Class aClass,String url) {
         this.aClass = aClass;
         this.url = url;
+        OkHttpUtils
+                .get()
+                .url(url)
+                .build()
+                .execute(new MyStringCallback());
 
-        //开始联网
-        RequestParams entity = new RequestParams(url);
-        x.http().get(entity, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                //解析Json
-                parseChangeJson(result);
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
     }
+    class MyStringCallback extends StringCallback {
 
+        @Override
+        public void onError(Call call, Exception e) {
+
+        }
+
+        @Override
+        public void onResponse(String response) {
+            parseChangeJson(response);
+            ////获取数据成功保存json数据
+            /*SpUtils.getInitialize(mactivity).saveJson(NetUri.DISCOVER_TOP,response);*/
+        }
+    }
     private void parseChangeJson(String result) {
         t = (T) new Gson().fromJson(result, aClass);
         //转换成功发送通知
