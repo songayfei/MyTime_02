@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="电影商城"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/home_hotplay_right_arrow"
+            android:text="全部商品"
+            android:textColor="#FFA500" />
+    </RelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+        <ImageView
+            android:id="@+id/im_shop01"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="66%"
+            app:layout_widthPercent="40%"
+            android:background="@drawable/edittext02"
+            />
+        <ImageView
+            android:id="@+id/im_shop02"
+            android:layout_toRightOf="@+id/im_shop01"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="30%"
+            app:layout_widthPercent="60%"
+            android:background="@drawable/edittext02"
+            />
+        <ImageView
+            android:layout_below="@+id/im_shop02"
+            android:id="@+id/im_shop03"
+            android:layout_toRightOf="@+id/im_shop01"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="36%"
+            app:layout_widthPercent="30%"
+            android:background="@drawable/edittext02"
+            />
+        <ImageView
+            android:layout_below="@+id/im_shop02"
+            android:id="@+id/im_shop04"
+            android:layout_toRightOf="@+id/im_shop03"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="36%"
+            app:layout_widthPercent="30%"
+            android:background="@drawable/edittext02"
+            />
+        <ImageView
+            android:layout_below="@+id/im_shop01"
+            android:id="@+id/im_shop05"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="34%"
+            app:layout_widthPercent="40%"
+            android:background="@drawable/edittext02"
+            />
+        <ImageView
+            android:layout_toRightOf="@+id/im_shop05"
+            android:layout_below="@+id/im_shop04"
+            android:id="@+id/im_shop06"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="35%"
+            app:layout_widthPercent="60%"
+            android:background="@drawable/edittext02"
+            />
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</LinearLayout>
