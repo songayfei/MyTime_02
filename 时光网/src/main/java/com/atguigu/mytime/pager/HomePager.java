@@ -1,21 +1,22 @@
 package com.atguigu.mytime.pager;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageView;
 
+import com.atguigu.mytime.R;
 import com.atguigu.mytime.Receiver.NetReceiver;
 import com.atguigu.mytime.base.BasePager;
+
+import pl.droidsonroids.gif.GifImageView;
 
 /**
  * Created by Administrator on 2016/4/7.
  * 主页面
  */
 public class HomePager extends BasePager {
-
-    private TextView textView;
+    private ImageView im_load;
+    private GifImageView gif_load;
     private NetReceiver receiver;
     public HomePager(Activity mactivity) {
         super(mactivity);
@@ -23,16 +24,14 @@ public class HomePager extends BasePager {
 
     @Override
     public View initView() {
-        textView = new TextView(mactivity);
-        textView.setTextSize(30);
-        textView.setTextColor(Color.BLACK);
-        textView.setGravity(Gravity.CENTER);
-        return textView;
+        View view=View.inflate(mactivity, R.layout.home_pager,null);
+        im_load= (ImageView) view.findViewById(R.id.im_load);
+        gif_load= (GifImageView) view.findViewById(R.id.gif_load);
+        return view;
     }
     @Override
     public void initData() {
         super.initData();
-        textView.setText("主页面");
     }
 
 }

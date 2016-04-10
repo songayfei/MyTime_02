@@ -19,7 +19,7 @@ import com.atguigu.mytime.R;
 import com.atguigu.mytime.Receiver.NetReceiver;
 import com.atguigu.mytime.Utils.PinYinUtils;
 import com.atguigu.mytime.Utils.SpUtils;
-import com.atguigu.mytime.Utils.UrlPath;
+import com.atguigu.mytime.Utils.NetUri;
 import com.atguigu.mytime.adapter.CityAdapter;
 import com.atguigu.mytime.adapter.CityListAdapter;
 import com.atguigu.mytime.entity.SelectorCityInfo;
@@ -91,8 +91,6 @@ public class SelecorCityActivity extends Activity {
             //联网请求数据
             getCityData();
         }
-
-
     }
     /**
      * 通过广播监听网络状态
@@ -108,7 +106,7 @@ public class SelecorCityActivity extends Activity {
      * 联网请求城市数据
      */
     private void getCityData() {
-        RequestParams params = new RequestParams(UrlPath.CITY_URL);
+        RequestParams params = new RequestParams(NetUri.CITY_URL);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
