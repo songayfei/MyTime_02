@@ -58,6 +58,7 @@ public class HomePager extends BasePager {
 
     @Override
     public View initView() {
+
         View view=View.inflate(mactivity, R.layout.home_pager,null);
         im_load= (ImageView) view.findViewById(R.id.im_load);
         //gif_load= (GifImageView) view.findViewById(R.id.gif_load);

@@ -109,7 +109,7 @@ public class Commentpager extends BasePager implements View.OnClickListener {
     }
 
 
-    class MyCallback extends StringCallback{
+    class MyCallback extends StringCallback {
 
         @Override
         public void onError(Call call, Exception e) {
