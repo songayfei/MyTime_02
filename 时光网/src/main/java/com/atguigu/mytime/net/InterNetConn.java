@@ -23,7 +23,6 @@ public class InterNetConn{
                 .url(url)
                 .build()
                 .execute(new MyStringCallback());
-
     }
     class MyStringCallback extends StringCallback {
 

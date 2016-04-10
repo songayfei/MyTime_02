@@ -1,7 +1,9 @@
 package com.atguigu.mytime.pager;
 
 import android.app.Activity;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
@@ -58,9 +60,10 @@ public class HomePager extends BasePager {
 
     @Override
     public View initView() {
+        setReceicer();
         View view=View.inflate(mactivity, R.layout.home_pager,null);
         im_load= (ImageView) view.findViewById(R.id.im_load);
-        //gif_load= (GifImageView) view.findViewById(R.id.gif_load);
+        gif_load= (GifImageView) view.findViewById(R.id.gif_load);
         //加载头文件
         View headView=View.inflate(mactivity,R.layout.home_pager_title,null);
         findViews(headView);
@@ -75,5 +78,13 @@ public class HomePager extends BasePager {
         super.initData();
         textView.setText("主页面");
     }
-
+    /**
+     * 通过广播监听网络状态
+     */
+    private void setReceicer() {
+        receiver=new NetReceiver();
+        IntentFilter filter=new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        mactivity.registerReceiver(receiver, filter);
+    }
 }
