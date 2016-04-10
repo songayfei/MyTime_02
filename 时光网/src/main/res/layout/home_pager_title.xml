@@ -4,16 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-   <!-- <android.support.v4.view.ViewPager
+    <android.support.v4.view.ViewPager
         android:id="@+id/vp_title"
         android:layout_width="match_parent"
-        android:layout_height="140dp" />-->
+        android:layout_height="140dp" />
 
-    <!--<com.viewpagerindicator.CirclePageIndicator
+    <com.viewpagerindicator.CirclePageIndicator
         android:id="@+id/indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp" />-->
+        android:padding="5dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -175,93 +175,31 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="#EFEFEF"/>
-
-   <!-- <include layout="@layout/home_shop_item"/>-->
-    <View
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#EFEFEF"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:drawableTop="@drawable/home_entry0"
-            android:text="时光热板"
-            android:drawablePadding="5dp"/>
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"
+            android:text="电影商城"/>
         <TextView
-            android:layout_width="0dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:drawableTop="@drawable/home_entry1"
-            android:text="全球票房"
-            android:drawablePadding="5dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:drawableTop="@drawable/home_entry2"
-            android:text="新片预告"
-            android:drawablePadding="5dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:drawableTop="@drawable/home_entry3"
-            android:text="猜电影"
-            android:drawablePadding="5dp"/>
-    </LinearLayout>
+            android:text="全部商品"
+            android:drawablePadding="5dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#FFA500"
+            android:drawableRight="@drawable/home_hotplay_right_arrow"/>
+    </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#55000000"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#EFEFEF"/>
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_ad"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#EFEFEF"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="时光精选"
-            android:textColor="#000000" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:drawablePadding="5dp"
-            android:drawableRight="@drawable/home_hotplay_right_arrow"
-            android:text="全部"
-            android:textColor="#FFA500" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55000000" />
 </LinearLayout>
