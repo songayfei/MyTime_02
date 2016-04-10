@@ -42,6 +42,8 @@ private RefreshListView listview_ranklist;
     private ImageView image_top_chinese;
     private int totalCount;//list中的item的总条数
     private int pageCount;//item的页数
+    private boolean isLoadMore;
+    private int i=1;
 
     public Ranklistpager(Activity mactivity, JSONObject topList) {
         super(mactivity);
@@ -76,16 +78,29 @@ class MyOnRefreshListener implements RefreshListView.OnRefreshListener{
     @Override
     public void onLoadMore() {
         //上拉加载更多：使用的是同一个adapter，只需要更新adapter
+        if(lists.size()<totalCount) {
+            isLoadMore=true;
+            getDatafromNet();
+
+        }else{
+            isLoadMore=false;
+            //如果加载更多的时候，没有数据了，也恢复到原来的状态
+            listview_ranklist.onFinishRefresh(false);
+        }
 
     }
+
+
 }
+
+
     @Override
     public void initData() {
         super.initData();
         //初始化头部
         initHeadView();
         //从本地获取图片
-        String savejson=SpUtils.getInitialize(mactivity).getJsonData(NetUri.RANKLIST);
+        String savejson=SpUtils.getInitialize(mactivity).getJsonData("neturi_ranklist");
         if(!TextUtils.isEmpty(savejson)) {
             processJson(savejson);
         }
@@ -108,7 +123,15 @@ class MyOnRefreshListener implements RefreshListView.OnRefreshListener{
      * 联网请求数据
      */
     private void getDatafromNet() {
-        OkHttpUtils.get().url(NetUri.RANKLIST)
+        String uri = "";
+        if (isLoadMore) {
+           i++;
+            uri = NetUri.RANKLIST_BASE+i;
+        }else{
+
+            uri = NetUri.RANKLIST_BASE+1;
+        }
+        OkHttpUtils.get().url(uri)
                 .build()
                 .execute(new MyCallback());
 
@@ -117,15 +140,22 @@ class MyOnRefreshListener implements RefreshListView.OnRefreshListener{
 
         @Override
         public void onError(Call call, Exception e) {
-            MessageUtils.showMessage(mactivity,"联网请求数据");
+            MessageUtils.showMessage(mactivity, "联网请求数据");
         }
 
         @Override
         public void onResponse(String response) {
-            //解析数据
-            processJson(response);
-            //保存数据到本地
-            SpUtils.getInitialize(mactivity).saveJson(NetUri.RANKLIST,response);
+
+            if(isLoadMore) {
+                processJson(response);
+                //请求数据成功，恢复到原来的状态
+                listview_ranklist.onFinishRefresh(true);
+            }else{
+                //解析数据
+                processJson(response);
+                //保存数据到本地
+                SpUtils.getInitialize(mactivity).saveJson("neturi_ranklist",response);
+            }
         }
     }
 
@@ -135,10 +165,18 @@ class MyOnRefreshListener implements RefreshListView.OnRefreshListener{
      */
     public void processJson(String response) {
         parseJson(response);//解析数据成功
-//设置adapter
-adapter=new RanklistAdapter(mactivity,lists);
-        //显示列表
-        listview_ranklist.setAdapter(adapter);
+        //设置adapter
+        if(isLoadMore&&adapter!=null) {
+            adapter.notifyDataSetChanged();
+            //加载数据的时候，将item定位到最后一个
+            listview_ranklist.setSelection(listview_ranklist.getLastVisiblePosition());
+        }else{
+
+            adapter=new RanklistAdapter(mactivity,lists);
+            listview_ranklist.setSelection(listview_ranklist.getFirstVisiblePosition());
+            //显示列表
+            listview_ranklist.setAdapter(adapter);
+        }
 
 
     }
@@ -148,8 +186,9 @@ adapter=new RanklistAdapter(mactivity,lists);
 
             lists = new ArrayList<>();
         }
-        lists.clear();
-
+        if(!isLoadMore) {
+            lists.clear();
+        }
 
         //手动解析数据
         try {
