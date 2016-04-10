@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:indeterminateDrawable="@drawable/comstom_progresssbar"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
 
             </FrameLayout>
