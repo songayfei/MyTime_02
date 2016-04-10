@@ -28,6 +28,7 @@ public class RefreshListView extends ListView {
 
     private ImageView iv_header_refresh;
     private ProgressBar pb_header_refresh;
+    private ProgressBar pb_foot_refresh;
 
     private TextView tv_header_status;
     private TextView tv_header_time;
@@ -118,9 +119,9 @@ public class RefreshListView extends ListView {
 
         }else{
             currentStatus = PULL_DOWN_REFRESH;
-            iv_header_refresh.setVisibility(VISIBLE);
+            iv_header_refresh.setVisibility(View.VISIBLE);
             iv_header_refresh.clearAnimation();
-
+            pb_header_refresh.setVisibility(View.GONE);
             pullDownRefresh.setPadding(0, -pullDownRefreshHeight, 0, 0);
             tv_header_status.setText("下拉刷新...");
 
@@ -175,6 +176,7 @@ public class RefreshListView extends ListView {
      */
     private void initFooterView(Context context) {
         footView = View.inflate(context, R.layout.refresh_footerview, null);
+        pb_foot_refresh = (ProgressBar) footView.findViewById(R.id.pb_foot_refresh);
         footView.measure(0,0);
         footViewHeight = footView.getMeasuredHeight();
 
@@ -236,7 +238,7 @@ public class RefreshListView extends ListView {
 
         iv_header_refresh = (ImageView) topnews.findViewById(R.id.iv_header_refresh);
         tv_header_status = (TextView) topnews.findViewById(R.id.tv_header_status);
-
+        pb_header_refresh = (ProgressBar) topnews.findViewById(R.id.pb_header_refresh);
 
         /**
          * 下拉刷新空间
