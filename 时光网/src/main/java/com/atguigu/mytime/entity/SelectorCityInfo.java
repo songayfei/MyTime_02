@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2016/4/8.
+ * 城市信息实体类
  */
 public class SelectorCityInfo {
 

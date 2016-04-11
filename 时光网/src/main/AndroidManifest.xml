@@ -57,7 +57,9 @@
         <receiver
             android:name=".Receiver.NetReceiver"
             android:enabled="true"
-            android:exported="false"></receiver>
+            android:exported="false" />
+
+        <activity android:name=".activity.WebViewActivity"></activity>
     </application>
 
 </manifest>
