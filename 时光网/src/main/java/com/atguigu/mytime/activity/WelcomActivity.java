@@ -2,14 +2,11 @@ package com.atguigu.mytime.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
@@ -26,29 +23,11 @@ public class WelcomActivity extends Activity {
     private Animation animation;
     private boolean value;
     private NetReceiver receiver;
-
-    private ServiceConnection conn = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            isNetwork = service.pingBinder();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-    };
-    private boolean isNetwork;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcom);
         rl_welcom = (RelativeLayout) findViewById(R.id.rl_welcom);
-        /*Intent intent = new Intent(this, CheckNetwork.class);
-
-        bindService(intent, conn, Context.BIND_AUTO_CREATE);//绑定服务
-        startService(intent);//启动服务
-        setReceicer();//网络状态监听*/
         setReceicer();
         //判断是否进入过引导页面
         value = SpUtils.getInitialize(this).getValue(SpUtils.GUIDE, false);
@@ -72,19 +51,6 @@ public class WelcomActivity extends Activity {
         animation.setDuration(2000);
         animation.setFillAfter(true);
         rl_welcom.startAnimation(animation);
-        //当前手机没有网络
-        if (!isNetwork) {
-            new AlertDialog.Builder(this)
-                    .setTitle("提示")
-                    .setMessage("网络错误")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            showLoadDataDialog();
-                        }
-                    })
-                    .show();
-        }
     }
 
     private void showLoadDataDialog() {

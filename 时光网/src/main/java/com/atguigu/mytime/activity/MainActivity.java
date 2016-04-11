@@ -33,7 +33,7 @@ public class MainActivity extends FragmentActivity {
     private static final int WHAT_EXIT = 0;
     private RadioGroup rg_main;
     private List<BasePager> pagers;
-    private int position;
+    public  int position;
     private boolean isExit=true;
     private NetReceiver receiver;
 
@@ -140,7 +140,13 @@ public class MainActivity extends FragmentActivity {
     }
     @Override
     protected void onDestroy() {
+        //关闭所有子类的内存对象
+        for(int i=0;i<pagers.size();i++){
+            pagers.get(i).clearEvent();
+        }
         handler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
+
+
 }
