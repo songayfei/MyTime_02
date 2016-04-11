@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/mall_shop01"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="66%"
+            app:layout_widthPercent="50%"
+            android:background="@drawable/edittext02"
+            />
+        <ImageView
+            android:id="@+id/mall_shop02"
+            android:layout_toRightOf="@+id/mall_shop01"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="33%"
+            app:layout_widthPercent="50%"
+            android:background="@drawable/edittext02"
+            />
+        <ImageView
+            android:id="@+id/mall_shop03"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/mall_shop02"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="33%"
+            app:layout_widthPercent="50%"
+            android:background="@drawable/edittext02"
+            />
+
+        <ImageView
+            android:layout_below="@+id/mall_shop01"
+            android:id="@+id/mall_shop05"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="34%"
+            app:layout_widthPercent="100%"
+            android:background="@drawable/edittext02"
+            />
+
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</LinearLayout>

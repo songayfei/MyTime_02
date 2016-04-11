@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_mall_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@drawable/mall_title"
+            android:padding="5dp"
+            android:gravity="center_vertical">
+        <ImageButton
+            android:id="@+id/ib_mall_home_scan"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mall_home_scan"/>
+            <TextView
+                android:id="@+id/tv_title_search"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_height="35dp"
+                android:drawableLeft="@drawable/title_bar_search_zoomin"
+                android:background="@drawable/mall_comment_edit"
+                android:text="@string/mall_title_sea_text"
+                android:textColor="#bbaaaaaa"/>
+            <ImageButton
+                android:id="@+id/ib_mall_home_cart"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/mall_home_cart_icon"/>
+
+        </LinearLayout>
+
+
+
+
+    </FrameLayout>
+
+</LinearLayout>
