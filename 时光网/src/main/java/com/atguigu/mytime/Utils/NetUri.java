@@ -9,5 +9,6 @@ public class NetUri {
     public static final String DISCOVER_LIST = "http://api.m.mtime.cn/PageSubArea/TrailerList.api";
     public static final String DISCOVER_TOP = "http://api.m.mtime.cn/PageSubArea/GetRecommendationIndexInfo.api";
     public static final String COMMENT_LIST = "http://api.m.mtime.cn/MobileMovie/Review.api?needTop=false";
-     public static final String RANKLIST = "http://api.m.mtime.cn/TopList/TopListOfAll.api?pageIndex=1";
+     public static final String RANKLIST_BASE = "http://api.m.mtime.cn/TopList/TopListOfAll.api?pageIndex=";
+     public static final String NEWSPAGER_LIST = "http://api.m.mtime.cn/News/NewsList.api?pageIndex=1";
  }
