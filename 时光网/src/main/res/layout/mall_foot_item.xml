@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="#22000000"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#FFC3C3C3" />
+
+        <TextView
+            android:drawableLeft="@drawable/home_recommended_daily_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="你可能感兴趣的"
+            android:textColor="#66000000"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#FFC3C3C3" />
+
+    </LinearLayout>
+    <com.atguigu.mytime.view.NoScrollGridView
+        android:id="@+id/mall_foot_item_gv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:background="#22000000"
+        ></com.atguigu.mytime.view.NoScrollGridView>
+
+</LinearLayout>

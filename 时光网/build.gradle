@@ -11,6 +11,10 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    sourceSets {
+        main.jni.srcDirs = []
+        main.jniLibs.srcDirs = ['libs']
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -33,4 +37,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile files('libs/classes.jar')
     compile project(':RefreshListView')
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:21.0.2'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }

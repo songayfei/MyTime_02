@@ -1,7 +1,9 @@
 package com.atguigu.mytime.pager;
 
 import android.app.Activity;
-
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
@@ -15,9 +17,6 @@ import com.atguigu.mytime.base.BasePager;
 import com.atguigu.mytime.view.HorizontalListView;
 
 import pl.droidsonroids.gif.GifImageView;
-import android.content.IntentFilter;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
 
 /**
  * Created by Administrator on 2016/4/7.
@@ -64,7 +63,7 @@ public class HomePager extends BasePager {
         setReceicer();
         View view=View.inflate(mactivity, R.layout.home_pager,null);
         im_load= (ImageView) view.findViewById(R.id.im_load);
-        gif_load= (GifImageView) view.findViewById(R.id.gif_load);
+      //  gif_load= (GifImageView) view.findViewById(R.id.gif_load);
         //加载头文件
         View headView=View.inflate(mactivity,R.layout.home_pager_title,null);
         findViews(headView);

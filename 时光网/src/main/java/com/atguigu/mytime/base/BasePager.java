@@ -31,4 +31,7 @@ public abstract class BasePager {
      * 子类这个方法用于清理数据用的
      */
     public void clearEvent(){}
+
+
+
 }
