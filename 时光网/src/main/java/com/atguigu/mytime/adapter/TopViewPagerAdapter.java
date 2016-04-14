@@ -41,6 +41,7 @@ public class TopViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         position = position % topPosters.size();
         ImageView imageView = new ImageView(mActivity);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         //联网加载图片
         Glide.with(mActivity).load(topPosters.get(position).getImg()).into(imageView);
         imageView.setClickable(true);

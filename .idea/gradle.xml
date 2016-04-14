@@ -10,7 +10,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AfuBaselib" />
+            <option value="$PROJECT_DIR$/AfuProject" />
             <option value="$PROJECT_DIR$/RefreshListView" />
+            <option value="$PROJECT_DIR$/VariousShapeImageView" />
             <option value="$PROJECT_DIR$/xutils_library" />
             <option value="$PROJECT_DIR$/时光网" />
           </set>
