@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -29,25 +30,30 @@ public class HomeContentAdapter extends BaseAdapter {
     private static final int GUESS_MOVIE = 4;//猜电影
     private static final int NEW_FILM = 5;//欧美新片
     private static final int OVERSEAS = 6;
+    private static final int PRIZE_MOVIE = 7;
 
     private Activity mActivity;
     private List<HomeListViewInfo.DataEntity> data;
     private String time;
     private String timeDisplay;
 
-    public HomeContentAdapter(Activity mActivity, List<HomeListViewInfo.DataEntity> data) {
+    public HomeContentAdapter(Activity mActivity,List<HomeListViewInfo.DataEntity> data) {
         this.mActivity = mActivity;
-        this.data = data;
-    }
+        this.data=data;
 
+
+    }
+    public void setData(List<HomeListViewInfo.DataEntity> datainfo) {
+            data.addAll(datainfo);
+    }
     @Override
     public int getViewTypeCount() {
-        return 7;
+        return 8;
     }
 
     @Override
     public int getItemViewType(int position) {
-        int viewType = 0;
+        int viewType = 7;
         HomeListViewInfo.DataEntity dataEntity = data.get(position);
         switch (dataEntity.getTag()) {
             case "图集":
@@ -71,6 +77,10 @@ public class HomeContentAdapter extends BaseAdapter {
             case "海外佳片":
                 viewType = OVERSEAS;
                 break;
+            case "获奖佳片":
+                viewType=PRIZE_MOVIE;
+                break;
+
 
         }
         return viewType;
@@ -214,6 +224,18 @@ public class HomeContentAdapter extends BaseAdapter {
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder.imNews);
                 break;
+            case PRIZE_MOVIE://获奖佳片
+
+                holder.tvTitle.setText(dataEntity.getTitleCn());
+                Log.e(dataEntity.getTitleEn(),dataEntity.getTitleEn());
+                holder.tvTitlen.setText(dataEntity.getTitleEn());
+                holder.tvCommentCount.setText(dataEntity.getContent());
+                Glide.with(mActivity).load(dataEntity.getImage())
+                        .error(R.drawable.img_default)
+                        .placeholder(R.drawable.img_default)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(holder.imNews);
+                break;
         }
 
 
@@ -235,6 +257,7 @@ public class HomeContentAdapter extends BaseAdapter {
             case NEW_FILM:
             case FILM_REVIEW:
             case OVERSEAS:
+            case PRIZE_MOVIE:
                 holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
                 holder.tvCommentCount = (TextView) convertView.findViewById(R.id.tv_commentcount);
                 break;
@@ -309,6 +332,12 @@ public class HomeContentAdapter extends BaseAdapter {
                 holder.tv_grade= (TextView) convertView.findViewById(R.id.tv_grade);//评分
                 holder.imNews = (ImageView) convertView.findViewById(R.id.im_news);
                 break;
+            case PRIZE_MOVIE:
+                convertView=View.inflate(mActivity,R.layout.prize_movie_item,null);
+                holder.tvTitlen = (TextView) convertView.findViewById(R.id.tv_titlen);//热评论
+                holder.imNews = (ImageView) convertView.findViewById(R.id.im_news);
+                break;
+
 
         }
         return convertView;

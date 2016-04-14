@@ -254,7 +254,6 @@ public class LoadmoreListView extends ListView {
         iv_header_refresh = (ImageView) topnews.findViewById(R.id.iv_header_refresh);
         pb_header_refresh = (ProgressBar) topnews.findViewById(R.id.pb_header_refresh);
         tv_header_status = (TextView) topnews.findViewById(R.id.tv_header_status);
-        tv_header_time = (TextView) topnews.findViewById(R.id.tv_header_time);
 
 
         /**

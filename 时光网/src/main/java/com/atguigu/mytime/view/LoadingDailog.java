@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import com.atguigu.mytime.R;
 
@@ -47,17 +46,18 @@ public class LoadingDailog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loading2);
-        ImageView loading = (ImageView)findViewById(R.id.loading);
+        setContentView(R.layout.adv_item);
+       /* ImageView loading = (ImageView)findViewById(R.id.loading);
 
         anim = (AnimationDrawable) loading.getBackground();
-        anim.start();
+        anim.start();*/
 
     }
 
     @Override
     public void dismiss() {
-        anim.stop();
+        //anim.stop();
         super.dismiss();
+
     }
 }

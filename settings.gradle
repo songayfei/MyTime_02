@@ -1,2 +1,1 @@
-include ':时光网', ':xutils_library', ':AfuBaselib', ':AfuProject', ':RefreshListView', ':VariousShapeImageView'
-include ':时光网', ':xutils_library'
+include ':时光网', ':xutils_library',':RefreshListView'

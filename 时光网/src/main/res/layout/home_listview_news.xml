@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
-            app:layout_widthPercent= "65%"
+            app:layout_widthPercent= "60%"
             android:orientation="vertical">
 
             <include layout="@layout/home_item_titleand_connent" />
@@ -39,7 +39,7 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:layout_widthPercent= "35%"
+            app:layout_widthPercent= "40%"
             >
 
             <ImageView

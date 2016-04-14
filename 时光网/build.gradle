@@ -37,9 +37,9 @@ dependencies {
     compile files('libs/classes.jar')
     compile files('libs/gson-2.2.4.jar')
     compile files('libs/eventbus.jar')
-    compile project(':xutils_library')
-    compile project(':RefreshListView')
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:appcompat-v7:21.0.2'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile project(':RefreshListView')
+    compile project(':xutils_library')
 }

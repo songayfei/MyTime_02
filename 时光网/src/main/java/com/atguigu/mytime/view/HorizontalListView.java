@@ -289,7 +289,6 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
                     getParent().requestDisallowInterceptTouchEvent(false);
                 }
                 break;
-
         }
         boolean handled = super.dispatchTouchEvent(ev);
         handled |= mGesture.onTouchEvent(ev);

@@ -24,6 +24,8 @@ public class NetUri {
     public static final String HLISTVIEW_ITEM = "http://api.m.mtime.cn/Showtime/MovieComments.api?";
     //homeListView下半部分
     public static final String HOME_BUTTOM = "http://api.m.mtime.cn/PageSubArea/GetHomeFeed.api?pageIndes";
+    //首页下拉刷新
+    public static final String HOME_BUTTOM_REF="http://api.m.mtime.cn/PageSubArea/GetHomeFeed.api?pageIndex=";
     public static final String DISCOVER_LIST = "http://api.m.mtime.cn/PageSubArea/TrailerList.api";
     public static final String DISCOVER_TOP = "http://api.m.mtime.cn/PageSubArea/GetRecommendationIndexInfo.api";
     public static final String COMMENT_LIST = "http://api.m.mtime.cn/MobileMovie/Review.api?needTop=false";
@@ -34,4 +36,5 @@ public class NetUri {
     public static final String MAll_RECOMMENDGOODS_LIST="http://api.m.mtime.cn/ECommerce/RecommendProducts.api?pageIndex="+pageIndex+"&goodsIds=102315%2C102306%2C102486";
     //弹窗广告
     public static final String ADV_LIST = "http://api.m.mtime.cn/Advertisement/MainPagePopup.api?locationId=290&lastTime=0&thirdAdvId=0&thirdOperate=0&thirdTime=0&thirdShowCount=0&ownAdvId=0&ownOperate=0&ownTime=0&ownShowCount=0";
+
 }
