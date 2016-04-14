@@ -12,20 +12,13 @@
         android:clickable="true"
         android:src="@drawable/loading_failed" />
 
-    <!-- <pl.droidsonroids.gif.GifImageView
-         android:id="@+id/gif_load"
-         android:layout_centerInParent="true"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:visibility="gone"
-         />-->
     <ImageView
         android:id="@+id/im_backimg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/loading_bg"
-        android:visibility="gone"
+
         />
 
     <ImageView
@@ -34,5 +27,5 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/refresh_anim"
-        android:visibility="gone" />
+         />
 </RelativeLayout>

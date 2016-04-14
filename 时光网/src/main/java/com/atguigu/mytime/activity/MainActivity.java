@@ -144,6 +144,7 @@ public class MainActivity extends FragmentActivity {
         for(int i=0;i<pagers.size();i++){
             pagers.get(i).clearEvent();
         }
+        unregisterReceiver(receiver);
         handler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }

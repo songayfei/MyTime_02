@@ -13,8 +13,8 @@
                 android:topLeftRadius="15dip"
                 android:topRightRadius="15dip"/>
             <stroke
-                android:width="0.5px"
-                android:color="#505050"/>
+                android:width="1px"
+                android:color="#e0000000"/>
         </shape>
     </item>
 </layer-list>

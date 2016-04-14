@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class HomeShopInfo {
 
+
     /**
      * newsId : 0
      * topCover : http://img31.mtime.cn/mg/2016/03/20/112629.61804111.jpg
@@ -17,19 +18,19 @@ public class HomeShopInfo {
 
     private HotMovieEntity hotMovie;
     /**
-     * subFirst : {"id":17728960,"goodsId":100905,"image":"http://img31.mtime.cn/mg/2016/04/10/115601.29116781.jpg","title":"限时闪购","titleColor":"#e75959","titleSmall":"反浩克i6手机壳","image2":"http://img31.mtime.cn/mg/2016/04/10/115612.10817861.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_1#!/commerce/item/100905/","parameters":{"goodsId":100905},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}
-     * subSecond : {"id":17304115,"goodsId":102198,"image":"http://img31.mtime.cn/mg/2016/04/05/104443.69314769.jpg","title":"时尚配饰","titleColor":"#2b88ca","titleSmall":"正义联盟系列饰品","image2":"http://img31.mtime.cn/mg/2016/04/05/104446.85497934.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_2#!/commerce/item/102198/","parameters":{"goodsId":102198},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}
-     * subThird : {"id":17304116,"goodsId":0,"image":"http://img31.mtime.cn/mg/2016/04/05/104506.23867951.jpg","title":"时尚配饰","titleSmall":"超人系列蓝色石英表\n","titleColor":"#e45e5e","image2":"http://img31.mtime.cn/mg/2016/04/05/104509.65118566.jpg","gotoPage":{"gotoType":"gotogoodslist","url":"http://mall.wv.mtime.cn/?utm_source=app_home_5&q=%E9%B2%A8%E9%B1%BC&utm_source=app_home_3#!/commerce/list/","parameters":{"keyword":0},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}
+     * subFirst : {"id":17728960,"goodsId":101319,"image":"","title":"限时闪购","titleColor":"#e75959","titleSmall":"小黄人充电宝","image2":"http://img31.mtime.cn/mg/2016/04/13/104634.82946858.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_1#!/commerce/item/101319/","parameters":{"goodsId":101319},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}
+     * subSecond : {"id":17304115,"goodsId":102202,"image":"","title":"原创设计","titleColor":"#2b88ca","titleSmall":"蝙超大战手机壳","image2":"http://img31.mtime.cn/mg/2016/04/13/104716.74006789.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_2#!/commerce/item/102202/","parameters":{"goodsId":102202},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}
+     * subThird : {"id":17304116,"goodsId":102194,"image":"","title":"炫酷型包","titleSmall":"凹造型必备！","titleColor":"#e45e5e","image2":"http://img31.mtime.cn/mg/2016/04/13/104755.46293077.jpg","gotoPage":{"gotoType":"gotogoodslist","url":"http://mall.wv.mtime.cn/?utm_source=app_home_5&q=%E8%83%8C%E5%8C%85&bid=2&utm_source=app_home_3#!/commerce/list/","parameters":{"keyword":0},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}
      * subFourth : {"goodsId":0,"image":"http://img31.mtime.cn/mg/2016/03/18/105503.44806826.jpg","image2":"http://img31.mtime.cn/mg/2016/03/18/105503.44806826.jpg","gotoPage":{"gotoType":"gotourl","url":"http://feature.mtime.cn/mobile/item/2015/preironman/","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}
-     * subFifth : {"id":18159583,"goodsId":0,"image":"http://img31.mtime.cn/mg/2016/04/05/104123.99029004.jpg","title":"原创设计","titleColor":"#9950D8","titleSmall":"超人钢铁之躯运动套装","image2":"http://img31.mtime.cn/mg/2016/04/05/104127.56790228.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_5#!/commerce/item/102310/","parameters":{"goodsId":102310},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}
+     * subFifth : {"id":18159583,"goodsId":0,"image":"","title":"蝙超周边","titleColor":"#9950D8","titleSmall":"造型经典 玩家必BUY","image2":"http://img31.mtime.cn/mg/2016/04/13/104521.35341013.jpg","gotoPage":{"gotoType":"gotourl","url":"http://feature.mtime.com/mobile/item/2016/0401_bs/","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}
      */
 
     private AreaSecondEntity areaSecond;
     /**
-     * url : http://feature.mtime.cn/mobile/movie/2016/zgyh/index.html
-     * img : http://img31.mtime.cn/mg/2016/04/08/084113.91173524.jpg
-     * img2 : http://img31.mtime.cn/mg/2016/04/08/084115.71620293.jpg
-     * gotoPage : {"gotoType":"gotourl","url":"http://feature.mtime.cn/mobile/movie/2016/zgyh/index.html","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
+     * url : http://movie.mtime.com/207872/
+     * img : http://img31.mtime.cn/mg/2016/04/12/084545.75284854.jpg
+     * img2 : http://img31.mtime.cn/mg/2016/04/12/084550.29389093.jpg
+     * gotoPage : {"gotoType":"gotomovie","url":"http://movie.mtime.com/207872/","parameters":{"movieId":207872},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
      */
 
     private List<AdvListEntity> advList;
@@ -43,27 +44,27 @@ public class HomeShopInfo {
      * img2 :
      * img3 :
      * publishTime : 1460191496
-     * commentCount : 40
+     * commentCount : 48
      */
 
     private List<HotPointsEntity> hotPoints;
     /**
-     * advList : [{"url":"http://feature.mtime.cn/mobile/movie/2016/zgyh/index.html","img":"http://img31.mtime.cn/mg/2016/04/08/084113.91173524.jpg","img2":"http://img31.mtime.cn/mg/2016/04/08/084115.71620293.jpg","gotoPage":{"gotoType":"gotourl","url":"http://feature.mtime.cn/mobile/movie/2016/zgyh/index.html","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},{"url":"http://mall.wv.mtime.cn/#!/commerce/item/102314/","img":"http://img31.mtime.cn/mg/2016/04/10/083518.69506512.jpg","img2":"http://img31.mtime.cn/mg/2016/04/10/083521.52580143.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/#!/commerce/item/102314/","parameters":{"goodsId":102314},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}]
-     * hotPoints : [{"id":1554113,"type":0,"tag":"","title":"专访《伦敦陷落》五大主创","desc":"杰拉德巴特勒不认老 最爱周星驰电影","img":"http://img31.mtime.cn/mg/2016/04/09/093329.66771815.jpg","img2":"","img3":"","publishTime":1460191496,"commentCount":40},{"id":1554243,"type":0,"tag":"","title":"\"复联\"战友加盟《新蜘蛛侠》","desc":"多位漫威电影超级英雄将客串","img":"http://img31.mtime.cn/mg/2016/04/09/105751.45355345.jpg","img2":"","img3":"","publishTime":1460197901,"commentCount":171},{"id":1554253,"type":2,"tag":"","title":"\"冰火'第六季首曝片段","desc":"冰原狼白灵现身守护雪诺","img":"http://img31.mtime.cn/mg/2016/04/09/150155.37643263.jpg","img2":"","img3":"","publishTime":1460213381,"commentCount":95}]
+     * advList : [{"url":"http://movie.mtime.com/207872/","img":"http://img31.mtime.cn/mg/2016/04/12/084545.75284854.jpg","img2":"http://img31.mtime.cn/mg/2016/04/12/084550.29389093.jpg","gotoPage":{"gotoType":"gotomovie","url":"http://movie.mtime.com/207872/","parameters":{"movieId":207872},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},{"url":"http://feature.mtime.cn/mobile/movie/2016/pufa/index.html","img":"http://img31.mtime.cn/mg/2016/04/11/084555.21779082.jpg","img2":"http://img31.mtime.cn/mg/2016/04/11/084559.36284274.jpg","gotoPage":{"gotoType":"gotourl","url":"http://feature.mtime.cn/mobile/movie/2016/pufa/index.html","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},{"url":"http://mall.wv.mtime.cn/#!/commerce/item/102202/","img":"http://img31.mtime.cn/mg/2016/04/13/084322.19228026.jpg","img2":"http://img31.mtime.cn/mg/2016/04/13/084325.10601191.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/#!/commerce/item/102202/","parameters":{"goodsId":102202},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}]
+     * hotPoints : [{"id":1554113,"type":0,"tag":"","title":"专访《伦敦陷落》五大主创","desc":"杰拉德巴特勒不认老 最爱周星驰电影","img":"http://img31.mtime.cn/mg/2016/04/09/093329.66771815.jpg","img2":"","img3":"","publishTime":1460191496,"commentCount":48},{"id":1554243,"type":0,"tag":"","title":"\"复联\"战友加盟《新蜘蛛侠》","desc":"多位漫威电影超级英雄将客串","img":"http://img31.mtime.cn/mg/2016/04/09/105751.45355345.jpg","img2":"","img3":"","publishTime":1460197901,"commentCount":177},{"id":1554253,"type":2,"tag":"","title":"\"冰火'第六季首曝片段","desc":"冰原狼白灵现身守护雪诺","img":"http://img31.mtime.cn/mg/2016/04/09/150155.37643263.jpg","img2":"","img3":"","publishTime":1460213381,"commentCount":104}]
      * hotPerson : {}
      * hotMovie : {"newsId":0,"topCover":"http://img31.mtime.cn/mg/2016/03/20/112629.61804111.jpg","title":"","movie":{}}
      * areaFirst : {}
-     * areaSecond : {"subFirst":{"id":17728960,"goodsId":100905,"image":"http://img31.mtime.cn/mg/2016/04/10/115601.29116781.jpg","title":"限时闪购","titleColor":"#e75959","titleSmall":"反浩克i6手机壳","image2":"http://img31.mtime.cn/mg/2016/04/10/115612.10817861.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_1#!/commerce/item/100905/","parameters":{"goodsId":100905},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},"subSecond":{"id":17304115,"goodsId":102198,"image":"http://img31.mtime.cn/mg/2016/04/05/104443.69314769.jpg","title":"时尚配饰","titleColor":"#2b88ca","titleSmall":"正义联盟系列饰品","image2":"http://img31.mtime.cn/mg/2016/04/05/104446.85497934.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_2#!/commerce/item/102198/","parameters":{"goodsId":102198},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},"subThird":{"id":17304116,"goodsId":0,"image":"http://img31.mtime.cn/mg/2016/04/05/104506.23867951.jpg","title":"时尚配饰","titleSmall":"超人系列蓝色石英表\n","titleColor":"#e45e5e","image2":"http://img31.mtime.cn/mg/2016/04/05/104509.65118566.jpg","gotoPage":{"gotoType":"gotogoodslist","url":"http://mall.wv.mtime.cn/?utm_source=app_home_5&q=%E9%B2%A8%E9%B1%BC&utm_source=app_home_3#!/commerce/list/","parameters":{"keyword":0},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},"subFourth":{"goodsId":0,"image":"http://img31.mtime.cn/mg/2016/03/18/105503.44806826.jpg","image2":"http://img31.mtime.cn/mg/2016/03/18/105503.44806826.jpg","gotoPage":{"gotoType":"gotourl","url":"http://feature.mtime.cn/mobile/item/2015/preironman/","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},"subFifth":{"id":18159583,"goodsId":0,"image":"http://img31.mtime.cn/mg/2016/04/05/104123.99029004.jpg","title":"原创设计","titleColor":"#9950D8","titleSmall":"超人钢铁之躯运动套装","image2":"http://img31.mtime.cn/mg/2016/04/05/104127.56790228.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_5#!/commerce/item/102310/","parameters":{"goodsId":102310},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}}
+     * areaSecond : {"subFirst":{"id":17728960,"goodsId":101319,"image":"","title":"限时闪购","titleColor":"#e75959","titleSmall":"小黄人充电宝","image2":"http://img31.mtime.cn/mg/2016/04/13/104634.82946858.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_1#!/commerce/item/101319/","parameters":{"goodsId":101319},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},"subSecond":{"id":17304115,"goodsId":102202,"image":"","title":"原创设计","titleColor":"#2b88ca","titleSmall":"蝙超大战手机壳","image2":"http://img31.mtime.cn/mg/2016/04/13/104716.74006789.jpg","gotoPage":{"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_2#!/commerce/item/102202/","parameters":{"goodsId":102202},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},"subThird":{"id":17304116,"goodsId":102194,"image":"","title":"炫酷型包","titleSmall":"凹造型必备！","titleColor":"#e45e5e","image2":"http://img31.mtime.cn/mg/2016/04/13/104755.46293077.jpg","gotoPage":{"gotoType":"gotogoodslist","url":"http://mall.wv.mtime.cn/?utm_source=app_home_5&q=%E8%83%8C%E5%8C%85&bid=2&utm_source=app_home_3#!/commerce/list/","parameters":{"keyword":0},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},"subFourth":{"goodsId":0,"image":"http://img31.mtime.cn/mg/2016/03/18/105503.44806826.jpg","image2":"http://img31.mtime.cn/mg/2016/03/18/105503.44806826.jpg","gotoPage":{"gotoType":"gotourl","url":"http://feature.mtime.cn/mobile/item/2015/preironman/","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},"subFifth":{"id":18159583,"goodsId":0,"image":"","title":"蝙超周边","titleColor":"#9950D8","titleSmall":"造型经典 玩家必BUY","image2":"http://img31.mtime.cn/mg/2016/04/13/104521.35341013.jpg","gotoPage":{"gotoType":"gotourl","url":"http://feature.mtime.com/mobile/item/2016/0401_bs/","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}}
      * mallEntrys : []
-     * topPosters : [{"url":"http://m.mtime.cn/#!/news/movie/1554256/","keyColor":"#888888","img":"http://img31.mtime.cn/mg/2016/04/10/134544.90383080.jpg","gotoPage":{"gotoType":"gotonews","url":"http://m.mtime.cn/#!/news/movie/1554256/","parameters":{"newId":1554256},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},{"url":"http://m.mtime.cn/#!/news/movie/1554113/ ","keyColor":"#888888","img":"http://img31.mtime.cn/mg/2016/04/09/190127.78570281.jpg","gotoPage":{"gotoType":"gotourl","url":"http://m.mtime.cn/#!/news/movie/1554113/ ","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},{"url":"http://feature.mtime.cn/mobile/item/2016/0401_bs/","keyColor":"#000066","img":"http://img31.mtime.cn/mg/2016/04/08/114137.25391081.jpg","gotoPage":{"gotoType":"gotourl","url":"http://feature.mtime.cn/mobile/item/2016/0401_bs/","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},{"url":"http://m.mtime.cn/#!/mall/index/","keyColor":"#888888","img":"http://img31.mtime.cn/mg/2016/04/08/195528.10653431.jpg","gotoPage":{"gotoType":"gotomallindex","url":"http://m.mtime.cn/#!/mall/index/","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}]
+     * topPosters : [{"url":"http://m.mtime.cn/#!/news/movie/1554371/","keyColor":"#888888","img":"http://img31.mtime.cn/mg/2016/04/13/130654.37623811.jpg","gotoPage":{"gotoType":"gotonews","url":"http://m.mtime.cn/#!/news/movie/1554371/","parameters":{"newId":1554371},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},{"url":"http://m.mtime.cn/#!/news/movie/1554280/","keyColor":"#888888","img":"http://img31.mtime.cn/mg/2016/04/12/100136.76177442.jpg","gotoPage":{"gotoType":"gotonews","url":"http://m.mtime.cn/#!/news/movie/1554280/","parameters":{"newId":1554280},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},{"url":"http://feature.mtime.cn/mobile/item/2016/0401_bs/","keyColor":"#000066","img":"http://img31.mtime.cn/mg/2016/04/08/114137.25391081.jpg","gotoPage":{"gotoType":"gotourl","url":"http://feature.mtime.cn/mobile/item/2016/0401_bs/","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}},{"url":"http://m.mtime.cn/#!/mall/index/","keyColor":"#888888","img":"http://img31.mtime.cn/mg/2016/04/08/195528.10653431.jpg","gotoPage":{"gotoType":"gotomallindex","url":"http://m.mtime.cn/#!/mall/index/","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}}]
      */
 
     private List<?> mallEntrys;
     /**
-     * url : http://m.mtime.cn/#!/news/movie/1554256/
+     * url : http://m.mtime.cn/#!/news/movie/1554371/
      * keyColor : #888888
-     * img : http://img31.mtime.cn/mg/2016/04/10/134544.90383080.jpg
-     * gotoPage : {"gotoType":"gotonews","url":"http://m.mtime.cn/#!/news/movie/1554256/","parameters":{"newId":1554256},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
+     * img : http://img31.mtime.cn/mg/2016/04/13/130654.37623811.jpg
+     * gotoPage : {"gotoType":"gotonews","url":"http://m.mtime.cn/#!/news/movie/1554371/","parameters":{"newId":1554371},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
      */
 
     private List<TopPostersEntity> topPosters;
@@ -149,38 +150,37 @@ public class HomeShopInfo {
     public static class AreaSecondEntity {
         /**
          * id : 17728960
-         * goodsId : 100905
-         * image : http://img31.mtime.cn/mg/2016/04/10/115601.29116781.jpg
+         * goodsId : 101319
+         * image :
          * title : 限时闪购
          * titleColor : #e75959
-         * titleSmall : 反浩克i6手机壳
-         * image2 : http://img31.mtime.cn/mg/2016/04/10/115612.10817861.jpg
-         * gotoPage : {"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_1#!/commerce/item/100905/","parameters":{"goodsId":100905},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
+         * titleSmall : 小黄人充电宝
+         * image2 : http://img31.mtime.cn/mg/2016/04/13/104634.82946858.jpg
+         * gotoPage : {"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_1#!/commerce/item/101319/","parameters":{"goodsId":101319},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
          */
 
         private SubFirstEntity subFirst;
         /**
          * id : 17304115
-         * goodsId : 102198
-         * image : http://img31.mtime.cn/mg/2016/04/05/104443.69314769.jpg
-         * title : 时尚配饰
+         * goodsId : 102202
+         * image :
+         * title : 原创设计
          * titleColor : #2b88ca
-         * titleSmall : 正义联盟系列饰品
-         * image2 : http://img31.mtime.cn/mg/2016/04/05/104446.85497934.jpg
-         * gotoPage : {"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_2#!/commerce/item/102198/","parameters":{"goodsId":102198},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
+         * titleSmall : 蝙超大战手机壳
+         * image2 : http://img31.mtime.cn/mg/2016/04/13/104716.74006789.jpg
+         * gotoPage : {"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_2#!/commerce/item/102202/","parameters":{"goodsId":102202},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
          */
 
         private SubSecondEntity subSecond;
         /**
          * id : 17304116
-         * goodsId : 0
-         * image : http://img31.mtime.cn/mg/2016/04/05/104506.23867951.jpg
-         * title : 时尚配饰
-         * titleSmall : 超人系列蓝色石英表
-
+         * goodsId : 102194
+         * image :
+         * title : 炫酷型包
+         * titleSmall : 凹造型必备！
          * titleColor : #e45e5e
-         * image2 : http://img31.mtime.cn/mg/2016/04/05/104509.65118566.jpg
-         * gotoPage : {"gotoType":"gotogoodslist","url":"http://mall.wv.mtime.cn/?utm_source=app_home_5&q=%E9%B2%A8%E9%B1%BC&utm_source=app_home_3#!/commerce/list/","parameters":{"keyword":0},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
+         * image2 : http://img31.mtime.cn/mg/2016/04/13/104755.46293077.jpg
+         * gotoPage : {"gotoType":"gotogoodslist","url":"http://mall.wv.mtime.cn/?utm_source=app_home_5&q=%E8%83%8C%E5%8C%85&bid=2&utm_source=app_home_3#!/commerce/list/","parameters":{"keyword":0},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
          */
 
         private SubThirdEntity subThird;
@@ -195,12 +195,12 @@ public class HomeShopInfo {
         /**
          * id : 18159583
          * goodsId : 0
-         * image : http://img31.mtime.cn/mg/2016/04/05/104123.99029004.jpg
-         * title : 原创设计
+         * image :
+         * title : 蝙超周边
          * titleColor : #9950D8
-         * titleSmall : 超人钢铁之躯运动套装
-         * image2 : http://img31.mtime.cn/mg/2016/04/05/104127.56790228.jpg
-         * gotoPage : {"gotoType":"gotogoodsinfo","url":"http://mall.wv.mtime.cn/?utm_source=app_home_5#!/commerce/item/102310/","parameters":{"goodsId":102310},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
+         * titleSmall : 造型经典 玩家必BUY
+         * image2 : http://img31.mtime.cn/mg/2016/04/13/104521.35341013.jpg
+         * gotoPage : {"gotoType":"gotourl","url":"http://feature.mtime.com/mobile/item/2016/0401_bs/","parameters":{},"parameters1":{},"isGoH5":false,"relatedTypeUrl":""}
          */
 
         private SubFifthEntity subFifth;
@@ -255,8 +255,8 @@ public class HomeShopInfo {
             private String image2;
             /**
              * gotoType : gotogoodsinfo
-             * url : http://mall.wv.mtime.cn/?utm_source=app_home_1#!/commerce/item/100905/
-             * parameters : {"goodsId":100905}
+             * url : http://mall.wv.mtime.cn/?utm_source=app_home_1#!/commerce/item/101319/
+             * parameters : {"goodsId":101319}
              * parameters1 : {}
              * isGoH5 : false
              * relatedTypeUrl :
@@ -332,7 +332,7 @@ public class HomeShopInfo {
                 private String gotoType;
                 private String url;
                 /**
-                 * goodsId : 100905
+                 * goodsId : 101319
                  */
 
                 private ParametersEntity parameters;
@@ -406,8 +406,8 @@ public class HomeShopInfo {
             private String image2;
             /**
              * gotoType : gotogoodsinfo
-             * url : http://mall.wv.mtime.cn/?utm_source=app_home_2#!/commerce/item/102198/
-             * parameters : {"goodsId":102198}
+             * url : http://mall.wv.mtime.cn/?utm_source=app_home_2#!/commerce/item/102202/
+             * parameters : {"goodsId":102202}
              * parameters1 : {}
              * isGoH5 : false
              * relatedTypeUrl :
@@ -483,7 +483,7 @@ public class HomeShopInfo {
                 private String gotoType;
                 private String url;
                 /**
-                 * goodsId : 102198
+                 * goodsId : 102202
                  */
 
                 private ParametersEntity parameters;
@@ -557,7 +557,7 @@ public class HomeShopInfo {
             private String image2;
             /**
              * gotoType : gotogoodslist
-             * url : http://mall.wv.mtime.cn/?utm_source=app_home_5&q=%E9%B2%A8%E9%B1%BC&utm_source=app_home_3#!/commerce/list/
+             * url : http://mall.wv.mtime.cn/?utm_source=app_home_5&q=%E8%83%8C%E5%8C%85&bid=2&utm_source=app_home_3#!/commerce/list/
              * parameters : {"keyword":0}
              * parameters1 : {}
              * isGoH5 : false
@@ -818,9 +818,9 @@ public class HomeShopInfo {
             private String titleSmall;
             private String image2;
             /**
-             * gotoType : gotogoodsinfo
-             * url : http://mall.wv.mtime.cn/?utm_source=app_home_5#!/commerce/item/102310/
-             * parameters : {"goodsId":102310}
+             * gotoType : gotourl
+             * url : http://feature.mtime.com/mobile/item/2016/0401_bs/
+             * parameters : {}
              * parameters1 : {}
              * isGoH5 : false
              * relatedTypeUrl :
@@ -895,10 +895,6 @@ public class HomeShopInfo {
             public static class GotoPageEntity {
                 private String gotoType;
                 private String url;
-                /**
-                 * goodsId : 102310
-                 */
-
                 private ParametersEntity parameters;
                 private Parameters1Entity parameters1;
                 private boolean isGoH5;
@@ -966,9 +962,9 @@ public class HomeShopInfo {
         private String img;
         private String img2;
         /**
-         * gotoType : gotourl
-         * url : http://feature.mtime.cn/mobile/movie/2016/zgyh/index.html
-         * parameters : {}
+         * gotoType : gotomovie
+         * url : http://movie.mtime.com/207872/
+         * parameters : {"movieId":207872}
          * parameters1 : {}
          * isGoH5 : false
          * relatedTypeUrl :
@@ -1011,6 +1007,10 @@ public class HomeShopInfo {
         public static class GotoPageEntity {
             private String gotoType;
             private String url;
+            /**
+             * movieId : 207872
+             */
+
             private ParametersEntity parameters;
             private Parameters1Entity parameters1;
             private boolean isGoH5;
@@ -1171,8 +1171,8 @@ public class HomeShopInfo {
         private String img;
         /**
          * gotoType : gotonews
-         * url : http://m.mtime.cn/#!/news/movie/1554256/
-         * parameters : {"newId":1554256}
+         * url : http://m.mtime.cn/#!/news/movie/1554371/
+         * parameters : {"newId":1554371}
          * parameters1 : {}
          * isGoH5 : false
          * relatedTypeUrl :
@@ -1216,7 +1216,7 @@ public class HomeShopInfo {
             private String gotoType;
             private String url;
             /**
-             * newId : 1554256
+             * newId : 1554371
              */
 
             private ParametersEntity parameters;

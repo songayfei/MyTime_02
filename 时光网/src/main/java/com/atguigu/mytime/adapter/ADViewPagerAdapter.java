@@ -25,7 +25,7 @@ public class ADViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE%2;
+        return Integer.MAX_VALUE/2;
     }
 
     @Override
