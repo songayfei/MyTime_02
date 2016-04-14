@@ -1,3 +1,2 @@
-include ':时光网', ':xutils_library', ':RefreshListView', ':app', ':loadingdailog'
-include ':zhy_horizontalScrollView03_recyclerView'
 include ':时光网', ':xutils_library', ':AfuBaselib', ':AfuProject', ':RefreshListView', ':VariousShapeImageView'
+include ':时光网', ':xutils_library'
