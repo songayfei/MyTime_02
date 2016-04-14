@@ -29,6 +29,7 @@ import com.atguigu.mytime.entity.MallGoodsInfos;
 import com.atguigu.mytime.entity.RecommendGoodsBean;
 import com.atguigu.mytime.net.InterNetConn;
 import com.atguigu.mytime.view.AutoScrollViewPager;
+import com.atguigu.mytime.view.AutoViewPagerIndicator;
 import com.atguigu.mytime.view.NoScrollGridView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -70,6 +71,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
     private ImageView top2_bg;
     private ImageView oldView;
     private int oldPosition;
+    private AutoViewPagerIndicator Indicator;
 
     public ShopPager(Activity mactivity) {
         super(mactivity);
@@ -92,7 +94,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
         View headView = View.inflate(mactivity, R.layout.mall_pager_head, null);
         vpMallHead = (AutoScrollViewPager) headView.findViewById(R.id.vp_mall_head);
         ngvMallHead = (NoScrollGridView) headView.findViewById(R.id.ngv_mall_head);
-
+        Indicator = (AutoViewPagerIndicator) headView.findViewById(R.id.Indicator);
         View top_item_view = View.inflate(mactivity, R.layout.mall_top_item, null);
         mallShopA = (ImageView) top_item_view.findViewById(R.id.mall_shopA);
         mallShopC1 = (ImageView) top_item_view.findViewById(R.id.mall_shopC1);
@@ -588,7 +590,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
                 return convertView;
             }
         });
-
+        Indicator.setViewPager(vpMallHead,scrollImg.size());
     }
 
     /**

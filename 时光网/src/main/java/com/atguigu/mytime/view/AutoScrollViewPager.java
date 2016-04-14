@@ -91,7 +91,7 @@ public class AutoScrollViewPager extends ViewPager {
      */
     public void startAutoScroll() {
         isAutoScroll = true;
-        sendScrollMessage((long)(interval + scroller.getDuration() / autoScrollFactor * swipeScrollFactor));
+        sendScrollMessage((long) (interval + scroller.getDuration() / autoScrollFactor * swipeScrollFactor));
     }
 
     /**
@@ -221,9 +221,36 @@ public class AutoScrollViewPager extends ViewPager {
             }
         }
         getParent().requestDisallowInterceptTouchEvent(true);
+        requestDisallowIntercept(ev);
 
         return super.dispatchTouchEvent(ev);
     }
+    private float startX;
+    private float startY;
+    private void requestDisallowIntercept(MotionEvent ev) {
+
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                startX=ev.getX();
+                startY=ev.getY();
+                getParent().requestDisallowInterceptTouchEvent(true);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float endX=ev.getX();
+                float endY=ev.getY();
+                float dx = Math.abs(endX - startX);
+                float dy = Math.abs(endY - startY);
+                if(dx-dy>8){
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }else {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                }
+                break;
+
+        }
+
+    }
+
 
     private static class MyHandler extends Handler {
 
