@@ -101,6 +101,14 @@ public class HomePager extends BasePager {
     private List<HomeShopInfo.TopPostersEntity> topPosters;
     private HomeShopInfo.AreaSecondEntity areaSecond;
     //判断是否有网络
+    /**
+     *
+     * 手动的 这里mmmmmmmm
+     *
+     *
+     *
+     */
+
     private boolean connected;
     private Handler handler = new Handler(){
         public void handleMessage(Message msg){
@@ -131,14 +139,21 @@ public class HomePager extends BasePager {
         tvState02 = (TextView) view.findViewById(R.id.tv_state02);
         horizonListview = (HorizontalListView) view.findViewById(R.id.horizon_listview);
         vpAd = (NoScrollViewPager) view.findViewById(R.id.vp_ad);
+        /**
+         *
+         * 手动的 这里mmmmmmmm
+         *
+         *
+         *
+         */
         ll_shop_point= (LinearLayout) view.findViewById(R.id.ll_shop_point);
         tvAllShop = (RelativeLayout)view.findViewById(R.id.tv_All_shop);
-        llShop01 = (PercentFrameLayout)view.findViewById(R.id.ll_shop01);
         imShop01 = (ImageView)view.findViewById(R.id.im_shop01);
         tvShopName01 = (TextView)view.findViewById(R.id.tv_shop_name01 );
         tvNameState01 = (TextView)view.findViewById(R.id.tv_name_state01);
         llShop02 = (PercentFrameLayout)view.findViewById(R.id.ll_shop02);
         imShop02 = (ImageView)view.findViewById(R.id.im_shop02);
+        llShop01 = (PercentFrameLayout)view.findViewById(R.id.ll_shop01);
         tvShopName02 = (TextView)view.findViewById(R.id.tv_shop_name02);
         tvNameState02 = (TextView)view.findViewById(R.id.tv_name_state02);
         llShop03 = (PercentFrameLayout)view.findViewById(R.id.ll_shop03);
