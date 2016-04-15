@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.atguigu.mytime.activity.MainActivity;
-import com.atguigu.mytime.activity.WebViewActivity;
+import com.atguigu.mytime.activity.GoodsWebViewActivity;
 import com.atguigu.mytime.entity.HomeShopInfo;
 import com.bumptech.glide.Glide;
 
@@ -64,7 +64,7 @@ public class TopViewPagerAdapter extends PagerAdapter {
                     MainActivity mainActivity = (MainActivity) mActivity;
                     mainActivity.position = topPosters.size() - 1;
                 }else {
-                    Intent intent = new Intent(mActivity, WebViewActivity.class);
+                    Intent intent = new Intent(mActivity, GoodsWebViewActivity.class);
                     intent.putExtra("url", topPosters.get(position).getUrl());
                     mActivity.startActivity(intent);
                 }

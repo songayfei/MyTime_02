@@ -14,11 +14,13 @@ public class MallURlL {
     /**
      * 商城搜索页面链接地址的key
      */
+    //http://mall.wv.mtime.cn/Service/callback.mi/ECommerce/SearchGoods.api?keyword=&pageIndex=1&sf=0&sm=2&topicId=0&movieId=0&roleId=0&categoryId1=0&categoryId2=0&brandId=0&fmin=0&fmax=0&salefid=0&cd=0&t=201641110363841253";
+
     public static String STOREPAGERSERCHER_KEY="http://mall.wv.mtime.cn/Service/callback.mi/ECommerce/SearchGoods.api?keyword=";
     /**
      * 商城搜索页面链接地址的index
      */
-    public static String STOREPAGERSERCHER_INDEX="&pageIndex=";
+    public static String STOREPAGERSERCHER_INDEX="&pageIndex=1";
     /**
      * 商城搜索页面链接地址的尾部
      */

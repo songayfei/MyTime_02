@@ -2,6 +2,7 @@ package com.atguigu.mytime.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +18,7 @@ import android.widget.TextView;
 import com.atguigu.mytime.R;
 import com.atguigu.mytime.adapter.MyBaseAdapter;
 import com.atguigu.mytime.entity.SerachGoodsBean;
-import com.atguigu.mytime.net.InterNetConn;
+import com.atguigu.mytime.net.OkhttpUtils2;
 import com.atguigu.mytime.view.LoadingDailog;
 import com.bumptech.glide.Glide;
 
@@ -38,6 +40,8 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
     private MyBaseAdapter<SerachGoodsBean.ContentEntity.GoodsEntity.GoodsListEntity> adapter;
     private ImageView loadingbg;
     private LoadingDailog loadingDailog;
+    private String[] split;
+    private List<SerachGoodsBean.ContentEntity.GoodsEntity.GoodsListEntity> goodsList;
 
 
     @Override
@@ -46,8 +50,9 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_mall_base);
         EventBus.getDefault().register(this);
         url = getIntent().getStringExtra("URL");
+        split = url.split("pageIndex=1");
         if (!TextUtils.isEmpty(url.trim())) {
-            new InterNetConn<SerachGoodsBean>(url, this, SerachGoodsBean.class,true);
+            new OkhttpUtils2<SerachGoodsBean>(url, this, SerachGoodsBean.class,true);
         }
 
         initView();
@@ -93,7 +98,7 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
     }
 
     private void initDate() {
-        List<SerachGoodsBean.ContentEntity.GoodsEntity.GoodsListEntity> goodsList = goodsBean.getContent().getGoods().getGoodsList();
+        goodsList = goodsBean.getContent().getGoods().getGoodsList();
         gdMallBase.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -173,17 +178,17 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
     }
 
     private void loadMore() {
-
-        String pageIndex = "pageIndex=" + index;
+        String nUrl="";
+        String pageIndex = "pageIndex=1";
         index++;
-        url.replace(pageIndex, "pageIndex=" + index);
+       // nUrl.replace("pageIndex=", "pageIndex=" + index);
+
+        nUrl=split[0]+"pageIndex=" + index+split[1];
         if (index <= goodsBean.getPageCount()) {
-            new InterNetConn<SerachGoodsBean>(url, this, SerachGoodsBean.class);
+            new OkhttpUtils2<SerachGoodsBean>(nUrl, this, SerachGoodsBean.class);
         } else {
             load_tv.setText("亲，已经没有更多了！");
         }
-
-
     }
 
     private void initView() {
@@ -193,6 +198,17 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
         gdMallBase = (GridView) findViewById(R.id.gd_mall_base);
         load_tv = (TextView) findViewById(R.id.load_tv);
         loading_failed = (ImageView) findViewById(R.id.loading_failed);
+        gdMallBase.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MallBaseActivity.this, GoodsWebViewActivity.class);
+                String url = goodsList.get(position).getUrl();
+
+                intent.putExtra("URL",url);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

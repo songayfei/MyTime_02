@@ -4,8 +4,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.atguigu.mytime.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * @Author YfSong
@@ -46,18 +50,29 @@ public class LoadingDailog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.adv_item);
-       /* ImageView loading = (ImageView)findViewById(R.id.loading);
-
+        setContentView(R.layout.loading2);
+        ImageView loading = (ImageView)findViewById(R.id.loading);
         anim = (AnimationDrawable) loading.getBackground();
-        anim.start();*/
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                anim.start();
+            }
+        }, 500);
+
+
 
     }
+
+
 
     @Override
     public void dismiss() {
-        //anim.stop();
+        anim.stop();
         super.dismiss();
 
     }
+
+    
 }
