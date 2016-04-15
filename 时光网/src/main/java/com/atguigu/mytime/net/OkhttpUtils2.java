@@ -101,7 +101,6 @@ public class OkhttpUtils2<T>{
             Log.e("TAG", response);
             if(dailog!=null) {
                 dailog.dismiss();
-
             }
             if(errow!=null) {
                 errow.setVisibility(View.GONE);
