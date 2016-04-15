@@ -201,7 +201,7 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
         gdMallBase.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MallBaseActivity.this, WebViewActivity.class);
+                Intent intent = new Intent(MallBaseActivity.this, GoodsWebViewActivity.class);
                 String url = goodsList.get(position).getUrl();
 
                 intent.putExtra("URL",url);

@@ -10,7 +10,7 @@ import android.webkit.WebViewClient;
 
 import com.atguigu.mytime.R;
 
-public class WebViewActivity extends Activity {
+public class GoodsWebViewActivity extends Activity {
     WebView webView;
 
     @Override

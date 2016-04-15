@@ -59,7 +59,7 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".activity.GoodsWebViewActivity" />
         <activity android:name=".activity.SearchGoodsActivity" />
         <activity android:name=".activity.MallBaseActivity"></activity>
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
