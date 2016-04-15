@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.atguigu.mytime.Utils.ShowUtile;
 import com.atguigu.mytime.Utils.SpUtils;
 import com.atguigu.mytime.view.LoadingDailog;
 import com.google.gson.Gson;
@@ -25,7 +24,7 @@ public class OkhttpUtils2<T>{
     private String url;
     private T t;
     private Activity activity;
-    private LoadingDailog dailog;
+    private static LoadingDailog dailog;
     private ImageView errow;
     /**
      * url 网络连接  activity  上下文    clazz  实体类
@@ -34,7 +33,7 @@ public class OkhttpUtils2<T>{
      * @param clazz  实体类
      * url 网络连接  activity  上下文    clazz  实体类
      */
-    public OkhttpUtils2(String url, Activity activity, Class clazz) {
+    public OkhttpUtils2(String url,Activity activity,Class clazz) {
         this.aClass=clazz;
         this.activity=activity;
         this.url = url;
@@ -52,15 +51,18 @@ public class OkhttpUtils2<T>{
      * @param showLoading  是否显示正在加载
      *
      */
-    public OkhttpUtils2(String url, Activity activity, Class clazz, boolean showLoading) {
+    public OkhttpUtils2(String url,Activity activity,Class clazz,boolean showLoading) {
         this.aClass=clazz;
         this.activity=activity;
         this.url = url;
         if(showLoading) {
-            if(dailog==null){
-            dailog = new LoadingDailog(activity);
+            if(dailog==null) {
+                dailog = new LoadingDailog(activity);
             }
-            dailog.show();
+            if(!dailog.isShowing()) {
+                dailog.show();
+            }
+
         }
         OkHttpUtils
                 .get()
@@ -77,7 +79,7 @@ public class OkhttpUtils2<T>{
      * @param showLoading  是否显示正在加载
      * @param e 加载错误图片 布局中隐藏的
      */
-    public OkhttpUtils2(String url, Activity activity, Class clazz, boolean showLoading, ImageView e) {
+    public OkhttpUtils2(String url,Activity activity,Class clazz,boolean showLoading,ImageView e) {
         this(url, activity, clazz, showLoading);
         errow = e;
     }
@@ -87,11 +89,21 @@ public class OkhttpUtils2<T>{
         public void onError(Call call, Exception e) {
             if(dailog!=null) {
                 dailog.dismiss();
+                dailog=null;
 
             } if(errow!=null) {
-                errow.setVisibility(View.VISIBLE);
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(errow!=null) {
+                            errow.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
             }
-            ShowUtile.showToast(activity,"联网请求失败，请检查网络...");
+            //ShowUtile.showToast(activity,"联网请求失败，请检查网络...");
 
             Log.e("TAG","网络请求失败");
         }
@@ -99,12 +111,19 @@ public class OkhttpUtils2<T>{
         public void onResponse(String response) {
             Log.e("TAG","网络请求成功");
             Log.e("TAG", response);
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                   if(errow!=null) {
+                       errow.setVisibility(View.GONE);
+                   }
+
+                }
+            });
             if(dailog!=null) {
                 dailog.dismiss();
             }
-            if(errow!=null) {
-                errow.setVisibility(View.GONE);
-            }
+
 
             SpUtils.getInitialize(activity.getApplicationContext()).saveJson(url,response);
             parseChangeJson(response);//解析json

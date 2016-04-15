@@ -72,6 +72,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
     private ImageView oldView;
     private int oldPosition;
     private AutoViewPagerIndicator Indicator;
+    private ImageView netError;
 
     public ShopPager(Activity mactivity) {
         super(mactivity);
@@ -84,8 +85,9 @@ public class ShopPager extends BasePager implements View.OnClickListener {
     public View initView() {
 
         View view = View.inflate(mactivity, R.layout.mall_base_pager, null);
-        lvMallPager = (ListView) view.findViewById(R.id.lv_mall_pager);
         view.findViewById(R.id.ib_mall_home_scan).setOnClickListener(this);
+        lvMallPager = (ListView) view.findViewById(R.id.lv_mall_pager);
+        netError = (ImageView) view.findViewById(R.id.netError);
         tvTitleSearch = (TextView) view.findViewById(R.id.tv_title_search);
         tvTitleSearch.setOnClickListener(this);
         view.findViewById(R.id.ib_mall_home_cart).setOnClickListener(this);
@@ -143,6 +145,15 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 //                showTitle();
 //            }
 //        });
+
+        netError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                net();
+                netError.setVisibility(View.GONE);
+            }
+        });
+
         location = new int[2];
         lvMallPager.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -172,10 +183,13 @@ public class ShopPager extends BasePager implements View.OnClickListener {
             mallGoodsInfos = new Gson().fromJson(jsonData, MallGoodsInfos.class);
             initHead();
         }
-        new OkhttpUtils2<MallGoodsInfos>(NetUri.MAll_LIST, mactivity, MallGoodsInfos.class,true);
+        net();
 
+    }
+
+    private void net() {
+        new OkhttpUtils2<MallGoodsInfos>(NetUri.MAll_LIST, mactivity, MallGoodsInfos.class,true,netError);
         new OkhttpUtils2<RecommendGoodsBean>(NetUri.MAll_RECOMMENDGOODS_LIST, mactivity, RecommendGoodsBean.class);
-
     }
 
 

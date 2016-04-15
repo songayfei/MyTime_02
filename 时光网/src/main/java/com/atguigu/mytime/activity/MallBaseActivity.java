@@ -2,6 +2,7 @@ package com.atguigu.mytime.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,6 +41,7 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
     private ImageView loadingbg;
     private LoadingDailog loadingDailog;
     private String[] split;
+    private List<SerachGoodsBean.ContentEntity.GoodsEntity.GoodsListEntity> goodsList;
 
 
     @Override
@@ -95,7 +98,7 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
     }
 
     private void initDate() {
-        List<SerachGoodsBean.ContentEntity.GoodsEntity.GoodsListEntity> goodsList = goodsBean.getContent().getGoods().getGoodsList();
+        goodsList = goodsBean.getContent().getGoods().getGoodsList();
         gdMallBase.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -195,6 +198,17 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
         gdMallBase = (GridView) findViewById(R.id.gd_mall_base);
         load_tv = (TextView) findViewById(R.id.load_tv);
         loading_failed = (ImageView) findViewById(R.id.loading_failed);
+        gdMallBase.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MallBaseActivity.this, WebViewActivity.class);
+                String url = goodsList.get(position).getUrl();
+
+                intent.putExtra("URL",url);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
