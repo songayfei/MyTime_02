@@ -18,7 +18,7 @@ public class MallURlL {
     /**
      * 商城搜索页面链接地址的index
      */
-    public static String STOREPAGERSERCHER_INDEX="&pageIndex=";
+    public static String STOREPAGERSERCHER_INDEX="&pageIndex=1";
     /**
      * 商城搜索页面链接地址的尾部
      */

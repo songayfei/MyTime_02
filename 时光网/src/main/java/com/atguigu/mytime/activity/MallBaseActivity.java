@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.atguigu.mytime.R;
 import com.atguigu.mytime.adapter.MyBaseAdapter;
 import com.atguigu.mytime.entity.SerachGoodsBean;
-import com.atguigu.mytime.net.InterNetConn;
+import com.atguigu.mytime.net.OkhttpUtils2;
 import com.atguigu.mytime.view.LoadingDailog;
 import com.bumptech.glide.Glide;
 
@@ -38,6 +38,7 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
     private MyBaseAdapter<SerachGoodsBean.ContentEntity.GoodsEntity.GoodsListEntity> adapter;
     private ImageView loadingbg;
     private LoadingDailog loadingDailog;
+    private String[] split;
 
 
     @Override
@@ -46,8 +47,9 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_mall_base);
         EventBus.getDefault().register(this);
         url = getIntent().getStringExtra("URL");
+        split = url.split("pageIndex=1");
         if (!TextUtils.isEmpty(url.trim())) {
-            new InterNetConn<SerachGoodsBean>(url, this, SerachGoodsBean.class,true);
+            new OkhttpUtils2<SerachGoodsBean>(url, this, SerachGoodsBean.class,true);
         }
 
         initView();
@@ -173,17 +175,17 @@ public class MallBaseActivity extends Activity implements View.OnClickListener {
     }
 
     private void loadMore() {
-
-        String pageIndex = "pageIndex=" + index;
+        String nUrl="";
+        String pageIndex = "pageIndex=1";
         index++;
-        url.replace(pageIndex, "pageIndex=" + index);
+       // nUrl.replace("pageIndex=", "pageIndex=" + index);
+
+        nUrl=split[0]+"pageIndex=" + index+split[1];
         if (index <= goodsBean.getPageCount()) {
-            new InterNetConn<SerachGoodsBean>(url, this, SerachGoodsBean.class);
+            new OkhttpUtils2<SerachGoodsBean>(nUrl, this, SerachGoodsBean.class);
         } else {
             load_tv.setText("亲，已经没有更多了！");
         }
-
-
     }
 
     private void initView() {

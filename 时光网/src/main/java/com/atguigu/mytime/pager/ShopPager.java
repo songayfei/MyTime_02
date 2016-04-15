@@ -27,7 +27,7 @@ import com.atguigu.mytime.adapter.RecyclerViewAdapter;
 import com.atguigu.mytime.base.BasePager;
 import com.atguigu.mytime.entity.MallGoodsInfos;
 import com.atguigu.mytime.entity.RecommendGoodsBean;
-import com.atguigu.mytime.net.InterNetConn;
+import com.atguigu.mytime.net.OkhttpUtils2;
 import com.atguigu.mytime.view.AutoScrollViewPager;
 import com.atguigu.mytime.view.AutoViewPagerIndicator;
 import com.atguigu.mytime.view.NoScrollGridView;
@@ -172,9 +172,9 @@ public class ShopPager extends BasePager implements View.OnClickListener {
             mallGoodsInfos = new Gson().fromJson(jsonData, MallGoodsInfos.class);
             initHead();
         }
-        new InterNetConn<MallGoodsInfos>(NetUri.MAll_LIST, mactivity, MallGoodsInfos.class,true);
+        new OkhttpUtils2<MallGoodsInfos>(NetUri.MAll_LIST, mactivity, MallGoodsInfos.class,true);
 
-        new InterNetConn<RecommendGoodsBean>(NetUri.MAll_RECOMMENDGOODS_LIST, mactivity, RecommendGoodsBean.class);
+        new OkhttpUtils2<RecommendGoodsBean>(NetUri.MAll_RECOMMENDGOODS_LIST, mactivity, RecommendGoodsBean.class);
 
     }
 

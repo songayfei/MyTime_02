@@ -19,7 +19,7 @@ import okhttp3.Call;
  * 联网的类
  * Created by Garbled on 3/19/2016.
  */
-public class InterNetConn<T>{
+public class OkhttpUtils2<T>{
 
     private Class aClass;
     private String url;
@@ -34,7 +34,7 @@ public class InterNetConn<T>{
      * @param clazz  实体类
      * url 网络连接  activity  上下文    clazz  实体类
      */
-    public InterNetConn(String url,Activity activity,Class clazz) {
+    public OkhttpUtils2(String url, Activity activity, Class clazz) {
         this.aClass=clazz;
         this.activity=activity;
         this.url = url;
@@ -52,12 +52,14 @@ public class InterNetConn<T>{
      * @param showLoading  是否显示正在加载
      *
      */
-    public InterNetConn(String url,Activity activity,Class clazz,boolean showLoading) {
+    public OkhttpUtils2(String url, Activity activity, Class clazz, boolean showLoading) {
         this.aClass=clazz;
         this.activity=activity;
         this.url = url;
         if(showLoading) {
+            if(dailog==null){
             dailog = new LoadingDailog(activity);
+            }
             dailog.show();
         }
         OkHttpUtils
@@ -75,7 +77,7 @@ public class InterNetConn<T>{
      * @param showLoading  是否显示正在加载
      * @param e 加载错误图片 布局中隐藏的
      */
-    public InterNetConn(String url,Activity activity,Class clazz,boolean showLoading,ImageView e) {
+    public OkhttpUtils2(String url, Activity activity, Class clazz, boolean showLoading, ImageView e) {
         this(url, activity, clazz, showLoading);
         errow = e;
     }
