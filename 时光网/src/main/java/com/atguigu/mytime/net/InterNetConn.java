@@ -21,10 +21,12 @@ public class InterNetConn<T>{
     private String url;
     private T t;
     private Activity activity;
-    public InterNetConn(String url,Activity activity,Class clazz) {
+    private boolean isCache;
+    public InterNetConn(String url,Activity activity,Class clazz,boolean isCache) {
         this.aClass=clazz;
         this.activity=activity;
         this.url = url;
+        this.isCache=isCache;
         OkHttpUtils
                 .get()
                 .url(url)
@@ -35,12 +37,15 @@ public class InterNetConn<T>{
 
         @Override
         public void onError(Call call, Exception e) {
+            EventBus.getDefault().post(false);
             Log.e("TAG","网络请求失败");
         }
         @Override
         public void onResponse(String response) {
             Log.e("TAG","网络请求成功");
-            SpUtils.getInitialize(activity.getApplicationContext()).saveJson(url,response);
+            if(isCache) {
+                SpUtils.getInitialize(activity.getApplicationContext()).saveJson(url, response);
+            }
             parseChangeJson(response);//解析json
         }
     }

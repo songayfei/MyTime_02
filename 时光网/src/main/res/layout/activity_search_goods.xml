@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="#FF4052B5"
+        android:padding="5dp"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/ib_mall_home_back"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/find_news_img_detail_top_left_arrow"/>
+        <EditText
+            android:id="@+id/tv_title_search"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:imeOptions="actionSearch"
+            android:layout_marginLeft="5dp"
+            android:layout_height="35dp"
+            android:textSize="13sp"
+            android:drawableLeft="@drawable/title_bar_search_zoomin"
+            android:background="@drawable/mall_comment_edit"
+            android:hint="@string/mall_title_sea_text"
+            android:textColor="#bbaaaaaa"/>
+        <TextView
+            android:id="@+id/ib_mall_home_start"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:clickable="true"
+            android:text="搜素"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
+</RelativeLayout>

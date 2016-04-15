@@ -6,8 +6,10 @@
 
     <include layout="@layout/load_image"/>
 
-    <ListView
+    <com.atguigu.refreshlistview.RefreshListView
         android:id="@+id/lv_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:divider="#55000000"
+        android:dividerHeight="1px"/>
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.atguigu.mytime.adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -47,6 +48,7 @@ public class HorizontalListViewAdapter extends BaseAdapter {
             holder=new ViewHolder();
             convertView=View.inflate(activity, R.layout.horizontallistview_item,null);
             holder.imMovie= (ImageView) convertView.findViewById(R.id.im_movie);
+            holder.im_3d= (TextView) convertView.findViewById(R.id.im_3d);
             holder.tvMovieName= (TextView) convertView.findViewById(R.id.tv_movie_name);
             holder.tvRating= (TextView) convertView.findViewById(R.id.tv_rating);
             holder.btnBuy= (Button) convertView.findViewById(R.id.btn_buy);
@@ -56,7 +58,24 @@ public class HorizontalListViewAdapter extends BaseAdapter {
         }
         HorizontalListViewInfo.MoviesEntity moviesEntity = movies.get(position);
         Glide.with(activity).load(moviesEntity.getImg()).into(holder.imMovie);//图片
-        holder.tvMovieName.setText(moviesEntity.getTitleCn());//电影名称
+        if(moviesEntity.isIs3D()&&moviesEntity.isIsIMAX3D()){
+            holder.im_3d.setVisibility(View.VISIBLE);
+            holder.im_3d.setText("IMAX 3D");
+        }else if(!moviesEntity.isIsIMAX3D()&&moviesEntity.isIs3D()){
+            holder.im_3d.setVisibility(View.VISIBLE);
+            holder.im_3d.setText("3D");
+        }else if(moviesEntity.isIsIMAX()&&!moviesEntity.isIs3D()){
+            holder.im_3d.setBackgroundColor(Color.rgb(72,209,204));
+            holder.im_3d.setVisibility(View.VISIBLE);
+            holder.im_3d.setText("IMAX 2D");
+        }else {
+            holder.im_3d.setVisibility(View.GONE);
+        }
+        String titleCn = moviesEntity.getTitleCn();
+        if(titleCn.length()>8){
+            holder.tvMovieName.setText(titleCn.substring(0,9)+"...");//电影名称
+        }
+        holder.tvMovieName.setText(titleCn);
         holder.tvRating.setText(moviesEntity.getRatingFinal() + "");//评分
         //图片点击事件
         holder.imMovie.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +95,7 @@ public class HorizontalListViewAdapter extends BaseAdapter {
     }
     static class ViewHolder{
         private ImageView imMovie;
+        private TextView im_3d;
         private TextView tvRating;
         private TextView tvMovieName;
         private Button btnBuy;

@@ -54,6 +54,8 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
         mGesture = new GestureDetector(getContext(), mOnGesture);
     }
 
+
+
     @Override
     public void setOnItemSelectedListener(AdapterView.OnItemSelectedListener listener) {
         mOnItemSelected = listener;
@@ -267,9 +269,27 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
         mScroller.startScroll(mNextX, 0, x - mNextX, 0);
         requestLayout();
     }
-
+    private float startX,startY;
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                startX=ev.getX();
+                startY=ev.getY();
+                getParent().requestDisallowInterceptTouchEvent(true);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float endX=ev.getX();
+                float endY=ev.getY();
+                float dx = Math.abs(endX - startX);
+                float dy = Math.abs(endY - startY);
+                if(dx-dy>8){
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }else {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                }
+                break;
+        }
         boolean handled = super.dispatchTouchEvent(ev);
         handled |= mGesture.onTouchEvent(ev);
         return handled;

@@ -1,7 +1,5 @@
 package com.atguigu.mytime.activity;
 
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,12 +10,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 import com.atguigu.mytime.R;
-import com.atguigu.mytime.Receiver.NetReceiver;
 import com.atguigu.mytime.Utils.MessageUtils;
 import com.atguigu.mytime.base.BasePager;
 import com.atguigu.mytime.pager.DiscoverPager;
@@ -29,13 +27,12 @@ import com.atguigu.mytime.pager.UserPager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity {
+public  class MainActivity extends FragmentActivity {
     private static final int WHAT_EXIT = 0;
     private RadioGroup rg_main;
     private List<BasePager> pagers;
     public  int position;
     private boolean isExit=true;
-    private NetReceiver receiver;
 
     private Handler handler = new Handler(){
         public void handleMessage(Message msg){
@@ -51,7 +48,6 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rg_main = (RadioGroup)findViewById(R.id.rg_main);
-        setReceicer();
         initArrView();
     }
 
@@ -129,15 +125,7 @@ public class MainActivity extends FragmentActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-    /**
-     * 通过广播监听网络状态
-     */
-    private void setReceicer() {
-        receiver=new NetReceiver();
-        IntentFilter filter=new IntentFilter();
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(receiver, filter);
-    }
+
     @Override
     protected void onDestroy() {
         //关闭所有子类的内存对象
@@ -146,6 +134,14 @@ public class MainActivity extends FragmentActivity {
         }
         handler.removeCallbacksAndMessages(null);
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        ShopPager shopPager= (ShopPager) pagers.get(2);
+
+        //shopPager.showTitle(event);
+        return super.onTouchEvent(event);
     }
 
 

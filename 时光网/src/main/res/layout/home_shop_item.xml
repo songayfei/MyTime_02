@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:clickable="true"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:clickable="true">
 
         <TextView
             android:layout_width="match_parent"
@@ -30,66 +30,216 @@
             android:text="全部商品"
             android:textColor="#FFA500" />
     </RelativeLayout>
-    <com.zhy.android.percent.support.PercentRelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <com.zhy.android.percent.support.PercentRelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
-        <ImageView
-            android:id="@+id/im_shop01"
+        android:layout_height="320dp">
+
+        <com.zhy.android.percent.support.PercentFrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ll_shop01"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@drawable/edittext02"
+            android:orientation="vertical"
+            android:scaleType="fitXY"
+            android:padding="0.5px"
             app:layout_heightPercent="66%"
-            app:layout_widthPercent="40%"
-            android:background="@drawable/edittext02"
-            />
-        <ImageView
-            android:id="@+id/im_shop02"
-            android:layout_toRightOf="@+id/im_shop01"
+            app:layout_widthPercent="40%">
+            <ImageView
+                android:id="@+id/im_shop01"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_shop_name01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="限时闪购"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_name_state01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:text="小黄人充电宝" />
+        </com.zhy.android.percent.support.PercentFrameLayout>
+
+        <com.zhy.android.percent.support.PercentFrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ll_shop02"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_toRightOf="@+id/ll_shop01"
+            android:background="@drawable/edittext02"
+            android:orientation="vertical"
+            android:scaleType="fitXY"
+            android:padding="0.5px"
             app:layout_heightPercent="30%"
-            app:layout_widthPercent="60%"
-            android:background="@drawable/edittext02"
-            />
-        <ImageView
-            android:layout_below="@+id/im_shop02"
-            android:id="@+id/im_shop03"
-            android:layout_toRightOf="@+id/im_shop01"
+            app:layout_widthPercent="60%">
+            <ImageView
+                android:id="@+id/im_shop02"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_shop_name02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="限时闪购"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_name_state02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:text="小黄人充电宝" />
+        </com.zhy.android.percent.support.PercentFrameLayout>
+
+        <com.zhy.android.percent.support.PercentFrameLayout
+            android:id="@+id/ll_shop03"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_below="@+id/ll_shop02"
+            android:layout_toRightOf="@+id/ll_shop01"
+            android:background="@drawable/edittext02"
+            android:orientation="vertical"
+            android:scaleType="fitXY"
+            android:padding="0.5px"
             app:layout_heightPercent="36%"
-            app:layout_widthPercent="30%"
-            android:background="@drawable/edittext02"
-            />
-        <ImageView
-            android:layout_below="@+id/im_shop02"
-            android:id="@+id/im_shop04"
-            android:layout_toRightOf="@+id/im_shop03"
+            app:layout_widthPercent="30%">
+            <ImageView
+                android:id="@+id/im_shop03"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView   
+                android:id="@+id/tv_shop_name03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="限时闪购"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_name_state03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:text="小黄人充电宝" />
+        </com.zhy.android.percent.support.PercentFrameLayout>
+
+        <com.zhy.android.percent.support.PercentFrameLayout
+            android:id="@+id/ll_shop04"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_below="@+id/ll_shop02"
+            android:layout_toRightOf="@+id/ll_shop03"
+            android:background="@drawable/edittext02"
+            android:orientation="vertical"
+            android:scaleType="fitXY"
+            android:padding="0.5px"
             app:layout_heightPercent="36%"
-            app:layout_widthPercent="30%"
-            android:background="@drawable/edittext02"
-            />
-        <ImageView
-            android:layout_below="@+id/im_shop01"
-            android:id="@+id/im_shop05"
+            app:layout_widthPercent="30%">
+            <ImageView
+                android:id="@+id/im_shop04"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_shop_name04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="限时闪购"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_name_state04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:text="小黄人充电宝" />
+        </com.zhy.android.percent.support.PercentFrameLayout>
+
+        <com.zhy.android.percent.support.PercentFrameLayout
+            android:id="@+id/ll_shop05"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_below="@+id/ll_shop01"
+            android:background="@drawable/edittext02"
+            android:orientation="vertical"
+            android:scaleType="fitXY"
+            android:padding="0.5px"
             app:layout_heightPercent="34%"
-            app:layout_widthPercent="40%"
-            android:background="@drawable/edittext02"
-            />
-        <ImageView
-            android:layout_toRightOf="@+id/im_shop05"
-            android:layout_below="@+id/im_shop04"
-            android:id="@+id/im_shop06"
+            app:layout_widthPercent="40%">
+            <ImageView
+                android:id="@+id/im_shop05"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_shop_name05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="限时闪购"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_name_state05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:text="小黄人充电宝" />
+        </com.zhy.android.percent.support.PercentFrameLayout>
+
+        <com.zhy.android.percent.support.PercentFrameLayout
+            android:id="@+id/ll_shop06"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_heightPercent="35%"
-            app:layout_widthPercent="60%"
+            android:layout_below="@+id/ll_shop04"
+            android:layout_toRightOf="@+id/ll_shop05"
             android:background="@drawable/edittext02"
-            />
+            android:orientation="vertical"
+            android:scaleType="fitXY"
+            android:padding="0.5px"
+            app:layout_heightPercent="35%"
+            app:layout_widthPercent="60%">
+            <ImageView
+                android:id="@+id/im_shop06"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_shop_name06"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="限时闪购"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_name_state06"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:text="小黄人充电宝" />
+        </com.zhy.android.percent.support.PercentFrameLayout>
 
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
