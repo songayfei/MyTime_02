@@ -1,10 +1,5 @@
 package com.atguigu.mytime.Utils;
 
-/**
- * Created by Administrator on 2016/4/8.
-
- * 联网请求地址
-
  /* 联网请求地址
  * Created by Administrator on 16-4-8.
  */
@@ -34,7 +29,9 @@ public class NetUri {
     //弹窗广告
     public static final String ADV_LIST = "http://api.m.mtime.cn/Advertisement/MainPagePopup.api?locationId=290&lastTime=0&thirdAdvId=0&thirdOperate=0&thirdTime=0&thirdShowCount=0&ownAdvId=0&ownOperate=0&ownTime=0&ownShowCount=0";
 
-}
      public static final String RANKLIST_BASE = "http://api.m.mtime.cn/TopList/TopListOfAll.api?pageIndex=";
      public static final String NEWSPAGER_LIST = "http://api.m.mtime.cn/News/NewsList.api?pageIndex=1";
+     public static final String COMMENT_REVIEWID = "http://m.mtime.cn/#!/review/detail/";
+     public static final String COMMENT_DETAILS ="http://api.m.mtime.cn/Review/Detail.api?reviewId=";
+
  }
