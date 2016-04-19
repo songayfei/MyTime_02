@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+    <TextView
+        android:id="@+id/text_title0"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:text="电影标题"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+<LinearLayout
+    android:padding="10dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="80dp" />
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="80dp" />
+    <ImageView
+        android:id="@+id/image3"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:visibility="gone"
+        android:layout_height="80dp" />
+</LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--<TextView-->
+            <!--android:id="@+id/text_time0"-->
+            <!--android:textSize="15sp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+        <TextView
+            android:id="@+id/tv_comment0"
+            android:layout_marginLeft="20dp"
+            android:text="评论"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
