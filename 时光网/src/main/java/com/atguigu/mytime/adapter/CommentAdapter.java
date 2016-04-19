@@ -2,6 +2,7 @@ package com.atguigu.mytime.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
+import com.atguigu.mytime.Utils.SpUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
@@ -87,6 +89,17 @@ public class CommentAdapter extends BaseAdapter {
         JSONObject relatedObj = item.optJSONObject("relatedObj");
         viewHolder.relatedObj_tltle.setText("《"+relatedObj.optString("title")+"》");
         viewHolder.rating.setText(item.optString("rating"));
+        //从sp中读取数据
+        int itemPosition = SpUtils.getInitialize(activity).getValue("isClick"+position,-1);
+        if(itemPosition==position) {
+            viewHolder.tv_title.setTextColor(Color.GRAY);
+            viewHolder.tv_summary.setTextColor(Color.GRAY);
+            viewHolder.nick_name.setTextColor(Color.GRAY);
+        }else{
+            viewHolder.tv_title.setTextColor(Color.BLACK);
+            viewHolder.tv_summary.setTextColor(Color.BLACK);
+            viewHolder.nick_name.setTextColor(Color.BLACK);
+        }
         /**
          * 使用glide联网加载图片
          */
