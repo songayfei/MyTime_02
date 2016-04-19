@@ -227,7 +227,7 @@ public class HomeContentAdapter extends BaseAdapter {
             case PRIZE_MOVIE://获奖佳片
 
                 holder.tvTitle.setText(dataEntity.getTitleCn());
-                Log.e(dataEntity.getTitleEn(),dataEntity.getTitleEn());
+                //Log.e(dataEntity.getTitleEn(),dataEntity.getTitleEn());
                 holder.tvTitlen.setText(dataEntity.getTitleEn());
                 holder.tvCommentCount.setText(dataEntity.getContent());
                 Glide.with(mActivity).load(dataEntity.getImage())
