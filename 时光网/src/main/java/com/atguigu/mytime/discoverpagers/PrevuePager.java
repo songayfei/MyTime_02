@@ -1,14 +1,17 @@
 package com.atguigu.mytime.discoverpagers;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
 import com.atguigu.mytime.Utils.NetUri;
 import com.atguigu.mytime.Utils.SpUtils;
+import com.atguigu.mytime.activity.SystemVideoPlayerActivity;
 import com.atguigu.mytime.adapter.PrevueListAdapter;
 import com.atguigu.mytime.base.BasePager;
 import com.atguigu.refreshlistview.RefreshListView;
@@ -30,7 +33,7 @@ import pl.droidsonroids.gif.GifImageView;
  * 预告片
  * Created by Administrator on 16-4-8.
  */
-public class PrevuePager extends BasePager implements View.OnClickListener {
+public class PrevuePager extends BasePager implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final String TAG = PrevuePager.class.getSimpleName();
 
@@ -42,6 +45,11 @@ public class PrevuePager extends BasePager implements View.OnClickListener {
     private ImageView prevue_head_icon;//头部的图片
     private List<JSONObject> lists;
     private TextView headview_title;//头部预告片的题目
+    private ArrayList<String> urlList=new ArrayList<>();//视频地址的集合
+    private ArrayList<String> heighturl=new ArrayList<>();//视频地址的集合
+    private ArrayList<String> moveNames=new ArrayList<>();//视频题目的集合
+    private String topHeightUri;//头部的高清地址
+
 
 
     public PrevuePager(Activity mactivity, JSONObject trailer) {
@@ -67,6 +75,8 @@ public class PrevuePager extends BasePager implements View.OnClickListener {
         headview_title = (TextView) headview.findViewById(R.id.headview_title);
         //给listView加载头部
         listview_discover.addTopNewsView(headview);
+        //给listview设置点击事件的监听
+        listview_discover.setOnItemClickListener(this);
 
         return view;
     }
@@ -77,6 +87,10 @@ public class PrevuePager extends BasePager implements View.OnClickListener {
     private void initHeadview(){
         x.image().bind(prevue_head_icon,trailer.optString("imageUrl"));
         headview_title.setText(trailer.optString("title"));
+        urlList.add(trailer.optString("imageUrl"));
+        moveNames.add(trailer.optString("title"));
+        heighturl.add(trailer.optString("hightUrl"));
+
 
     }
 
@@ -121,6 +135,31 @@ public class PrevuePager extends BasePager implements View.OnClickListener {
                 getDatafromNet();
                 break;
         }
+    }
+
+    /**
+     * 点击某个item的回调方法
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+
+        //点击某个item携带地址进入万能播放器
+        Intent intent = new Intent(mactivity, SystemVideoPlayerActivity.class);
+
+        //传递视频列表
+//        bundle.putByteArray("videolist",lists);
+        intent.putStringArrayListExtra("videolist",urlList);
+        intent.putStringArrayListExtra("heighturl",heighturl);
+        intent.putStringArrayListExtra("moveNames",moveNames);
+
+        //视频的列表中的某条位置
+        intent.putExtra("position",position);
+
+        mactivity.startActivity(intent);
     }
 
     class MyCallback extends StringCallback{
@@ -177,8 +216,14 @@ public class PrevuePager extends BasePager implements View.OnClickListener {
                 JSONObject item = (JSONObject) trailers.get(i);
                 //添加到集合中
                 lists.add(item);
+                String uri = item.optString("url");
+                urlList.add(uri);
+                String moveName = item.optString("movieName");
+                moveNames.add(moveName);
+                heighturl.add(item.optString("hightUrl"));
 
             }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
