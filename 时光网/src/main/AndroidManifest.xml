@@ -60,13 +60,22 @@
             android:exported="false" />
 
         <activity android:name=".activity.GoodsWebViewActivity" />
+        <activity android:name=".activity.HomeWebViewActivity" />
         <activity android:name=".activity.SearchGoodsActivity" />
-        <activity android:name=".activity.MallBaseActivity"></activity>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".activity.MallBaseActivity" />
+        <!--
+             ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <!-- 设置广告Activity为dialog主题 -->
+        <activity
+            android:name=".activity.AdvListActivity"
+            android:theme="@style/Theme.MyActivity" />
+        <activity android:name=".activity.homewebview.HomeTopWebViewActivity" />
+        <activity android:name=".activity.homewebview.HomeWebViewActivity"></activity>
     </application>
 
 </manifest>

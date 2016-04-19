@@ -8,26 +8,24 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:background="#11000000"
-    android:id="@+id/ll_adv"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/im_close"
-        android:layout_alignParentRight="true"
-        android:clickable="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/home_big_dialog_close"/>
-    <ImageView
-        android:layout_below="@+id/im_close"
-        android:id="@+id/im_link"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/order_remind_seperated_awards"/>
+        <ImageView
+            android:id="@+id/im_close"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/home_big_dialog_close"/>
+        <ImageView
+            android:layout_below="@+id/im_close"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/order_remind_seperated_awards"/>
     </RelativeLayout>
     <com.atguigu.mytime.view.RoundImageView
         android:id="@+id/im_adv"

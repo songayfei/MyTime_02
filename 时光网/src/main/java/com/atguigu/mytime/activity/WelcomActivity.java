@@ -40,7 +40,8 @@ public class WelcomActivity extends Activity {
         //判断网络状态
         boolean connected = MessageUtils.isConnected(this);
         EventBus.getDefault().register(this);
-        new InterNetConn(NetUri.AD_LIST, this, AdvListInfo.class, false);
+        //联网请求广告数据
+        new InterNetConn(NetUri.AD_LIST, this, AdvListInfo.class);
         if (!connected) {
             new AlertDialog.Builder(this)
                     .setTitle("提示")

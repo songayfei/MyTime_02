@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="color_fff8d9">#fff8d9</color>
+    <!-- 设置透明度为56%(9/16)左右 -->
+    <color name="transparent">#9000</color>
 </resources>

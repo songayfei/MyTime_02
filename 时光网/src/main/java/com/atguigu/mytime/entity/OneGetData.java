@@ -6,11 +6,11 @@ package com.atguigu.mytime.entity;
 public class OneGetData {
     private boolean isObtinData;
 
-    public OneGetData(boolean isObtinData) {
-        this.isObtinData = isObtinData;
+    public OneGetData() {
     }
 
-    public OneGetData() {
+    public OneGetData(boolean isObtinData) {
+        this.isObtinData = isObtinData;
     }
 
     public boolean isObtinData() {

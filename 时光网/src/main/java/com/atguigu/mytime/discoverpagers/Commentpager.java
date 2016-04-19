@@ -1,19 +1,13 @@
 package com.atguigu.mytime.discoverpagers;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
-import com.atguigu.mytime.Utils.MessageUtils;
 import com.atguigu.mytime.Utils.NetUri;
 import com.atguigu.mytime.Utils.SpUtils;
-import com.atguigu.mytime.activity.CommentWebviewActivity;
 import com.atguigu.mytime.adapter.CommentAdapter;
 import com.atguigu.mytime.base.BasePager;
 import com.atguigu.refreshlistview.RefreshListView;
@@ -22,6 +16,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
@@ -33,26 +28,25 @@ import okhttp3.Call;
  * 影评
  * Created by Administrator on 16-4-8.
  */
-public class Commentpager extends BasePager implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class Commentpager extends BasePager implements View.OnClickListener {
     private static final String TAG = Commentpager.class.getSimpleName();
-    private RelativeLayout rl;
-    private ImageView loading;
-    //帧动画
-    private AnimationDrawable animationDrawable;
-    private ImageView loading_bg;
-    private ImageView loading_failed;
+//    @ViewInject(R.id.loading_failed)
+//    private ImageView loading_failed;
+//    @ViewInject(R.id.loading)
+//    private GifImageView loading;
+    @ViewInject(R.id.listview_comment)
     private RefreshListView listview_comment;
+    @ViewInject(R.id.prevue_head_icon)
     private ImageView prevue_head_icon;//头部的图片
-
+    @ViewInject(R.id.headview_title)
     private TextView headview_title;//头部预告片的题目
-
+    @ViewInject(R.id.top_small)
     private ImageView top_small;//头部的小图片
+    @ViewInject(R.id.headview_movename)
     private TextView headview_movename;//电影名称
     private JSONObject review;
     private List<JSONObject> commentInfo;//列表信息集合
     private CommentAdapter adapter;
-    private int reviewID;
-    private String movieimage;
     public Commentpager(Activity mactivity, JSONObject review) {
         super(mactivity);
         this.review=review;
@@ -61,92 +55,19 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
     @Override
     public View initView(){
         View view = View.inflate(mactivity, R.layout.listview_comment, null);
-        listview_comment= (RefreshListView) view.findViewById(R.id.listview_comment);
-        loading = (ImageView) view.findViewById(R.id.loading);
-        loading_bg = (ImageView) view.findViewById(R.id.loading_bg);
-        loading_failed = (ImageView) view.findViewById(R.id.loading_failed);
-        //设置监听
-        loading_failed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loading_bg.setVisibility(View.VISIBLE);
-                loading_failed.setVisibility(View.GONE);
-                loading.setVisibility(View.VISIBLE);
-                animationDrawable.start();
-            }
-        });
-        /**
-         *获取帧动画
-         */
-        animationDrawable = (AnimationDrawable) loading.getBackground();
+//        //设置点击事件的监听
+//        loading_failed.setOnClickListener(this);
+//        /**
+//         * 加载gif图片
+//         */
+//        Glide.with(mactivity).load(R.id.loading).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(loading);
+        x.view().inject(this,view);
         //listView的头布局
         View headview = View.inflate(mactivity, R.layout.comment_headview, null);
-        prevue_head_icon = (ImageView) headview.findViewById(R.id.prevue_head_icon);
-
-        headview_title = (TextView) headview.findViewById(R.id.headview_title);
-        top_small = (ImageView) headview.findViewById(R.id.top_small);
-        headview_movename = (TextView) headview.findViewById(R.id.headview_movename);
+        x.view().inject(this, headview);
         //给listView加载头部
         listview_comment.addTopNewsView(headview);
-        //设置点击某个item的监听
-        listview_comment.setOnItemClickListener(this);
-        //给listview设置下拉刷新的监听
-        listview_comment.setOnRefreshListener(new CommentOnrefreshListener());
         return view;
-    }
-
-    /**
-     *点击某个item的回调方法
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(position==0){
-            reviewID = review.optInt("reviewID");
-            movieimage=review.optString("posterUrl");
-        }else{
-            JSONObject iteminfo = commentInfo.get(position-1);
-            JSONObject relatedObj = iteminfo.optJSONObject("relatedObj");
-            String title = relatedObj.optString("title");
-             movieimage = relatedObj.optString("image");
-            reviewID = iteminfo.optInt("id");
-
-        }
-        //http://m.mtime.cn/#!/review/detail/7949853/
-        String itemUri=NetUri.COMMENT_REVIEWID+reviewID+"/";
-        //http://api.m.mtime.cn/Review/Detail.api?reviewId=7932392
-        String itemDetailUri = NetUri.COMMENT_DETAILS + reviewID;
-        /**
-         * 启动新的界面
-         */
-        Intent intent = new Intent(mactivity, CommentWebviewActivity.class);
-        //携带uri
-        intent.putExtra("itemUri",itemUri);
-        intent.putExtra("itemDetailUri",itemDetailUri);
-        intent.putExtra("movieimage",movieimage);
-        mactivity.startActivity(intent);
-
-            //保存position
-            SpUtils.getInitialize(mactivity).save("isClick"+(position-1),position-1);
-        adapter.notifyDataSetChanged();
-
-    }
-
-    class CommentOnrefreshListener implements RefreshListView.OnRefreshListener {
-
-        @Override
-        public void onPullDownRefresh() {
-            //下拉刷新
-            getDatafromNet();
-        }
-
-        @Override
-        public void onLoadMore() {
-
-        }
     }
     /**
      * 点击事件的回调方法
@@ -159,18 +80,6 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
                 //加载失败点击再次联网请求数据
                 getDatafromNet();
                 break;
-//            case R.id.rl:
-//                reviewID = review.optInt("reviewID");
-//                String itemUri=NetUri.COMMENT_REVIEWID+reviewID+"/";
-//                /**
-//                 * 启动新的界面
-//                 */
-//                Intent intent = new Intent(mactivity, CommentWebviewActivity.class);
-//                //携带uri
-//
-//                intent.putExtra("itemUri",itemUri);
-//                mactivity.startActivity(intent);
-//                break;
         }
     }
     private void initHeadview(){
@@ -182,21 +91,18 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
     }
 
     @Override
-    public void initData(){
+    public void initData() {
         super.initData();
         //初始化头部
         initHeadview();
         //请求网络数据
         getDatafromNet();
 
-
     }
 
     public void getDatafromNet() {
-        loading_bg.setVisibility(View.VISIBLE);
-        loading.setVisibility(View.VISIBLE);
-        //开启帧动画
-        animationDrawable.start();
+        //显示加载图片
+//        loading.setVisibility(View.VISIBLE);
         OkHttpUtils.get().url(NetUri.COMMENT_LIST)
                 .build()
                 .execute(new MyCallback());
@@ -207,19 +113,13 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
 
         @Override
         public void onError(Call call, Exception e) {
-            MessageUtils.showMessage(mactivity, "联网请求数据失败");
-            animationDrawable.stop();
-            //显示加载失败的图片
-            loading.setVisibility(View.GONE);
-            loading_bg.setVisibility(View.GONE);
-            loading_failed.setVisibility(View.VISIBLE);
+            //请求数据失败
+//          loading_failed.setVisibility(View.VISIBLE);
+
         }
 
         @Override
         public void onResponse(String response) {
-            loading_failed.setVisibility(View.GONE);
-            loading.setVisibility(View.GONE);
-            loading_bg.setVisibility(View.GONE);
             //请求数据成功
             processData(response);
             //将请求的数据保存到本地
@@ -247,18 +147,10 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
 
     private void parseJsonData(String result) {
 //获取的是json数组，不能生成实体类对象了，所以用手动解析json
-        if(commentInfo==null) {
-
-            commentInfo = new ArrayList<>();
-        }
-        //刷新的时候，再次请求数据的时候，先清空集合
-
-        commentInfo.clear();
-
         try {
             //获取json数据
             JSONArray jsonArray = new JSONArray(result);
-
+            commentInfo = new ArrayList<>();
             //遍历json数组
             for(int i = 0; i < jsonArray.length();i++){
                 //获取每一个item的信息

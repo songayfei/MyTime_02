@@ -1,12 +1,10 @@
 package com.atguigu.mytime.net;
 
 import android.app.Activity;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
-import com.atguigu.mytime.Utils.ShowUtile;
 import com.atguigu.mytime.Utils.SpUtils;
+import com.atguigu.mytime.entity.OneGetData;
 import com.atguigu.mytime.view.LoadingDailog;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -25,94 +23,94 @@ public class InterNetConn<T>{
     private String url;
     private T t;
     private Activity activity;
+    private boolean isCache;
+    private OneGetData isconnection;
     private LoadingDailog dailog;
     private ImageView errow;
+
     /**
-     * url 网络连接  activity  上下文    clazz  实体类
-     * @param url 网络连接
-     * @param activity  上下文
-     * @param clazz  实体类
-     * url 网络连接  activity  上下文    clazz  实体类
+     * 联网请求  该构造方法只负责 联网请求数据 不涉及数据的缓存
+     * 通过EventBus 传递数据 包括联网请求失败
+     * @param url 地址
+     * @param activity 上下文
+     * @param clazz 对象
      */
     public InterNetConn(String url,Activity activity,Class clazz) {
         this.aClass=clazz;
         this.activity=activity;
         this.url = url;
+        isconnection=new OneGetData(false);
         OkHttpUtils
                 .get()
                 .url(url)
                 .build()
-                .execute(new MyStringCallback());
+                .execute(new MyStringCallback01());
     }
     /**
-     *url 网络连接  activity  上下文    clazz  实体类
-     * @param url 网络连接
-     * @param activity  上下文
-     * @param clazz  实体类
-     * @param showLoading  是否显示正在加载
-     *
+     * 该回调不涉及缓存数据
      */
-    public InterNetConn(String url,Activity activity,Class clazz,boolean showLoading) {
+    class MyStringCallback01 extends StringCallback {
+        @Override
+        public void onError(Call call, Exception e) {
+            //联网请求失败
+            EventBus.getDefault().post(isconnection);
+        }
+        /**
+         * 请求数据成功
+         * @param response
+         */
+        @Override
+        public void onResponse(String response) {
+            //解析Json数据
+            parseChangeJson(response);//解析json
+        }
+    }
+
+    /**
+     * 该构造方法涉及 请求数据的缓存
+     * @param isCache 为true 表示要对数据进行缓存
+     * @param url 地址
+     * @param activity 上下文
+     * @param clazz 对象
+     */
+    public InterNetConn(boolean isCache,String url,Activity activity,Class clazz) {
         this.aClass=clazz;
         this.activity=activity;
         this.url = url;
-        if(showLoading) {
-            dailog = new LoadingDailog(activity);
-            dailog.show();
-        }
+        this.isCache=isCache;
+        isconnection=new OneGetData(false);
         OkHttpUtils
                 .get()
                 .url(url)
                 .build()
-                .execute(new MyStringCallback());
+                .execute(new MyStringCallback02());
     }
-
     /**
-     * url 网络连接  activity  上下文    clazz  实体类
-     * @param url 网络连接
-     * @param activity  上下文
-     * @param clazz  实体类
-     * @param showLoading  是否显示正在加载
-     * @param e 加载错误图片 布局中隐藏的
+     * 该回调涉及缓存数据
      */
-    public InterNetConn(String url,Activity activity,Class clazz,boolean showLoading,ImageView e) {
-        this(url, activity, clazz, showLoading);
-        errow = e;
-    }
-    class MyStringCallback extends StringCallback {
-
+    class MyStringCallback02 extends StringCallback {
         @Override
         public void onError(Call call, Exception e) {
-            if(dailog!=null) {
-                dailog.dismiss();
-
-            } if(errow!=null) {
-                errow.setVisibility(View.VISIBLE);
-            }
-            ShowUtile.showToast(activity,"联网请求失败，请检查网络...");
-
-            Log.e("TAG","网络请求失败");
+            //联网请求失败
+            EventBus.getDefault().post(isconnection);
         }
+        /**
+         * 请求数据成功
+         * @param response
+         */
         @Override
         public void onResponse(String response) {
-            Log.e("TAG","网络请求成功");
-            Log.e("TAG", response);
-            if(dailog!=null) {
-                dailog.dismiss();
-
+            if(isCache){
+                //以url作为文件名进行缓存
+                SpUtils.getInitialize(activity.getApplicationContext()).saveJson(url, response);
             }
-            if(errow!=null) {
-                errow.setVisibility(View.GONE);
-            }
-
-            SpUtils.getInitialize(activity.getApplicationContext()).saveJson(url,response);
+            //解析Json数据
             parseChangeJson(response);//解析json
         }
     }
     private void parseChangeJson(String result) {
         t = (T) new Gson().fromJson(result, aClass);
         //转换成功发送通知
-        Log.e("TAG","EventBus.getDefault().post(t);");
         EventBus.getDefault().post(t);
     }
 }

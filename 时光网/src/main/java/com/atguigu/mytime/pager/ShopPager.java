@@ -18,9 +18,9 @@ import com.atguigu.mytime.R;
 import com.atguigu.mytime.Utils.MallURlL;
 import com.atguigu.mytime.Utils.NetUri;
 import com.atguigu.mytime.Utils.SpUtils;
+import com.atguigu.mytime.activity.GoodsWebViewActivity;
 import com.atguigu.mytime.activity.MallBaseActivity;
 import com.atguigu.mytime.activity.SearchGoodsActivity;
-import com.atguigu.mytime.activity.GoodsWebViewActivity;
 import com.atguigu.mytime.adapter.MyBaseAdapter;
 import com.atguigu.mytime.adapter.MyPagerAdapter;
 import com.atguigu.mytime.adapter.RecyclerViewAdapter;
@@ -301,27 +301,27 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
     /**
      * 标题变色
-     *  标题变色标题变色标题变色标题变色标题变色标题变色
+     *
      * @param
      */
     public void showTitle() {
         Log.e("yag", "ymy");
 
-            //顶部ViewPager部分在屏幕上的Y轴坐标
-            vpMallHead.getLocationOnScreen(location);
-            int mtopViewPagerOnScreenY = location[1];
-            Log.e("vpMallHeadHeight-------", vpMallHeadHeight + "");
-            if (mtopViewPagerOnScreenY < -50) {
-                mall_home_title.setVisibility(View.VISIBLE);
-                float i =-((float)mtopViewPagerOnScreenY)/500;
-                if(50-mtopViewPagerOnScreenY<=255) {
-                    mall_home_title.getBackground().setAlpha(50-mtopViewPagerOnScreenY);
-                }
-
-            } else {
-                mall_home_title.setVisibility(View.GONE);
-
+        //顶部ViewPager部分在屏幕上的Y轴坐标
+        vpMallHead.getLocationOnScreen(location);
+        int mtopViewPagerOnScreenY = location[1];
+        Log.e("vpMallHeadHeight-------", vpMallHeadHeight + "");
+        if (mtopViewPagerOnScreenY < -50) {
+            mall_home_title.setVisibility(View.VISIBLE);
+            float i =-((float)mtopViewPagerOnScreenY)/500;
+            if(50-mtopViewPagerOnScreenY<=255) {
+                mall_home_title.getBackground().setAlpha(50-mtopViewPagerOnScreenY);
             }
+
+        } else {
+            mall_home_title.setVisibility(View.GONE);
+
+        }
 
 
 

@@ -2,6 +2,7 @@ package com.atguigu.mytime.pager;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -13,7 +14,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +21,7 @@ import com.atguigu.mytime.R;
 import com.atguigu.mytime.Receiver.NetReceiver;
 import com.atguigu.mytime.Utils.MessageUtils;
 import com.atguigu.mytime.Utils.NetUri;
+import com.atguigu.mytime.activity.AdvListActivity;
 import com.atguigu.mytime.adapter.ADViewPagerAdapter;
 import com.atguigu.mytime.adapter.HomeContentAdapter;
 import com.atguigu.mytime.adapter.HorizontalListViewAdapter;
@@ -30,14 +31,17 @@ import com.atguigu.mytime.entity.AdvData;
 import com.atguigu.mytime.entity.HomeListViewInfo;
 import com.atguigu.mytime.entity.HomeShopInfo;
 import com.atguigu.mytime.entity.HorizontalListViewInfo;
+import com.atguigu.mytime.entity.OneGetData;
 import com.atguigu.mytime.net.InterNetConn;
 import com.atguigu.mytime.view.HorizontalListView;
-import com.atguigu.mytime.view.LoadingDailog;
 import com.atguigu.mytime.view.NoScrollViewPager;
+import com.atguigu.refreshlistview.RefreshListView;
 import com.bumptech.glide.Glide;
 import com.zhy.android.percent.support.PercentFrameLayout;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.greenrobot.event.EventBus;
 
@@ -48,6 +52,9 @@ import de.greenrobot.event.EventBus;
 public class HomePager extends BasePager {
     private static final int WHAT_TOP_PAGER = 0;
     private static final int WHAT_SHOP_PAGER = 1;
+    private static final int STOP_ANIM = 3;
+    private boolean isrefresh=false;//是否下拉刷新
+    private int index=1;//下拉刷新次数
 
     private ImageView imClose;
     private ImageView imLink;
@@ -56,7 +63,7 @@ public class HomePager extends BasePager {
     private ImageView im_load;
     private ImageView im_load_anim;
     private ImageView im_backimg;
-    private ListView lv_home;
+    private RefreshListView lv_home;
     private AnimationDrawable anim;
     //服务
     private NetReceiver receiver;
@@ -101,10 +108,6 @@ public class HomePager extends BasePager {
     private List<HomeShopInfo.TopPostersEntity> topPosters;
     private HomeShopInfo.AreaSecondEntity areaSecond;
     //判断是否有网络
-
-
-    
-    
     private boolean connected;
     private Handler handler = new Handler(){
         public void handleMessage(Message msg){
@@ -117,7 +120,10 @@ public class HomePager extends BasePager {
                     vpAd.setCurrentItem(vpAd.getCurrentItem()+1,true);
                     handler.sendEmptyMessageDelayed(WHAT_SHOP_PAGER,3000);
                     break;
-
+                case STOP_ANIM:
+                    anim.stop();
+                    im_load_anim.setVisibility(View.GONE);
+                    break;
             }
         }
     };
@@ -181,7 +187,7 @@ public class HomePager extends BasePager {
         im_load = (ImageView) view.findViewById(R.id.im_load);
         im_backimg = (ImageView) view.findViewById(R.id.im_backimg);
         im_load_anim = (ImageView) view.findViewById(R.id.im_load_anim);
-        lv_home = (ListView) view.findViewById(R.id.lv_home);
+        lv_home = (RefreshListView) view.findViewById(R.id.lv_home);
     }
 
     public HomePager(Activity mactivity) {
@@ -193,32 +199,34 @@ public class HomePager extends BasePager {
     public View initView() {
         setReceicer();
         //检查网络
-        connected = MessageUtils.isConnected(mactivity);
         View view = View.inflate(mactivity, R.layout.home_pager, null);
         View headView = View.inflate(mactivity, R.layout.home_pager_title, null);
         advLog = View.inflate(mactivity, R.layout.adv_item, null);
         findView(view);
         findViews(headView);
         findViews1(advLog);
-        if (connected) {
-            im_load.setVisibility(View.GONE);
-        } else {
-            im_load.setVisibility(View.VISIBLE);
-        }
         //查询一启动就启动动画
         anim = (AnimationDrawable) im_load_anim.getBackground();
         anim.start();
+        getNetConnected();
         //加载头文件
         lv_home.addHeaderView(headView);
         im_load.setOnClickListener(new MyImageOnClickListener());
         //显示广告
-
-
         return view;
     }
 
-
-
+    private void getNetConnected() {
+        connected = MessageUtils.isConnected(mactivity);
+        if (connected) {
+            im_load.setVisibility(View.GONE);
+        } else {
+            im_load.setVisibility(View.VISIBLE);
+            anim.stop();
+            im_load_anim.setVisibility(View.GONE);
+            //handler.sendEmptyMessageDelayed(STOP_ANIM,2000);
+        }
+    }
 
     /**
      * 没网状态图片的点击监听
@@ -236,13 +244,20 @@ public class HomePager extends BasePager {
      * 联网请求数据
      */
     private void getNetData() {
-        new InterNetConn(NetUri.ADV_LIST,mactivity, AdvData.class,false);
-        new InterNetConn(NetUri.HOME_SHOP, mactivity, HomeShopInfo.class, false);//ViewPager数据
-        new InterNetConn(NetUri.HLISTVIEW, mactivity, HorizontalListViewInfo.class, false);//横向LsitView的数据
-        new InterNetConn(NetUri.HOME_BUTTOM, mactivity, HomeListViewInfo.class, false);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                anim.start();
+            }
+        },500);
+        new InterNetConn(NetUri.ADV_LIST,mactivity, AdvData.class);
+        new InterNetConn(NetUri.HOME_SHOP, mactivity, HomeShopInfo.class);//ViewPager数据
+        new InterNetConn(NetUri.HLISTVIEW, mactivity, HorizontalListViewInfo.class);//横向LsitView的数据
+        new InterNetConn(NetUri.HOME_BUTTOM, mactivity, HomeListViewInfo.class);
     }
-    public void onEventMainThread(boolean isconnected) {
-        if (!isconnected) {
+    public void onEventMainThread(OneGetData isconnected) {
+        if (!isconnected.isObtinData()) {
             anim.stop();
             im_backimg.setVisibility(View.GONE);
             im_load_anim.setVisibility(View.GONE);
@@ -269,27 +284,9 @@ public class HomePager extends BasePager {
      */
     private void setShowADVDailog(AdvData advData) {
         if(!TextUtils.isEmpty(advData.getImg())){
-            if(dialog==null) {
-                dialog=new LoadingDailog(mactivity);
-            }
-            dialog.show();
-            //加载广告页面
-            Glide.with(mactivity).load(advData.getImg()).into(imAdv);
-            //点击广告图片
-            imAdv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-            imClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-        }else {
-            dialog=null;
+            Intent intent = new Intent(mactivity, AdvListActivity.class);
+            intent.putExtra("advertisementURL", advData.getBigImg());
+            mactivity.startActivity(intent);
         }
     }
 
@@ -314,7 +311,28 @@ public class HomePager extends BasePager {
     }
 
     public void onEventMainThread(HomeListViewInfo listViewInfo) {
-        setButtomContent(listViewInfo);
+        if(!isrefresh) {
+            setButtomContent(listViewInfo);
+        }else {
+            refreshListData(listViewInfo);
+        }
+    }
+
+    /**
+     * 下拉刷新更新listView数据
+     * @param listViewInfo
+     */
+    private void refreshListData(HomeListViewInfo listViewInfo) {
+        List<HomeListViewInfo.DataEntity> datainfo = listViewInfo.getData();
+        if(datainfo.size()>0&&datainfo!=null) {
+            //定位ListView到item的最后一条
+            listbuttomadapter.setData(datainfo);
+            lv_home.setSelection(lv_home.getLastVisiblePosition());
+            listbuttomadapter.notifyDataSetChanged();
+            isrefresh = true;
+        }
+
+
     }
 
     /**
@@ -323,9 +341,27 @@ public class HomePager extends BasePager {
      * @param listInfo
      */
     private void setButtomContent(HomeListViewInfo listInfo) {
-        List<HomeListViewInfo.DataEntity> data = listInfo.getData();
+        data = listInfo.getData();
         if (data.size() > 0 && data != null) {
-            lv_home.setAdapter(new HomeContentAdapter(mactivity, data));
+            listbuttomadapter = new HomeContentAdapter(mactivity,data);
+            lv_home.setAdapter(listbuttomadapter);
+            //设置下拉刷新
+            lv_home.setOnRefreshListener(new RefreshListView.OnRefreshListener() {
+                @Override
+                public void onPullDownRefresh() {
+                }
+                /**
+                 * 下拉刷新
+                 */
+                @Override
+                public void onLoadMore() {
+                    isrefresh = true;
+                    index++;
+                    String url = NetUri.HOME_BUTTOM_REF+index;
+                    new InterNetConn(url, mactivity, HomeListViewInfo.class);
+                }
+            });
+            lv_home.onFinishRefresh(true);
         }
     }
 

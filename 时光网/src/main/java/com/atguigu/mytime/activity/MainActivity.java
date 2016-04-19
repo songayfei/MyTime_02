@@ -34,6 +34,10 @@ public  class MainActivity extends FragmentActivity {
     public  int position;
     private boolean isExit=true;
 
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     private Handler handler = new Handler(){
         public void handleMessage(Message msg){
             switch (msg.what){

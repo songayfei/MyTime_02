@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.atguigu.mytime.activity.HomeWebViewActivity;
 import com.atguigu.mytime.activity.MainActivity;
-import com.atguigu.mytime.activity.GoodsWebViewActivity;
+import com.atguigu.mytime.activity.homewebview.HomeTopAndButtomActivity;
+import com.atguigu.mytime.activity.homewebview.HomeTopWebViewActivity;
 import com.atguigu.mytime.entity.HomeShopInfo;
 import com.bumptech.glide.Glide;
 
@@ -60,15 +62,30 @@ public class TopViewPagerAdapter extends PagerAdapter {
         @Override
         public void onClick(View v) {
             int position = (int) v.getTag();
-                if(position==topPosters.size()-1) {
-                    MainActivity mainActivity = (MainActivity) mActivity;
-                    mainActivity.position = topPosters.size() - 1;
-                }else {
-                    Intent intent = new Intent(mActivity, GoodsWebViewActivity.class);
+            switch (position) {
+                case 0:
+                    //有头有尾
+                    Intent intent = new Intent(mActivity, HomeWebViewActivity.class);
                     intent.putExtra("url", topPosters.get(position).getUrl());
                     mActivity.startActivity(intent);
-                }
+                    break;
+                case 1:
+                    intent = new Intent(mActivity, HomeTopWebViewActivity.class);
+                    intent.putExtra("url", topPosters.get(position).getUrl());
+                    mActivity.startActivity(intent);
+                    break;
+                case 2://有头
+                case 3:
+                    intent = new Intent(mActivity, HomeTopAndButtomActivity.class);
+                    intent.putExtra("url", topPosters.get(position).getUrl());
+                    mActivity.startActivity(intent);
+                    break;
+                case 4:
+                    MainActivity mainActivity = (MainActivity) mActivity;
+                    mainActivity.setPosition(topPosters.size() - 1);
+                    break;
             }
+        }
 
 
     }

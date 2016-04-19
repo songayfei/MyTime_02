@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <include layout="@layout/load_image"/>
 
     <com.atguigu.refreshlistview.RefreshListView
@@ -12,4 +13,5 @@
         android:layout_height="wrap_content"
         android:divider="#55000000"
         android:dividerHeight="1px"/>
+    <!--<include layout="@layout/adv_item"/>-->
 </RelativeLayout>
