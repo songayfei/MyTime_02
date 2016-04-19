@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,7 +32,6 @@ import com.atguigu.mytime.net.OkhttpUtils2;
 import com.atguigu.mytime.view.AutoScrollViewPager;
 import com.atguigu.mytime.view.AutoViewPagerIndicator;
 import com.atguigu.mytime.view.NoScrollGridView;
-import com.atguigu.refreshlistview.SongRefreshListView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.zf.myzxing.CaptureActivity;
@@ -49,7 +49,7 @@ import de.greenrobot.event.EventBus;
 public class ShopPager extends BasePager implements View.OnClickListener {
 
     private TextView textView;
-    private SongRefreshListView lvMallPager;
+    private ListView lvMallPager;
     private TextView tvTitleSearch;
     private AutoScrollViewPager vpMallHead;
     private NoScrollGridView ngvMallHead;
@@ -92,7 +92,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
         View view = View.inflate(mactivity, R.layout.mall_base_pager, null);
         view.findViewById(R.id.ib_mall_home_scan).setOnClickListener(this);
-        lvMallPager = (SongRefreshListView) view.findViewById(R.id.lv_mall_pager);
+        lvMallPager = (ListView) view.findViewById(R.id.lv_mall_pager);
         netError = (ImageView) view.findViewById(R.id.netError);
         tvTitleSearch = (TextView) view.findViewById(R.id.tv_title_search);
         tvTitleSearch.setOnClickListener(this);
@@ -178,17 +178,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
             }
         });
 
-        lvMallPager.setOnRefreshListener(new SongRefreshListView.OnRefreshListener() {
-            @Override
-            public void onPullDownRefresh() {
 
-            }
-
-            @Override
-            public void onLoadMore() {
-
-            }
-        });
 
     }
 
