@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * Created by Administrator on 2016/3/25.
@@ -142,6 +143,41 @@ public class SpUtils {
         }else {
             //使用sp存储
             save(key, value);
+        }
+
+    }
+    /**
+     * 将对象序列化保存到本地
+     */
+    public void saveObject(String key,Object object){
+        //判断SD卡是否处于挂载状态
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            try{
+                //文件名称
+                String fileName = MD5Encoder.encode(key);
+                //目录Environment.getExternalStorageDirectory()
+                File file = new File( Environment.getExternalStorageDirectory()+ "/MyTime", fileName);
+                //判断目录是否存在
+                if(!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                //判断文件是否存在
+                if(!file.exists()) {
+                    file.createNewFile();
+                }
+                //存储数据
+                FileOutputStream fos = new FileOutputStream(file);
+                ObjectOutputStream oos=new ObjectOutputStream(fos);
+                //将对象序列化保存到本地
+                oos.writeObject(object);
+                fos.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            //使用sp存储
+            //save(key, value);
         }
 
     }
