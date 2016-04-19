@@ -1,8 +1,10 @@
 package com.atguigu.mytime.discoverpagers;
 
 import android.app.Activity;
+import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,8 +32,13 @@ import okhttp3.Call;
  * 排行榜
  * Created by Administrator on 16-4-8.
  */
-public class Ranklistpager extends BasePager {
+public class Ranklistpager extends BasePager implements AdapterView.OnItemClickListener {
 private RefreshListView listview_ranklist;
+    private ImageView loading;
+    //帧动画
+    private AnimationDrawable animationDrawable;
+    private ImageView loading_bg;
+    private ImageView loading_failed;
     private ImageView image_top_pick;
     private RanklistAdapter adapter;
     private ImageView prevue_head_icon;
@@ -54,6 +61,24 @@ private RefreshListView listview_ranklist;
     public View initView() {
         View view = View.inflate(mactivity, R.layout.listview_ranklist, null);
         listview_ranklist = (RefreshListView) view.findViewById(R.id.listview_ranklist);
+        loading = (ImageView) view.findViewById(R.id.loading);
+        loading_bg = (ImageView) view.findViewById(R.id.loading_bg);
+        loading_failed = (ImageView) view.findViewById(R.id.loading_failed);
+        //设置监听
+        loading_failed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loading_bg.setVisibility(View.VISIBLE);
+                loading_failed.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
+                animationDrawable.start();
+            }
+        });
+        /**
+         *获取帧动画
+         */
+         animationDrawable = (AnimationDrawable) loading.getBackground();
+
         View headView = View.inflate(mactivity, R.layout.ranklist_headview, null);
         prevue_head_icon = (ImageView) headView.findViewById(R.id.prevue_head_icon);
         headview_title = (TextView) headView.findViewById(R.id.headview_title);
@@ -65,9 +90,24 @@ private RefreshListView listview_ranklist;
         listview_ranklist.addTopNewsView(headView);
         //设置下拉刷新和上拉加载更多的监听
         listview_ranklist.setOnRefreshListener(new MyOnRefreshListener());
+        //给listView设置点击事件的监听
+        listview_ranklist.setOnItemClickListener(this);
         return view;
     }
-class MyOnRefreshListener implements RefreshListView.OnRefreshListener{
+
+    /**
+     * 点击某个item的回调方法
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //点击的时候进入详细界面
+    }
+
+    class MyOnRefreshListener implements RefreshListView.OnRefreshListener{
 
     @Override
     public void onPullDownRefresh() {
@@ -123,6 +163,11 @@ class MyOnRefreshListener implements RefreshListView.OnRefreshListener{
      * 联网请求数据
      */
     private void getDatafromNet() {
+        loading_bg.setVisibility(View.VISIBLE);
+        loading.setVisibility(View.VISIBLE);
+        //开启帧动画
+        animationDrawable.start();
+
         String uri = "";
         if (isLoadMore) {
            i++;
@@ -140,12 +185,20 @@ class MyOnRefreshListener implements RefreshListView.OnRefreshListener{
 
         @Override
         public void onError(Call call, Exception e) {
-            MessageUtils.showMessage(mactivity, "联网请求数据");
+
+            MessageUtils.showMessage(mactivity, "联网请求数据失败");
+            animationDrawable.stop();
+            //显示加载失败的图片
+            loading.setVisibility(View.GONE);
+            loading_bg.setVisibility(View.GONE);
+            loading_failed.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void onResponse(String response) {
-
+            loading_failed.setVisibility(View.GONE);
+            loading.setVisibility(View.GONE);
+            loading_bg.setVisibility(View.GONE);
             if(isLoadMore) {
                 processJson(response);
                 //请求数据成功，恢复到原来的状态
