@@ -301,7 +301,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
     /**
      * 标题变色
-     *
+     *  标题变色标题变色标题变色标题变色标题变色标题变色
      * @param
      */
     public void showTitle() {
