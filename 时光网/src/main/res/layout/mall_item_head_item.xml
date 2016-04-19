@@ -9,7 +9,7 @@
     android:id="@+id/iv_inner"
     android:layout_width="50dp"
     android:layout_height="50dp"
-    android:background="@drawable/act_my_home_tickets"/>
+    android:background="@drawable/adtimebg"/>
 
     <TextView
         android:id="@+id/tv_inner"

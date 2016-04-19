@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,15 +25,19 @@ import com.atguigu.mytime.adapter.MyPagerAdapter;
 import com.atguigu.mytime.adapter.RecyclerViewAdapter;
 import com.atguigu.mytime.base.BasePager;
 import com.atguigu.mytime.entity.MallGoodsInfos;
+import com.atguigu.mytime.entity.PriceBean;
 import com.atguigu.mytime.entity.RecommendGoodsBean;
 import com.atguigu.mytime.net.OkhttpUtils2;
 import com.atguigu.mytime.view.AutoScrollViewPager;
 import com.atguigu.mytime.view.AutoViewPagerIndicator;
 import com.atguigu.mytime.view.NoScrollGridView;
+import com.atguigu.refreshlistview.SongRefreshListView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.zf.myzxing.CaptureActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -46,7 +49,7 @@ import de.greenrobot.event.EventBus;
 public class ShopPager extends BasePager implements View.OnClickListener {
 
     private TextView textView;
-    private ListView lvMallPager;
+    private SongRefreshListView lvMallPager;
     private TextView tvTitleSearch;
     private AutoScrollViewPager vpMallHead;
     private NoScrollGridView ngvMallHead;
@@ -73,6 +76,9 @@ public class ShopPager extends BasePager implements View.OnClickListener {
     private int oldPosition;
     private AutoViewPagerIndicator Indicator;
     private ImageView netError;
+    private List<PriceBean.ResultEntity> prices;
+    private HashMap<Integer, Integer> priceMap;
+    private int num=0;
 
     public ShopPager(Activity mactivity) {
         super(mactivity);
@@ -86,7 +92,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
         View view = View.inflate(mactivity, R.layout.mall_base_pager, null);
         view.findViewById(R.id.ib_mall_home_scan).setOnClickListener(this);
-        lvMallPager = (ListView) view.findViewById(R.id.lv_mall_pager);
+        lvMallPager = (SongRefreshListView) view.findViewById(R.id.lv_mall_pager);
         netError = (ImageView) view.findViewById(R.id.netError);
         tvTitleSearch = (TextView) view.findViewById(R.id.tv_title_search);
         tvTitleSearch.setOnClickListener(this);
@@ -163,11 +169,23 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if(firstVisibleItem==0) {
+                if (firstVisibleItem == 0) {
                     showTitle();
-                }else{
+                } else {
                     mall_home_title.getBackground().setAlpha(255);
                 }
+
+            }
+        });
+
+        lvMallPager.setOnRefreshListener(new SongRefreshListView.OnRefreshListener() {
+            @Override
+            public void onPullDownRefresh() {
+
+            }
+
+            @Override
+            public void onLoadMore() {
 
             }
         });
@@ -188,10 +206,35 @@ public class ShopPager extends BasePager implements View.OnClickListener {
     }
 
     private void net() {
-        new OkhttpUtils2<MallGoodsInfos>(NetUri.MAll_LIST, mactivity, MallGoodsInfos.class,true,netError);
+
+        new OkhttpUtils2<MallGoodsInfos>(NetUri.MAll_LIST, mactivity, MallGoodsInfos.class, true, netError);
+        new OkhttpUtils2<PriceBean>(MallURlL.SHOPPRICE, mactivity, PriceBean.class);
         new OkhttpUtils2<RecommendGoodsBean>(NetUri.MAll_RECOMMENDGOODS_LIST, mactivity, RecommendGoodsBean.class);
     }
 
+    public void onEventMainThread(PriceBean event) {
+        prices = event.getResult();
+        Log.e("TAG", "prices.size()==" + prices.size());
+        priceMap = new HashMap<>();
+        for (PriceBean.ResultEntity Price : prices) {
+            int id = Price.getId();
+            int price = Price.getPrice();
+            priceMap.put(id, price);
+        }
+
+        showView();
+
+
+    }
+
+    private void showView() {
+        if(priceMap.size()>1&&mallGoodsInfos!=null) {
+                    initHead();
+                    initTop();
+                    initTop2();
+                    initListView();
+        }
+    }
 
     /**
      * EventBus 接收联网请求 实体类
@@ -259,11 +302,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
     public void onEventMainThread(MallGoodsInfos event) {
         Log.e("TAG", "onEventMainThread");
         mallGoodsInfos = event;
-        initHead();
-        initTop();
-        initTop2();
-        initListView();
-
+        showView();
     }
 
 
@@ -290,7 +329,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 //            return  false;
 //        }
 
-            return mtopViewPagerOnScreenY>=0;
+            return mtopViewPagerOnScreenY >= 0;
         }
 
         return true;
@@ -313,16 +352,15 @@ public class ShopPager extends BasePager implements View.OnClickListener {
         Log.e("vpMallHeadHeight-------", vpMallHeadHeight + "");
         if (mtopViewPagerOnScreenY < -50) {
             mall_home_title.setVisibility(View.VISIBLE);
-            float i =-((float)mtopViewPagerOnScreenY)/500;
-            if(50-mtopViewPagerOnScreenY<=255) {
-                mall_home_title.getBackground().setAlpha(50-mtopViewPagerOnScreenY);
+            float i = -((float) mtopViewPagerOnScreenY) / 500;
+            if (50 - mtopViewPagerOnScreenY <= 255) {
+                mall_home_title.getBackground().setAlpha(50 - mtopViewPagerOnScreenY);
             }
 
         } else {
             mall_home_title.setVisibility(View.GONE);
 
         }
-
 
 
     }
@@ -369,7 +407,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(mactivity, GoodsWebViewActivity.class);
-                        intent.putExtra("URL", "http://m.mtime.cn/#!/commerce/item/"+item.getSubList().get(position).getGoodsId()+"/");
+                        intent.putExtra("URL", "http://m.mtime.cn/#!/commerce/item/" + item.getSubList().get(position).getGoodsId() + "/");
                         mactivity.startActivity(intent);
                     }
                 });
@@ -382,14 +420,19 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
                 holder.mallItemGv.setAdapter(new MyBaseAdapter<MallGoodsInfos.CategoryEntity.SubListEntity>(item.getSubList(), mactivity) {
                     @Override
-                    public View MyInstantiateItem(int position, View convertView, ViewGroup parent) {
+                    public View MyInstantiateItem(final int position, View convertView, ViewGroup parent) {
                         MallGoodsInfos.CategoryEntity.SubListEntity subList = data.get(position);
 
                         convertView = View.inflate(mactivity, R.layout.mall_list_inner_small_goods, null);
 
                         ImageView goodaImg = (ImageView) convertView.findViewById(R.id.gooda_img);
                         TextView gooda_title = (TextView) convertView.findViewById(R.id.gooda_title);
-                        TextView goodaPrive = (TextView) convertView.findViewById(R.id.gooda_prive);
+                        final TextView goodaPrive = (TextView) convertView.findViewById(R.id.gooda_prive);
+
+                        if(priceMap!=null) {
+                            double price = priceMap.get(data.get(position).getGoodsId()) / 100;
+                            goodaPrive.setText("￥" + price);
+                        }
 
                         loadImage(goodaImg, subList.getImage());
 
@@ -422,11 +465,11 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
 
         final List<MallGoodsInfos.TopicEntity> topic = mallGoodsInfos.getTopic();
-        List<MallGoodsInfos.TopicEntity> myTopic=new ArrayList<MallGoodsInfos.TopicEntity>();
+        List<MallGoodsInfos.TopicEntity> myTopic = new ArrayList<MallGoodsInfos.TopicEntity>();
 
         myTopic.addAll(topic);
 
-        Log.e("myTopic",(myTopic==topic)+"");
+        Log.e("myTopic", (myTopic == topic) + "");
         //创建默认的线性LayoutManager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mactivity);
         hlvMallTop2.setLayoutManager(mLayoutManager);
@@ -449,12 +492,12 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 //                    data.addAll(mallGoodsInfos.getTopic().get(0).getSubList());
 //                }
                 //hlvMallTop2.setLayoutDirection();
-                Log.e("position","position=="+position+"     mallGoodsInfos.getTopic().get("+position+").getSubList()=="+mallGoodsInfos.getTopic().get(position).getSubList());
-                Log.e("position","position=="+position+"     data=="+data.size());
+                Log.e("position", "position==" + position + "     mallGoodsInfos.getTopic().get(" + position + ").getSubList()==" + mallGoodsInfos.getTopic().get(position).getSubList());
+                Log.e("position", "position==" + position + "     data==" + data.size());
                 loadImage(top2_bg, mallGoodsInfos.getTopic().get(position).getBackgroupImage());
                 adapter.notifyDataSetChanged();
                 loadImage(view, mallGoodsInfos.getTopic().get(position).getCheckedImage());
-                if(oldView!=null&&oldPosition!=position) {
+                if (oldView != null && oldPosition != position) {
                     loadImage(oldView, mallGoodsInfos.getTopic().get(oldPosition).getUncheckImage());
                 }
                 oldView = view;
@@ -468,19 +511,27 @@ public class ShopPager extends BasePager implements View.OnClickListener {
         subList.addAll(subList2);
         nsgMallTop2.setAdapter(new MyBaseAdapter<MallGoodsInfos.TopicEntity.SubListEntity>(subList, mactivity) {
             @Override
-            public View MyInstantiateItem(int position, View convertView, ViewGroup parent) {
+            public View MyInstantiateItem(final int position, View convertView, ViewGroup parent) {
                 convertView = View.inflate(mactivity, R.layout.mall_list_inner_small_goods, null);
 
                 ImageView goodaImg = (ImageView) convertView.findViewById(R.id.gooda_img);
                 TextView gooda_title = (TextView) convertView.findViewById(R.id.gooda_title);
-                TextView goodaPrive = (TextView) convertView.findViewById(R.id.gooda_prive);
+                final TextView goodaPrive = (TextView) convertView.findViewById(R.id.gooda_prive);
+                if(priceMap!=null) {
+                    double price = priceMap.get(data.get(position).getGoodsId()) / 100;
+                    goodaPrive.setText("￥" + price);
+                }
 
-                loadImage(goodaImg, data.get(position).getImage());
+
+
+            loadImage(goodaImg, data.get(position).getImage());
 
                 gooda_title.setText(data.get(position).getTitle());
 
                 return convertView;
             }
+
+
         });
         nsgMallTop2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -490,7 +541,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
                 int goodsId = data.get(position).getGoodsId();
                 Intent intent = new Intent(mactivity, GoodsWebViewActivity.class);
-                intent.putExtra("URL", "http://m.mtime.cn/#!/commerce/item/"+goodsId+"/");
+                intent.putExtra("URL", "http://m.mtime.cn/#!/commerce/item/" + goodsId + "/");
                 mactivity.startActivity(intent);
             }
         });
@@ -533,14 +584,14 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
         final ArrayList<String> Urls = new ArrayList<>();
         String baseUrl = MallURlL.STOREPAGERSERCHER_KEY + MallURlL.STOREPAGERSERCHER_INDEX;
-        Urls.add(baseUrl+MallURlL.STOREPAGERTOY_LAST);
-        Urls.add(baseUrl+MallURlL.STOREPAGERDIDITAL_LAST);
-        Urls.add(baseUrl+MallURlL.STOREPAGERDRESS_LAST);
-        Urls.add(baseUrl+MallURlL.STOREPAGERHOME_LAST);
-        Urls.add(baseUrl+MallURlL.STOREPAGERMOVIETIME_LAST);
-        Urls.add(baseUrl+MallURlL.STOREPAGERNEW_LAST);
-        Urls.add(baseUrl+MallURlL.STOREPAGERPRESELL_LAST);
-        Urls.add(baseUrl+MallURlL.STOREPAGERLOWPRICE_LAST);
+        Urls.add(baseUrl + MallURlL.STOREPAGERTOY_LAST);
+        Urls.add(baseUrl + MallURlL.STOREPAGERDIDITAL_LAST);
+        Urls.add(baseUrl + MallURlL.STOREPAGERDRESS_LAST);
+        Urls.add(baseUrl + MallURlL.STOREPAGERHOME_LAST);
+        Urls.add(baseUrl + MallURlL.STOREPAGERMOVIETIME_LAST);
+        Urls.add(baseUrl + MallURlL.STOREPAGERNEW_LAST);
+        Urls.add(baseUrl + MallURlL.STOREPAGERPRESELL_LAST);
+        Urls.add(baseUrl + MallURlL.STOREPAGERLOWPRICE_LAST);
 
         final List<MallGoodsInfos.ScrollImgEntity> scrollImg = mallGoodsInfos.getScrollImg();
 
@@ -564,15 +615,15 @@ public class ShopPager extends BasePager implements View.OnClickListener {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(mactivity, GoodsWebViewActivity.class);
-                        if(position==3) {
+                        if (position == 3) {
 
-                            intent.putExtra("URL","http://mall.wv.mtime.cn/"+ mallGoodsInfos.getScrollImg().get(position).getUrl());
+                            intent.putExtra("URL", "http://mall.wv.mtime.cn/" + mallGoodsInfos.getScrollImg().get(position).getUrl());
                             Log.e("tag", "我就绿卡看==");
                             mactivity.startActivity(intent);
                             return;
                         }
-                        Log.e("tag","我就绿卡看222==");
-                        intent.putExtra("URL",mallGoodsInfos.getScrollImg().get(position).getUrl());
+                        Log.e("tag", "我就绿卡看222==");
+                        intent.putExtra("URL", mallGoodsInfos.getScrollImg().get(position).getUrl());
                         mactivity.startActivity(intent);
                     }
                 });
@@ -604,7 +655,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
                 return convertView;
             }
         });
-        Indicator.setViewPager(vpMallHead,scrollImg.size());
+        Indicator.setViewPager(vpMallHead, scrollImg.size());
     }
 
     /**
@@ -631,12 +682,14 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Intent intent2 = new Intent(mactivity,GoodsWebViewActivity.class);
+        Intent intent2 = new Intent(mactivity, GoodsWebViewActivity.class);
 
         switch (view.getId()) {
 
             case R.id.ib_mall_home_scan:
                 //TODO implement
+                Intent intent1 = new Intent(mactivity, CaptureActivity.class);
+                mactivity.startActivityForResult(intent1, 666);
                 break;
             case R.id.ib_mall_home_cart:
                 //TODO implement
@@ -646,7 +699,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
                 intent2.putExtra("URL", mallGoodsInfos.getCellC().getList().get(0).getUrl());
                 mactivity.startActivity(intent2);
                 break;
-            case R.id.mall_shopC2 :
+            case R.id.mall_shopC2:
                 intent2.putExtra("URL", mallGoodsInfos.getCellC().getList().get(1).getUrl());
                 mactivity.startActivity(intent2);
                 break;
@@ -660,7 +713,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
                 break;
 
             case R.id.tv_title_search:
-                Intent intent = new Intent(mactivity,SearchGoodsActivity.class);
+                Intent intent = new Intent(mactivity, SearchGoodsActivity.class);
                 mactivity.startActivity(intent);
                 break;
         }
