@@ -42,4 +42,6 @@ public class NetUri {
     public static final String NEWSPAGER_LIST = "http://api.m.mtime.cn/News/NewsList.api?pageIndex=1";
     public static final String COMMENT_REVIEWID = "http://m.mtime.cn/#!/review/detail/";
     public static final String COMMENT_DETAILS ="http://api.m.mtime.cn/Review/Detail.api?reviewId=";
+    public static final String NEWS_ITEM_URI ="http://api.m.mtime.cn/News/Detail.api?newsId=";
+
 }
