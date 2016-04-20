@@ -28,12 +28,23 @@
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-    <ImageView
-        android:id="@+id/iv_movie"
-        android:src="@drawable/act_my_home_goods"
-        android:layout_marginLeft="10dp"
-        android:layout_width="40dp"
-        android:layout_height="80dp" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_movie"
+            android:src="@drawable/act_my_home_goods"
+            android:layout_marginLeft="10dp"
+            android:layout_width="40dp"
+            android:layout_height="80dp" />
+       <TextView
+           android:id="@+id/tv_moive_rate"
+           android:layout_width="wrap_content"
+           android:layout_gravity="right"
+           android:background="@drawable/long_comments_user_rate_icon"
+           android:layout_height="wrap_content"/>
+    </FrameLayout>
+
     <TextView
         android:id="@+id/movie_title"
         android:text="电影名称"
