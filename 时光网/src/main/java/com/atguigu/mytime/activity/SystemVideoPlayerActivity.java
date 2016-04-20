@@ -448,6 +448,7 @@ public class SystemVideoPlayerActivity extends Activity implements View.OnClickL
         } else if ("高清".equals(tv_theme.getText())) {
             videoview.setVideoPath(heighturl.get(SystemVideoPlayerActivity.this.position));
         }
+        popupWindow.dismiss();
         videoview.start();
     }
 
