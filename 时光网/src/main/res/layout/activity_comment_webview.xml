@@ -62,7 +62,7 @@
             android:background="@drawable/find_news_detail_comment_num_icon"
             android:text="24"
             android:layout_marginLeft="35dp"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"/>
 
         <TextView
             android:id="@+id/comment_search"
