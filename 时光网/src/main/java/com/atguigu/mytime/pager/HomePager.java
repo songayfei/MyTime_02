@@ -144,13 +144,7 @@ public class HomePager extends BasePager {
         tvState02 = (TextView) view.findViewById(R.id.tv_state02);
         horizonListview = (HorizontalListView) view.findViewById(R.id.horizon_listview);
         vpAd = (NoScrollViewPager) view.findViewById(R.id.vp_ad);
-        /**
-         *
-         * 手动的 这里mmmmmmmm
-         *
-         *
-         *
-         */
+
         ll_shop_point= (LinearLayout) view.findViewById(R.id.ll_shop_point);
         tvAllShop = (RelativeLayout)view.findViewById(R.id.tv_All_shop);
         imShop01 = (ImageView)view.findViewById(R.id.im_shop01);
@@ -224,7 +218,6 @@ public class HomePager extends BasePager {
             im_load.setVisibility(View.VISIBLE);
             anim.stop();
             im_load_anim.setVisibility(View.GONE);
-            //handler.sendEmptyMessageDelayed(STOP_ANIM,2000);
         }
     }
 
@@ -253,8 +246,8 @@ public class HomePager extends BasePager {
         },500);
         new InterNetConn(NetUri.ADV_LIST,mactivity, AdvData.class);
         new InterNetConn(NetUri.HOME_SHOP, mactivity, HomeShopInfo.class);//ViewPager数据
-        new InterNetConn(NetUri.HLISTVIEW, mactivity, HorizontalListViewInfo.class);//横向LsitView的数据
-        new InterNetConn(NetUri.HOME_BUTTOM, mactivity, HomeListViewInfo.class);
+
+
     }
     public void onEventMainThread(OneGetData isconnected) {
         if (!isconnected.isObtinData()) {
@@ -293,11 +286,11 @@ public class HomePager extends BasePager {
 
     /**
      * 横向的ListView信息
-     *
      * @param listViewInfo
      */
     public void onEventMainThread(HorizontalListViewInfo listViewInfo) {
         setHorizontalListView(listViewInfo);
+        new InterNetConn(NetUri.HOME_BUTTOM, mactivity, HomeListViewInfo.class);//底部ListView
 
     }
 
@@ -308,8 +301,13 @@ public class HomePager extends BasePager {
      */
     public void onEventMainThread(HomeShopInfo shopInfo) {
         setTopViewPager(shopInfo);
+        new InterNetConn(NetUri.HLISTVIEW, mactivity, HorizontalListViewInfo.class);//横向LsitView的数据
     }
 
+    /**
+     * 底部ListView数据装配
+     * @param listViewInfo
+     */
     public void onEventMainThread(HomeListViewInfo listViewInfo) {
         if(!isrefresh) {
             setButtomContent(listViewInfo);
@@ -331,8 +329,6 @@ public class HomePager extends BasePager {
             listbuttomadapter.notifyDataSetChanged();
             isrefresh = true;
         }
-
-
     }
 
     /**

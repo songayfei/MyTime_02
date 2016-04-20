@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -78,10 +77,11 @@ public class HomeContentAdapter extends BaseAdapter {
                 viewType = OVERSEAS;
                 break;
             case "获奖佳片":
+            case "日韩新片":
+            case "精彩短片":
+            case "港台佳片":
                 viewType=PRIZE_MOVIE;
                 break;
-
-
         }
         return viewType;
     }
@@ -225,11 +225,10 @@ public class HomeContentAdapter extends BaseAdapter {
                         .into(holder.imNews);
                 break;
             case PRIZE_MOVIE://获奖佳片
-
                 holder.tvTitle.setText(dataEntity.getTitleCn());
-                //Log.e(dataEntity.getTitleEn(),dataEntity.getTitleEn());
                 holder.tvTitlen.setText(dataEntity.getTitleEn());
                 holder.tvCommentCount.setText(dataEntity.getContent());
+                holder.tv_tag.setText(dataEntity.getTag());
                 Glide.with(mActivity).load(dataEntity.getImage())
                         .error(R.drawable.img_default)
                         .placeholder(R.drawable.img_default)
@@ -336,6 +335,7 @@ public class HomeContentAdapter extends BaseAdapter {
                 convertView=View.inflate(mActivity,R.layout.prize_movie_item,null);
                 holder.tvTitlen = (TextView) convertView.findViewById(R.id.tv_titlen);//热评论
                 holder.imNews = (ImageView) convertView.findViewById(R.id.im_news);
+                holder.tv_tag= (TextView) convertView.findViewWithTag(R.id.tv_tag);
                 break;
 
 
@@ -371,6 +371,8 @@ public class HomeContentAdapter extends BaseAdapter {
         //发布时间+评论
         TextView tvTime;
         TextView tvHotcomment;
+
+        TextView tv_tag;
 
     }
 }

@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:clickable="true"
+        android:visibility="gone"
         android:src="@drawable/loading_failed" />
 
     <ImageView
@@ -19,7 +20,6 @@
         android:layout_centerInParent="true"
         android:visibility="gone"
         android:background="@drawable/loading_bg"
-
         />
 
     <ImageView
@@ -27,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         android:background="@drawable/refresh_anim"
          />
 </RelativeLayout>

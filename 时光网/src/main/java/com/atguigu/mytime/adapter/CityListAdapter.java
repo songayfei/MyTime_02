@@ -90,6 +90,7 @@ public class CityListAdapter extends BaseAdapter {
                 cityname= (String) textView.getText();//获取点击的城市名
                 //点击后就到主页面
                 Intent intent = new Intent(mActivtiy, MainActivity.class);
+                intent.putExtra("cityname",cityname);
                 mActivtiy.startActivity(intent);
                 mActivtiy.finish();
             }

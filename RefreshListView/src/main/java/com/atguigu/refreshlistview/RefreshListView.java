@@ -267,7 +267,7 @@ public class RefreshListView extends ListView {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
+       /* switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 //1.记录按下的坐标
                 startY = ev.getY();
@@ -335,7 +335,7 @@ public class RefreshListView extends ListView {
                 }
 
                 break;
-        }
+        }*/
         return super.onTouchEvent(ev);
     }
 

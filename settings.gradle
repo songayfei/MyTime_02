@@ -1,1 +1,2 @@
-include ':时光网', ':xutils_library', ':RefreshListView', ':vitamio1'
+include ':时光网', ':xutils_library', ':RefreshListView', ':vitamio1', ':CityList', ':app'
+include ':baiduNaviSDK_3_1_1_SimpleDemo'

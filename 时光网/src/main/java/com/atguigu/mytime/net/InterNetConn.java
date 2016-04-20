@@ -1,11 +1,9 @@
 package com.atguigu.mytime.net;
 
-import android.app.Activity;
-import android.widget.ImageView;
+import android.content.Context;
 
 import com.atguigu.mytime.Utils.SpUtils;
 import com.atguigu.mytime.entity.OneGetData;
-import com.atguigu.mytime.view.LoadingDailog;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -22,22 +20,21 @@ public class InterNetConn<T>{
     private Class aClass;
     private String url;
     private T t;
-    private Activity activity;
+    private Context context;
     private boolean isCache;
     private OneGetData isconnection;
-    private LoadingDailog dailog;
-    private ImageView errow;
+
 
     /**
      * 联网请求  该构造方法只负责 联网请求数据 不涉及数据的缓存
      * 通过EventBus 传递数据 包括联网请求失败
      * @param url 地址
-     * @param activity 上下文
+     * @param context 上下文
      * @param clazz 对象
      */
-    public InterNetConn(String url,Activity activity,Class clazz) {
+    public InterNetConn(String url,Context context,Class clazz) {
         this.aClass=clazz;
-        this.activity=activity;
+        this.context=context;
         this.url = url;
         isconnection=new OneGetData(false);
         OkHttpUtils
@@ -70,12 +67,12 @@ public class InterNetConn<T>{
      * 该构造方法涉及 请求数据的缓存
      * @param isCache 为true 表示要对数据进行缓存
      * @param url 地址
-     * @param activity 上下文
+     * @param context 上下文
      * @param clazz 对象
      */
-    public InterNetConn(boolean isCache,String url,Activity activity,Class clazz) {
+    public InterNetConn(boolean isCache,String url,Context context,Class clazz) {
         this.aClass=clazz;
-        this.activity=activity;
+        this.context=context;
         this.url = url;
         this.isCache=isCache;
         isconnection=new OneGetData(false);
@@ -102,7 +99,7 @@ public class InterNetConn<T>{
         public void onResponse(String response) {
             if(isCache){
                 //以url作为文件名进行缓存
-                SpUtils.getInitialize(activity.getApplicationContext()).saveJson(url, response);
+                SpUtils.getInitialize(context.getApplicationContext()).saveJson(url, response);
             }
             //解析Json数据
             parseChangeJson(response);//解析json

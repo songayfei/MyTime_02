@@ -1,13 +1,14 @@
 package com.atguigu.mytime.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/4/8.
  * 城市信息实体类
  */
-public class SelectorCityInfo {
-
+public class SelectorCityInfo implements Serializable{
+    private static final long serialVersionUID=123L;
     /**
      * count : 192
      * id : 292
@@ -26,7 +27,8 @@ public class SelectorCityInfo {
         return p;
     }
 
-    public static class PEntity {
+    public static class PEntity implements Serializable{
+        private static final long serialVersionUID=1234L;
         private int count;
         private int id;
         private String n;

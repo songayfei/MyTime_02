@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
@@ -149,7 +151,10 @@ public class SpUtils {
     /**
      * 将对象序列化保存到本地
      */
-    public void saveObject(String key,Object object){
+    public void saveObject(String key,Object object,String json){
+        FileOutputStream fos=null;
+        ObjectOutputStream oos=null;
+
         //判断SD卡是否处于挂载状态
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             try{
@@ -166,19 +171,79 @@ public class SpUtils {
                     file.createNewFile();
                 }
                 //存储数据
-                FileOutputStream fos = new FileOutputStream(file);
-                ObjectOutputStream oos=new ObjectOutputStream(fos);
+                fos = new FileOutputStream(file);
+                oos=new ObjectOutputStream(fos);
                 //将对象序列化保存到本地
                 oos.writeObject(object);
                 fos.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
+            }finally {
+                if(oos!=null){
+                    try {
+                        oos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(fos!=null){
+                    try {
+                        fos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }else {
             //使用sp存储
-            //save(key, value);
+           save(key, json);
         }
 
+    }
+    /**
+     * 使用文件存储json数据
+     */
+    public  Object getObject(String key){
+        String result="";//默认
+        //判断SD卡是否处于挂载状态
+        Object object=null;
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            FileInputStream fis=null;
+            ObjectInputStream ois=null;
+            try {
+                //文件的名称
+                String fileName = MD5Encoder.encode(key);
+                //如果SD卡处于挂载状态就用SD卡存储
+                File file = new File(Environment.getExternalStorageDirectory()+"/MyTime",fileName);
+                if(file.exists()) {
+                    //读取数据
+                    fis = new FileInputStream(file);
+                    ois=new ObjectInputStream(fis);
+                    object = ois.readObject();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                if(ois!=null){
+                    try {
+                        ois.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(fis!=null){
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return object;
+        }else{
+            //否则使用sp存储
+            return getValue(key,result);
+        }
     }
 }

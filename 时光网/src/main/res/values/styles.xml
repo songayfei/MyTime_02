@@ -59,11 +59,9 @@
 
     <style name="Theme.MyActivity" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/bgconfig</item>
-
         <item name="android:windowNoTitle">true</item><!--去标题-->
         <item name="android:windowFullscreen">true</item><!--全屏-->
         <item name="android:windowActionBar">false</item><!--去掉ActionBar-->
-
     </style>
 
     <color name="transparent_dailog">#00000000</color>

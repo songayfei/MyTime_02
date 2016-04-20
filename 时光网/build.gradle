@@ -12,8 +12,9 @@ android {
         versionName "1.0"
     }
     sourceSets {
-        main.jni.srcDirs = []
-        main.jniLibs.srcDirs = ['libs']
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
     buildTypes {
         release {
@@ -38,5 +39,4 @@ dependencies {
     compile files('libs/classes.jar')
     compile project(':RefreshListView')
     compile project(':vitamio1')
-    compile files('libs/core-2.2.jar')
 }

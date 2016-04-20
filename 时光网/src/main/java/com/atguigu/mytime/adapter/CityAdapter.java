@@ -1,6 +1,6 @@
 package com.atguigu.mytime.adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,10 +16,10 @@ import java.util.List;
 public class CityAdapter extends BaseAdapter {
 
     private List<String> cityInfos;
-    private Activity mActivity;
+    private Context context;
 
-    public CityAdapter(Activity mActivity,List<String> cityInfos) {
-        this.mActivity=mActivity;
+    public CityAdapter(Context context,List<String> cityInfos) {
+        this.context=context;
         this.cityInfos=cityInfos;
     }
 
@@ -44,13 +44,14 @@ public class CityAdapter extends BaseAdapter {
         ViewHolder holder=null;
         if(convertView==null){
             holder=new ViewHolder();
-            convertView=View.inflate(mActivity, R.layout.city_name,null);
+            convertView=View.inflate(context,R.layout.city_name,null);
             holder.textView= (TextView) convertView.findViewById(R.id.tv_city_name);
             convertView.setTag(holder);
         }else {
             holder= (ViewHolder) convertView.getTag();
         }
         holder.textView.setText(cityInfos.get(position));
+
         return convertView;
     }
     static class ViewHolder{

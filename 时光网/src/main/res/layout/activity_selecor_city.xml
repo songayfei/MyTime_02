@@ -35,7 +35,7 @@
         android:paddingBottom="5dp"
         android:paddingTop="5dp">
 
-        <TextView
+        <EditText
             android:id="@+id/tv_city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -43,14 +43,13 @@
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:background="@drawable/edittext"
-            android:clickable="true"
             android:drawableLeft="@drawable/title_bar_search_zoomin"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:paddingBottom="10dp"
             android:paddingLeft="15dp"
             android:paddingTop="10dp"
-            android:text="输入城市名" />
+            android:hint="输入城市名" />
 
         <TextView
             android:id="@+id/tv_cancel"
@@ -60,8 +59,16 @@
             android:text="取消"
             android:textSize="15sp" />
     </LinearLayout>
-    <ListView
-        android:id="@+id/lv_classified_city"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/load_image" />
+
+        <ListView
+            android:id="@+id/lv_classified_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </LinearLayout>
