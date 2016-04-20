@@ -1,9 +1,11 @@
 package com.atguigu.mytime.discoverpagers;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.atguigu.mytime.R;
 import com.atguigu.mytime.Utils.NetUri;
 import com.atguigu.mytime.Utils.SpUtils;
+import com.atguigu.mytime.activity.NewsActivity;
 import com.atguigu.mytime.base.BasePager;
 import com.atguigu.mytime.bean.NewsInfo;
 import com.atguigu.refreshlistview.RefreshListView;
@@ -29,7 +32,7 @@ import okhttp3.Call;
  * 新闻
  * Created by Administrator on 16-4-8.
  */
-public class Newspager extends BasePager {
+public class Newspager extends BasePager implements AdapterView.OnItemClickListener {
     private JSONObject topNews;//头部信息
     private RefreshListView listview_newspager;
     //头布局
@@ -42,6 +45,8 @@ public class Newspager extends BasePager {
     private int pageCount;
     private List<NewsInfo.NewsListEntity> newsList;
     private NewsAdapter adapter;
+    private int newsId;//头部的id
+    private int itemId;
 
     public Newspager(Activity mactivity, JSONObject topNews) {
         super(mactivity);
@@ -66,6 +71,8 @@ public class Newspager extends BasePager {
         image_top_chinese = (ImageView) headView.findViewById(R.id.image_top_chinese);
         //给listview添加头布局
         listview_newspager.addTopNewsView(headView);
+        //设置点击某个item的监听
+        listview_newspager.setOnItemClickListener(this);
         return view;
     }
 
@@ -81,6 +88,8 @@ public class Newspager extends BasePager {
         if (!TextUtils.isEmpty(savejson)) {
             processData(savejson);
         }
+        //头部的id
+         newsId = topNews.optInt("newsID");
         //联网请求数据
         getDataFromnet();
 
@@ -92,6 +101,35 @@ public class Newspager extends BasePager {
     private void getDataFromnet() {
         String uri = NetUri.NEWSPAGER_LIST;
         OkHttpUtils.get().url(uri).build().execute(new NewCallback());
+    }
+
+    /**
+     * 点击某个item的回调方法
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if(position==0){
+            itemId=newsId;
+        }else{
+
+            NewsInfo.NewsListEntity itemInfo = newsList.get(position-1);
+            itemId = itemInfo.getId();
+        }
+        //每个item的url：http://api.m.mtime.cn/News/Detail.api?newsId=1550016
+        String itemUrl = NetUri.NEWS_ITEM_URI + itemId;
+
+
+        Intent intent = new Intent(mactivity, NewsActivity.class);
+        //携带数据
+        intent.putExtra("itemUrl",itemUrl);
+
+        mactivity.startActivity(intent);
+
+
     }
 
     class NewCallback extends StringCallback {
@@ -130,8 +168,11 @@ public class Newspager extends BasePager {
         //总的页数和条数
         totalCount = newsInfo.getTotalCount();
         pageCount = newsInfo.getPageCount();
+
         //item的数据集合
         newsList = newsInfo.getNewsList();
+
+
     }
 
     class NewsAdapter extends BaseAdapter {
