@@ -6,7 +6,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
@@ -35,7 +34,6 @@ import okhttp3.Call;
  */
 public class Commentpager extends BasePager implements View.OnClickListener, AdapterView.OnItemClickListener {
     private static final String TAG = Commentpager.class.getSimpleName();
-    private RelativeLayout rl;
     private ImageView loading;
     //帧动画
     private AnimationDrawable animationDrawable;
@@ -53,6 +51,8 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
     private CommentAdapter adapter;
     private int reviewID;
     private String movieimage;
+    private String title;
+
     public Commentpager(Activity mactivity, JSONObject review) {
         super(mactivity);
         this.review=review;
@@ -108,15 +108,13 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
             reviewID = review.optInt("reviewID");
             movieimage=review.optString("posterUrl");
         }else{
-            JSONObject iteminfo = commentInfo.get(position-1);
+            JSONObject iteminfo = commentInfo.get(position - 1);
             JSONObject relatedObj = iteminfo.optJSONObject("relatedObj");
-            String title = relatedObj.optString("title");
-             movieimage = relatedObj.optString("image");
+            title = relatedObj.optString("title");
+            movieimage = relatedObj.optString("image");
             reviewID = iteminfo.optInt("id");
 
         }
-        //http://m.mtime.cn/#!/review/detail/7949853/
-        String itemUri=NetUri.COMMENT_REVIEWID+reviewID+"/";
         //http://api.m.mtime.cn/Review/Detail.api?reviewId=7932392
         String itemDetailUri = NetUri.COMMENT_DETAILS + reviewID;
         /**
@@ -124,13 +122,13 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
          */
         Intent intent = new Intent(mactivity, CommentWebviewActivity.class);
         //携带uri
-        intent.putExtra("itemUri",itemUri);
+        intent.putExtra("title",title);
         intent.putExtra("itemDetailUri",itemDetailUri);
         intent.putExtra("movieimage",movieimage);
         mactivity.startActivity(intent);
 
-            //保存position
-            SpUtils.getInitialize(mactivity).save("isClick"+(position-1),position-1);
+        //保存position
+        SpUtils.getInitialize(mactivity).save("isClick"+(position-1),position-1);
         adapter.notifyDataSetChanged();
 
     }
