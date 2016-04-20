@@ -7,6 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="PopupAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/menu_up</item>
+        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
+    </style>
     <!--<item name="android:drawablePadding">1dp</item>-->
     <style name="bottom_tab_style">
         <item name="android:layout_width">0dp</item>
