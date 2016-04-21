@@ -119,11 +119,19 @@ public class PayticketPager extends BasePager  implements View.OnClickListener {
                 btn_title_movie_buyticket.setEnabled(true);
                 btn_title_movie_buyticket.setBackgroundResource(android.R.color.transparent);
                 btn_title_cinema_buyticket.setBackgroundResource(R.drawable.title_bar_cinema_selected);
-                btn_title_cinema_buyticket.setTextColor(Color.BLUE);
+                btn_title_cinema_buyticket.setTextColor(0xFF4052B5);
                 btn_title_movie_buyticket.setTextColor(Color.WHITE);
                 break;
             case R.id.ib_rearch_buyticket :
                 //搜索页面
+                int item = vp_content_buyticket.getCurrentItem();
+
+                if(item==1) {
+
+                }else{
+
+                }
+
 
                 break;
         }

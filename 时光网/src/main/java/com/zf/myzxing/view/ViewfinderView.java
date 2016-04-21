@@ -141,7 +141,7 @@ public final class ViewfinderView extends View {
 			// canvas.drawRect(frame.left + 2, middle - 1, frame.right - 1,
 			// middle + 2, paint);
 
-			// 将扫描线修改为上下走的线
+			// 将扫描线修改为带动画的线
 			if ((i += 5) < frame.bottom - frame.top) {
 				/* 以下为用渐变线条作为扫描线 */
 				// 渐变图为矩形

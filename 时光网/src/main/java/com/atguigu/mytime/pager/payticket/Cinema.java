@@ -99,12 +99,15 @@ public class Cinema extends BaseDiscoverPager {
         rg_cinema_choose.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
         background = (AnimationDrawable) iv_loading.getBackground();
         background.start();
+
+        View inflate = View.inflate(mActivity, R.layout.cd, null);
+        lv_cinema_list.addHeaderView(inflate);
         return view;
     }
 
     @Override
     public void initData() {
-
+        rb_cinema_total.isChecked();
         getDataFromNet();
     }
 
@@ -161,6 +164,7 @@ public class Cinema extends BaseDiscoverPager {
         }
         CinemaBean remove = (CinemaBean) cinemaBeans.remove(nearestCinemaPosition);
         cinemaBeans.add(0, remove);
+
         lv_cinema_list.setAdapter(mAdapter);
 
         //lv_cinema_list.setAdapter(new MyCinemaAdapter(activity,cinemaBean));
@@ -214,7 +218,7 @@ public class Cinema extends BaseDiscoverPager {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder hodler = null;
             if(convertView == null) {
-                convertView = View.inflate(mActivity,R.layout.item_cinema_list,null);
+                convertView = View.inflate(mActivity,R.layout.item_cinema_head_list,null);
                 hodler = new ViewHolder();
                 hodler.iv_cinima_item_nearst_icon = (ImageView) convertView.findViewById(R.id.iv_cinima_item_nearest_icon);
                 hodler.tv_cinema_name = (TextView) convertView.findViewById(R.id.tv_cinema_name);
@@ -235,6 +239,7 @@ public class Cinema extends BaseDiscoverPager {
 
             if (position == 0 && rb_cinema_total.isChecked()) {
                 hodler.iv_cinima_item_nearst_icon.setVisibility(View.VISIBLE);
+                hodler.line.setVisibility(View.VISIBLE);
             } else {
                 hodler.iv_cinima_item_nearst_icon.setVisibility(View.GONE);
                 hodler.line.setVisibility(View.GONE);
