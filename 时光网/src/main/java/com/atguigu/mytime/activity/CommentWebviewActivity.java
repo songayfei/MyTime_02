@@ -3,7 +3,6 @@ package com.atguigu.mytime.activity;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -110,6 +109,8 @@ public class CommentWebviewActivity extends Activity implements View.OnClickList
         setting.setJavaScriptEnabled(true);
         setting.setUseWideViewPort(true);
         setting.setDefaultFontSize(30);
+        setting.setUseWideViewPort(true);
+        setting.setLoadWithOverviewMode(true);
         setting.setAppCacheEnabled(true);
         setting.setCacheMode(WebSettings.LOAD_DEFAULT);//设置缓存模式
         //设置webview的客户端
@@ -134,9 +135,8 @@ public class CommentWebviewActivity extends Activity implements View.OnClickList
             rating = relatedObj.optString("rating");
             commentCount = jsonObject.optInt("commentCount");
             userTitle = jsonObject.optString("title");
-            Log.e("TAG", "userTitle==" + userTitle);
             time = jsonObject.optString("time");
-            String s="<h4>"+userTitle+"</h4><br><p><img width=\"70\" height=\"100\" src="+movieimage+"><hr><p>"+time+"</p></p>";
+            String s="<h5>"+userTitle+"</h5><br><p><img width=\"70\" height=\"100\" src="+movieimage+"><hr><p>"+time+"</p></p>";
             content = jsonObject.optString("content");
             content=s+content;
         } catch (JSONException e) {
