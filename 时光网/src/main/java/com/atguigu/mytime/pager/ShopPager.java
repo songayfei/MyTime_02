@@ -218,7 +218,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
     }
 
     private void showView() {
-        if(priceMap.size()>1&&mallGoodsInfos!=null) {
+        if(priceMap!=null&&mallGoodsInfos!=null) {
                     initHead();
                     initTop();
                     initTop2();

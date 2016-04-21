@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ListView
+        <com.atguigu.mytime.view.XListView
             android:id="@+id/lv_mall_pager"
             android:dividerHeight="10dp"
             android:divider="#22000000"

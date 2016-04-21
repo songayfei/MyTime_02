@@ -20,6 +20,16 @@ import android.widget.TextView;
  * 作用：自定义带下拉刷新的ListView
  */
 public class RefreshListView extends ListView {
+    private boolean isPullLoadmore;
+    private boolean isRefresh;
+
+    public void setIsPullLoadmore(boolean isPullLoadmore) {
+        this.isPullLoadmore = isPullLoadmore;
+    }
+
+    public void setIsRefresh(boolean isRefresh) {
+        this.isRefresh = isRefresh;
+    }
 
     /**
      * 顶部轮播图部分：下拉刷新空间部分和ViewPager部分
@@ -199,9 +209,11 @@ public class RefreshListView extends ListView {
             //当惯性滚动或者静止，并且是滑动到最后一个的时候
             if(scrollState ==SCROLL_STATE_IDLE||scrollState ==SCROLL_STATE_FLING){
                 if((getAdapter().getCount()-1)==getLastVisiblePosition()){
+                    if(isPullLoadmore) {
 
-                    //显示加载更多空间
-                    footView.setPadding(10,10,10,10);
+                        //显示加载更多空间
+                        footView.setPadding(10,10,10,10);
+                    }
 
                     //设置状态
                     isLoadMore = true;
@@ -267,12 +279,15 @@ public class RefreshListView extends ListView {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-       /* switch (ev.getAction()) {
+        switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 //1.记录按下的坐标
                 startY = ev.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
+                if(!isRefresh) {
+                    break;
+                }
                 //2.在移动的时候记录 endY
                 float endY = ev.getY();
                 //3.计算偏移量
@@ -335,7 +350,7 @@ public class RefreshListView extends ListView {
                 }
 
                 break;
-        }*/
+        }
         return super.onTouchEvent(ev);
     }
 

@@ -16,6 +16,7 @@ import com.atguigu.mytime.Utils.NetUri;
 import com.atguigu.mytime.Utils.SpUtils;
 import com.atguigu.mytime.entity.AdvListInfo;
 import com.atguigu.mytime.net.InterNetConn;
+import com.atguigu.mytime.service.LocationCityService;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -31,11 +32,15 @@ public class WelcomActivity extends Activity {
     private boolean value;
     private List<AdvListInfo.AdvListEntity> advList;
     private Handler handler = new Handler();
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcom);
+        intent = new Intent(this, LocationCityService.class);
+        startService(intent);
+
         rl_welcom = (ImageView) findViewById(R.id.rl_welcom);
         //判断网络状态
         boolean connected = MessageUtils.isConnected(this);

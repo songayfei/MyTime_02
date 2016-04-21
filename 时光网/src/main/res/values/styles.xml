@@ -69,4 +69,16 @@
     </style>
 
     <color name="transparent_dailog">#00000000</color>
+
+    <style name="MtimeTabLayout" parent="Widget.Design.TabLayout">
+        <!--tab 选中时的颜色-->
+        <item name="tabSelectedTextColor">#0078c5</item>
+        <!--tab指示标的颜色-->
+        <item name="tabIndicatorColor">#0078c5</item>
+    </style>
+
+    <style name="myCinemaDialogStyle" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>  //进入时的动画
+        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>    //退出时的动画
+    </style>
 </resources>
