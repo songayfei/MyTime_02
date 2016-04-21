@@ -1,20 +1,24 @@
 package com.atguigu.mytime.activity;
 
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
 import com.atguigu.mytime.Utils.SpUtils;
+import com.bumptech.glide.Glide;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -36,43 +40,30 @@ public class CommentWebviewActivity extends Activity implements View.OnClickList
     private TextView comment_search;
     private String movieimage;//电影图片
     private String itemDetailUri;
-    private int rating;
+    private String rating;
     private int commentCount;
     private PopupWindow popupWindow;
     private View popView;
-    
+    private LayoutInflater mlayoutInflate;//布局加载器
+    private String time;
+    private String title;
+    private String content;
+    private String userTitle;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_webview);
-        //接受数据
-         itemUri = getIntent().getStringExtra("itemUri");
         //电影相关图片
-         movieimage = getIntent().getStringExtra("movieimage");
+        movieimage = getIntent().getStringExtra("movieimage");
         //详细uri
         itemDetailUri = getIntent().getStringExtra("itemDetailUri");
+        //电影名称
+        title=getIntent().getStringExtra("title");
+
         initView();
         initData();
-        setting = comment_webview.getSettings();
-        //设置webview支持javaScrip
-
-        setting.setJavaScriptEnabled(true);
-        //设置页面可以缩放的时候，双击缩放
-        setting.setUseWideViewPort(true);
-        //设置显示缩放按钮
-        setting.setBuiltInZoomControls(true);
-        //加载服务器端的数据
-        comment_webview.loadUrl(itemUri);
-        //设置webview的客户端
-        comment_webview.setWebViewClient(new WebViewClient() {
-            //当页面加载完成的时候
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                //当页面加载完成的时候，让加载页面消失
-            }
-        });
-
     }
 
     /**
@@ -89,40 +80,65 @@ public class CommentWebviewActivity extends Activity implements View.OnClickList
         OkHttpUtils.get().url(itemDetailUri).build()
                 .execute(new CommentCallback());
     }
-class CommentCallback extends StringCallback{
+    class CommentCallback extends StringCallback{
 
-    @Override
-    public void onError(Call call, Exception e) {
-        //请求数据失败
-    }
+        @Override
+        public void onError(Call call, Exception e) {
+            //请求数据失败
+        }
 
-    @Override
-    public void onResponse(String response) {
-        //得到数据
-        processData(response);
-        //将数据缓存
-        SpUtils.getInitialize(CommentWebviewActivity.this).saveJson(itemDetailUri,response);
+        @Override
+        public void onResponse(String response) {
+            //得到数据
+            processData(response);
+            //将数据缓存
+            SpUtils.getInitialize(CommentWebviewActivity.this).saveJson(itemDetailUri,response);
+        }
     }
-}
 
     /**
      * 解析数据
      * @param response
      */
-    private void processData(String response) {
+    private void processData(String response){
         parseData(response);
         //装配数据
-        comment_count.setText(""+commentCount);
+        comment_count.setText("" + commentCount);
+        setting = comment_webview.getSettings();
+        //设置webview支持javaScrip
+
+        setting.setJavaScriptEnabled(true);
+        setting.setUseWideViewPort(true);
+        setting.setDefaultFontSize(30);
+        setting.setAppCacheEnabled(true);
+        setting.setCacheMode(WebSettings.LOAD_DEFAULT);//设置缓存模式
+        //设置webview的客户端
+        comment_webview.setWebViewClient(new WebViewClient() {
+            //当页面加载完成的时候
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                //当页面加载完成的时候，让加载页面消失
+            }
+        });
+
+        comment_webview.loadDataWithBaseURL(null,content,"text/html","UTF-8",null);
 
     }
-//解析
+    //解析
     private void parseData(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
             JSONObject relatedObj = jsonObject.optJSONObject("relatedObj");
             //电影评分
-             rating = relatedObj.optInt("rating");
+            rating = relatedObj.optString("rating");
             commentCount = jsonObject.optInt("commentCount");
+            userTitle = jsonObject.optString("title");
+            Log.e("TAG", "userTitle==" + userTitle);
+            time = jsonObject.optString("time");
+            String s="<h4>"+userTitle+"</h4><br><p><img width=\"70\" height=\"100\" src="+movieimage+"><hr><p>"+time+"</p></p>";
+            content = jsonObject.optString("content");
+            content=s+content;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -164,6 +180,7 @@ class CommentCallback extends StringCallback{
                 break;
             case R.id.comment_share://分享
 
+
                 break;
             case R.id.comment://进入评论界面
 
@@ -172,46 +189,51 @@ class CommentCallback extends StringCallback{
                 //从activity的底部显示一个popupwidown
                 if(popupWindow==null) {
                     //初始化popupWindown的布局
-                    popupWindow=new PopupWindow(CommentWebviewActivity.this);
                     initPopView();
-                    //设置焦点
-                    popView.setFocusable(true);
-                    //设置窗口显示的动画效果
-//                    popupWindow.setAnimationStyle(R.style.PopupAnimation);
-                    AnimationUtils animationUtils=new AnimationUtils();
-                    Animation animation = animationUtils.loadAnimation(CommentWebviewActivity.this, R.anim.menu_up);
-                    popView.setAnimation(animation);
-                    popView.startAnimation(animation);
-                    //创建弹出窗口，指定大小
-                    popupWindow.setWidth(popView.getWidth());
-                    popupWindow.setHeight(popView.getHeight());
+                    popupWindow=new PopupWindow(popView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT,false);
 
-                    popupWindow.setContentView(popView);
+                    // 设置点击窗口外边窗口消失
+                    popupWindow.setOutsideTouchable(true);
+
+                    popupWindow.setBackgroundDrawable(new ColorDrawable());
+
+                    popupWindow.setAnimationStyle(R.style.PopupAnimation);
+
+                    // 设置此参数获得焦点,否则无法点击
+                    popView.setFocusable(true);
+
                 }
 
                 //设置窗口显示的位置CommentWebviewActivity.this.findViewById(R.id.rl_webview)
-//                popupWindow.showAtLocation(findViewById(R.id.rl_webview), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                popupWindow.showAsDropDown(findViewById(R.id.rl_webview));
+                popupWindow.showAtLocation(findViewById(R.id.rl_webview), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+
 
                 break;
             case R.id.error:
                 popupWindow.dismiss();
                 break;
             case R.id.iv_movie:
-                
+
                 break;
         }
     }
 
-    private void initPopView() {
-//        LayoutInflater mlayoutInflate = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+    private void initPopView(){
+        mlayoutInflate = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         //加载布局
-        popView = View.inflate(CommentWebviewActivity.this,R.layout.popview,null);
+        popView = mlayoutInflate.from(this).inflate(R.layout.popview,null);
 
         ImageButton error = (ImageButton) popView.findViewById(R.id.error);
         ImageView iv_movie = (ImageView) popView.findViewById(R.id.iv_movie);
+        TextView tv_moive_rate = (TextView) popView.findViewById(R.id.tv_moive_rate);
         TextView movie_title = (TextView) popView.findViewById(R.id.movie_title);
         TextView movie_time = (TextView) popView.findViewById(R.id.movie_time);
+        //装配数据
+        Glide.with(this).load(movieimage).into(iv_movie);
+        tv_moive_rate.setText(rating);
+        movie_time.setText(time);
+        movie_title.setText(title);
+
         error.setOnClickListener(this);
         iv_movie.setOnClickListener(this);
 
