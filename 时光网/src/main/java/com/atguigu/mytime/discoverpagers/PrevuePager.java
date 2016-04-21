@@ -2,6 +2,7 @@ package com.atguigu.mytime.discoverpagers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
+import com.atguigu.mytime.Utils.MessageUtils;
 import com.atguigu.mytime.Utils.NetUri;
 import com.atguigu.mytime.Utils.SpUtils;
 import com.atguigu.mytime.activity.SystemVideoPlayerActivity;
@@ -27,20 +29,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
-import pl.droidsonroids.gif.GifImageView;
 
 /**
  * 预告片
  * Created by Administrator on 16-4-8.
  */
-public class PrevuePager extends BasePager implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class PrevuePager extends BasePager implements AdapterView.OnItemClickListener {
 
     private static final String TAG = PrevuePager.class.getSimpleName();
 
+    private AnimationDrawable animationDrawable;
+    private ImageView loading_bg;
     private JSONObject trailer;
     private PrevueListAdapter adapter;
     private RefreshListView listview_discover;
-    private GifImageView loading;
+    private ImageView loading;
     private ImageView loading_failed;
     private ImageView prevue_head_icon;//头部的图片
     private List<JSONObject> lists;
@@ -61,14 +64,24 @@ public class PrevuePager extends BasePager implements View.OnClickListener, Adap
     public View initView(){
         View view = View.inflate(mactivity,R.layout.listview_discover,null);
         listview_discover = (RefreshListView) view.findViewById(R.id.listview_discover);
-//        loading= (GifImageView) view.findViewById(R.id.loading);
-//        /**
-//         * 加载gif图片
-//         */
-//        Glide.with(mactivity).load(R.id.loading).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(loading);
-//        loading_failed = (ImageView) view.findViewById(R.id.loading_failed);
-//        //设置点击事件的监听
-//        loading_failed.setOnClickListener(this);
+        loading= (ImageView) view.findViewById(R.id.loading);
+        loading_bg = (ImageView) view.findViewById(R.id.loading_bg);
+        loading_failed = (ImageView) view.findViewById(R.id.loading_failed);
+        animationDrawable= (AnimationDrawable) loading.getBackground();
+        //设置监听
+        loading_failed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loading_failed.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
+                loading_bg.setVisibility(View.VISIBLE);
+                animationDrawable.start();
+                getDatafromNet();
+            }
+        });
+        listview_discover.setIsRefresh(true);
+        listview_discover.setIsPullLoadmore(false);
+
         //listView的头布局
         View headview = View.inflate(mactivity, R.layout.prevue_headview,null);
         prevue_head_icon = (ImageView) headview.findViewById(R.id.prevue_head_icon);
@@ -77,15 +90,27 @@ public class PrevuePager extends BasePager implements View.OnClickListener, Adap
         listview_discover.addTopNewsView(headview);
         //给listview设置点击事件的监听
         listview_discover.setOnItemClickListener(this);
+        listview_discover.setOnRefreshListener(new PrevueOnRefreshListener());
 
         return view;
     }
+class PrevueOnRefreshListener implements RefreshListView.OnRefreshListener {
 
+    @Override
+    public void onPullDownRefresh() {
+        getDatafromNet();
+    }
+
+    @Override
+    public void onLoadMore() {
+
+    }
+}
     /**
      * 显示头部
      */
     private void initHeadview(){
-        x.image().bind(prevue_head_icon,trailer.optString("imageUrl"));
+        x.image().bind(prevue_head_icon, trailer.optString("imageUrl"));
         headview_title.setText(trailer.optString("title"));
         urlList.add(trailer.optString("imageUrl"));
         moveNames.add(trailer.optString("title"));
@@ -113,7 +138,11 @@ public class PrevuePager extends BasePager implements View.OnClickListener, Adap
      * 联网加载数据
      */
     private void getDatafromNet() {
-//        loading.setVisibility(View.VISIBLE);
+        //开启动画
+        loading.setVisibility(View.VISIBLE);
+        loading_bg.setVisibility(View.VISIBLE);
+        loading_failed.setVisibility(View.GONE);
+        animationDrawable.start();
         String uri = NetUri.DISCOVER_LIST;
         /**
          * 使用okhttp联网请求数据
@@ -122,19 +151,6 @@ public class PrevuePager extends BasePager implements View.OnClickListener, Adap
                 .url(uri)
                 .build()
                 .execute(new MyCallback());
-    }
-
-    /**
-     * 点击事件的回调方法
-     * @param v
-     */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.loading_failed:
-                getDatafromNet();
-                break;
-        }
     }
 
     /**
@@ -166,10 +182,11 @@ public class PrevuePager extends BasePager implements View.OnClickListener, Adap
 
         @Override
         public void onError(Call call, Exception e) {
-            if(loading_failed!=null){
-                loading_failed.setVisibility(View.VISIBLE);
-            }
-
+            MessageUtils.showMessage(mactivity, "请求数据失败！");
+            loading.setVisibility(View.GONE);
+            loading_bg.setVisibility(View.GONE);
+            loading_failed.setVisibility(View.VISIBLE);
+            animationDrawable.stop();
         }
 
         @Override
@@ -178,8 +195,12 @@ public class PrevuePager extends BasePager implements View.OnClickListener, Adap
             processJsonData(response);
             //将数据保存到本地SD卡中
             SpUtils.getInitialize(mactivity).saveJson(NetUri.DISCOVER_LIST, response);
-//            loading.setVisibility(View.GONE);
-//            loading_failed.setVisibility(View.GONE);
+            //恢复到原来的状态
+            listview_discover.onFinishRefresh(true);
+            loading.setVisibility(View.GONE);
+            loading_bg.setVisibility(View.GONE);
+            loading_failed.setVisibility(View.GONE);
+            animationDrawable.stop();
         }
     }
 
@@ -195,6 +216,7 @@ public class PrevuePager extends BasePager implements View.OnClickListener, Adap
 
         adapter = new PrevueListAdapter(mactivity, lists);
         listview_discover.setAdapter(adapter);
+        listview_discover.setSelection(listview_discover.getFirstVisiblePosition());
 
 
     }
@@ -210,7 +232,11 @@ public class PrevuePager extends BasePager implements View.OnClickListener, Adap
 
             JSONObject jsonObject = new JSONObject(result);
             JSONArray trailers = jsonObject.optJSONArray("trailers");
-            lists = new ArrayList<>();
+            if(lists==null) {
+
+                lists = new ArrayList<>();
+            }
+            lists.clear();
             //遍历数组
             for (int i = 0; i < trailers.length(); i++) {
                 JSONObject item = (JSONObject) trailers.get(i);

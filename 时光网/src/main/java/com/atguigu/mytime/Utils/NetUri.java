@@ -32,7 +32,6 @@ public class NetUri {
 
 
     public static final String MAll_LIST="http://api.m.mtime.cn/PageSubArea/MarketFirstPageNew.api?lastTime={0}";
-    public static final String NEWS_ITEM_URI = "http://api.m.mtime.cn/News/Detail.api?newsId=";
     public static int pageIndex=1;
     public static final String MAll_RECOMMENDGOODS_LIST="http://api.m.mtime.cn/ECommerce/RecommendProducts.api?pageIndex="+pageIndex+"&goodsIds=102315%2C102306%2C102486";
     //弹窗广告
@@ -44,5 +43,5 @@ public class NetUri {
     public static final String COMMENT_REVIEWID = "http://m.mtime.cn/#!/review/detail/";
     public static final String COMMENT_DETAILS ="http://api.m.mtime.cn/Review/Detail.api?reviewId=";
     public static final String NEWS_ITEM_URI ="http://api.m.mtime.cn/News/Detail.api?newsId=";
-
+    public static final String NEWSPAGER_LIST_BASE = "http://api.m.mtime.cn/News/NewsList.api?pageIndex=";
 }

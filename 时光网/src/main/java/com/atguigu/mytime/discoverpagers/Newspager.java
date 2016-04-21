@@ -2,6 +2,7 @@ package com.atguigu.mytime.discoverpagers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
+import com.atguigu.mytime.Utils.MessageUtils;
 import com.atguigu.mytime.Utils.NetUri;
 import com.atguigu.mytime.Utils.SpUtils;
 import com.atguigu.mytime.activity.NewsActivity;
@@ -35,6 +37,11 @@ import okhttp3.Call;
 public class Newspager extends BasePager implements AdapterView.OnItemClickListener {
     private JSONObject topNews;//头部信息
     private RefreshListView listview_newspager;
+    private ImageView loading;
+    //帧动画
+    private AnimationDrawable animationDrawable;
+    private ImageView loading_bg;
+    private ImageView loading_failed;
     //头布局
     private ImageView prevue_head_icon;
     private TextView headview_title;
@@ -42,11 +49,12 @@ public class Newspager extends BasePager implements AdapterView.OnItemClickListe
     private ImageView image_top_chinese;
     //列表信息
     private int totalCount;
-    private int pageCount;
     private List<NewsInfo.NewsListEntity> newsList;
     private NewsAdapter adapter;
     private int newsId;//头部的id
     private int itemId;
+    private boolean isLoadmore;
+    private int i=1;
 
     public Newspager(Activity mactivity, JSONObject topNews) {
         super(mactivity);
@@ -62,7 +70,25 @@ public class Newspager extends BasePager implements AdapterView.OnItemClickListe
     @Override
     public View initView() {
         View view = View.inflate(mactivity, R.layout.layout_newspager, null);
+        loading= (ImageView) view.findViewById(R.id.loading);
+        loading_bg = (ImageView) view.findViewById(R.id.loading_bg);
+        loading_failed = (ImageView) view.findViewById(R.id.loading_failed);
+        animationDrawable= (AnimationDrawable) loading.getBackground();
+        //设置监听
+        loading_failed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loading_failed.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
+                loading_bg.setVisibility(View.VISIBLE);
+                animationDrawable.start();
+                getDataFromnet();
+            }
+        });
         listview_newspager = (RefreshListView) view.findViewById(R.id.listview_newspager);
+        listview_newspager.setIsPullLoadmore(true);
+        listview_newspager.setIsRefresh(true);
+
         //加载头布局
         View headView = View.inflate(mactivity, R.layout.news_head, null);
         prevue_head_icon = (ImageView) headView.findViewById(R.id.prevue_head_icon);
@@ -73,9 +99,32 @@ public class Newspager extends BasePager implements AdapterView.OnItemClickListe
         listview_newspager.addTopNewsView(headView);
         //设置点击某个item的监听
         listview_newspager.setOnItemClickListener(this);
+        //设置监听
+        listview_newspager.setOnRefreshListener(new NewsOnrefreshListener());
         return view;
     }
+    class NewsOnrefreshListener implements RefreshListView.OnRefreshListener {
 
+    @Override
+    public void onPullDownRefresh() {
+        //下拉刷新
+        getDataFromnet();
+
+    }
+
+    @Override
+    public void onLoadMore() {
+        if(newsList.size()<totalCount){
+            //加载更多的数据
+            isLoadmore=true;
+            getDataFromnet();
+        }else{
+            isLoadmore=false;
+            //恢复
+            listview_newspager.onFinishRefresh(false);
+        }
+    }
+}
     @Override
     public void initData() {
         super.initData();
@@ -99,7 +148,18 @@ public class Newspager extends BasePager implements AdapterView.OnItemClickListe
      * 联网请求数据
      */
     private void getDataFromnet() {
-        String uri = NetUri.NEWSPAGER_LIST;
+        //开启动画
+        loading.setVisibility(View.VISIBLE);
+        loading_bg.setVisibility(View.VISIBLE);
+        loading_failed.setVisibility(View.GONE);
+        animationDrawable.start();
+        String uri = "";
+        if(isLoadmore) {
+            i++;
+            uri = NetUri.NEWSPAGER_LIST_BASE+i;
+        }else{
+            uri = NetUri.NEWSPAGER_LIST_BASE+1;
+        }
         OkHttpUtils.get().url(uri).build().execute(new NewCallback());
     }
 
@@ -137,13 +197,23 @@ public class Newspager extends BasePager implements AdapterView.OnItemClickListe
 
         @Override
         public void onError(Call call, Exception e) {
-
+            MessageUtils.showMessage(mactivity,"请求数据失败！");
+            loading.setVisibility(View.GONE);
+            loading_bg.setVisibility(View.GONE);
+            loading_failed.setVisibility(View.VISIBLE);
+            animationDrawable.stop();
         }
 
         @Override
         public void onResponse(String response) {
             //请求数据成功解析数据
             processData(response);
+            //恢复到原来的状态
+            listview_newspager.onFinishRefresh(true);
+            loading.setVisibility(View.GONE);
+            loading_bg.setVisibility(View.GONE);
+            loading_failed.setVisibility(View.GONE);
+            animationDrawable.stop();
             //保存到本地
             SpUtils.getInitialize(mactivity).saveJson("news_list", response);
         }
@@ -157,9 +227,16 @@ public class Newspager extends BasePager implements AdapterView.OnItemClickListe
     private void processData(String response) {
         parseData(response);//解析数据成功
         //设置adapter
-        adapter = new NewsAdapter();
-        //装配数据
-        listview_newspager.setAdapter(adapter);
+        if(isLoadmore) {
+            listview_newspager.setSelection(listview_newspager.getLastVisiblePosition());
+            adapter.notifyDataSetChanged();
+        }else{
+
+            adapter = new NewsAdapter();
+            //装配数据
+            listview_newspager.setAdapter(adapter);
+            listview_newspager.setSelection(listview_newspager.getFirstVisiblePosition());
+        }
 
     }
 
@@ -167,10 +244,14 @@ public class Newspager extends BasePager implements AdapterView.OnItemClickListe
         NewsInfo newsInfo = new Gson().fromJson(response, NewsInfo.class);
         //总的页数和条数
         totalCount = newsInfo.getTotalCount();
-        pageCount = newsInfo.getPageCount();
+        if(isLoadmore){
+            //item的数据集合
+            newsList.addAll(newsInfo.getNewsList());
 
-        //item的数据集合
-        newsList = newsInfo.getNewsList();
+        }else{
+            //item的数据集合
+            newsList = newsInfo.getNewsList();
+        }
 
 
     }

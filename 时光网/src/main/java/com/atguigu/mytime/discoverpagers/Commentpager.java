@@ -62,6 +62,8 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
     public View initView(){
         View view = View.inflate(mactivity, R.layout.listview_comment, null);
         listview_comment= (RefreshListView) view.findViewById(R.id.listview_comment);
+        listview_comment.setIsPullLoadmore(false);
+        listview_comment.setIsRefresh(true);
         loading = (ImageView) view.findViewById(R.id.loading);
         loading_bg = (ImageView) view.findViewById(R.id.loading_bg);
         loading_failed = (ImageView) view.findViewById(R.id.loading_failed);
@@ -73,6 +75,7 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
                 loading_failed.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
                 animationDrawable.start();
+                getDatafromNet();
             }
         });
         /**
@@ -191,9 +194,10 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
     }
 
     public void getDatafromNet() {
-        loading_bg.setVisibility(View.VISIBLE);
+        //开启动画
         loading.setVisibility(View.VISIBLE);
-        //开启帧动画
+        loading_bg.setVisibility(View.VISIBLE);
+        loading_failed.setVisibility(View.GONE);
         animationDrawable.start();
         OkHttpUtils.get().url(NetUri.COMMENT_LIST)
                 .build()
@@ -220,11 +224,9 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
             loading_bg.setVisibility(View.GONE);
             //请求数据成功
             processData(response);
+            listview_comment.onFinishRefresh(true);
             //将请求的数据保存到本地
             SpUtils.getInitialize(mactivity).saveJson(NetUri.COMMENT_LIST,response);
-            //更改加载界面
-//            loading.setVisibility(View.GONE);
-//            loading_failed.setVisibility(View.GONE);
 
         }
     }
@@ -237,9 +239,9 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
         parseJsonData(result);//解析数据成功
         //初始化adapter
         adapter=new CommentAdapter(mactivity,commentInfo);
-
         //显示列表
         listview_comment.setAdapter(adapter);
+        listview_comment.setSelection(listview_comment.getFirstVisiblePosition());
 
     }
 

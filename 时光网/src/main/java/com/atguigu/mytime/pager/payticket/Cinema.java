@@ -368,14 +368,14 @@ public class Cinema extends BaseDiscoverPager {
 
             }
         });
-        vp_alert.setAdapter(new MyAdapter());
+        vp_alert.setAdapter(new vp_alertAdapter());
         tablayout_alert.setupWithViewPager(vp_alert);
 
         final AlertDialog dialog = new AlertDialog.Builder(mActivity)
                 .setView(view).create();
         Window window = dialog.getWindow();
         window.setGravity(Gravity.BOTTOM);  //此处可以设置dialog显示的位置
-        window.setWindowAnimations(R.style.myCinemaDialogStyle);  //添加动画
+        window.setWindowAnimations(R.style.myCinemaDialogStyle);  //添加动画 从下面来
         dialog.show();
         //dialog的消失
         view.findViewById(R.id.tv_alert_tc).setOnClickListener(new View.OnClickListener() {
@@ -495,7 +495,7 @@ public class Cinema extends BaseDiscoverPager {
             return (int) (lhsDistance-rhsDistance);
         }
     }
-    private class MyAdapter extends PagerAdapter {
+    private class vp_alertAdapter extends PagerAdapter {
         @Override
         public int getCount() {
             return 4;

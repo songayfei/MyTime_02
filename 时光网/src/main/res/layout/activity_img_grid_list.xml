@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    tools:context="com.atguigu.mytime.activity.ImgGridListActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FF0099FF"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/image_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/find_news_img_detail_top_left_arrow" />
+        <TextView
+            android:id="@+id/imgs_title"
+            android:layout_centerHorizontal="true"
+            android:text="标题"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+<GridView
+    android:id="@+id/pic_grid"
+    android:layout_weight="1"
+    android:numColumns="4"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"/>
+</LinearLayout>

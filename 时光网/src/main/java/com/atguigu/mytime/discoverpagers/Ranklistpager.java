@@ -61,6 +61,8 @@ private RefreshListView listview_ranklist;
     public View initView() {
         View view = View.inflate(mactivity, R.layout.listview_ranklist, null);
         listview_ranklist = (RefreshListView) view.findViewById(R.id.listview_ranklist);
+        listview_ranklist.setIsPullLoadmore(true);
+        listview_ranklist.setIsRefresh(true);
         loading = (ImageView) view.findViewById(R.id.loading);
         loading_bg = (ImageView) view.findViewById(R.id.loading_bg);
         loading_failed = (ImageView) view.findViewById(R.id.loading_failed);
@@ -72,6 +74,7 @@ private RefreshListView listview_ranklist;
                 loading_failed.setVisibility(View.GONE);
                 loading.setVisibility(View.VISIBLE);
                 animationDrawable.start();
+                getDatafromNet();
             }
         });
         /**
@@ -116,9 +119,9 @@ private RefreshListView listview_ranklist;
     }
 
     @Override
-    public void onLoadMore() {
+    public void onLoadMore(){
         //上拉加载更多：使用的是同一个adapter，只需要更新adapter
-        if(lists.size()<totalCount) {
+        if(lists.size()<totalCount){
             isLoadMore=true;
             getDatafromNet();
 
@@ -199,16 +202,11 @@ private RefreshListView listview_ranklist;
             loading_failed.setVisibility(View.GONE);
             loading.setVisibility(View.GONE);
             loading_bg.setVisibility(View.GONE);
-            if(isLoadMore) {
                 processJson(response);
                 //请求数据成功，恢复到原来的状态
                 listview_ranklist.onFinishRefresh(true);
-            }else{
-                //解析数据
-                processJson(response);
                 //保存数据到本地
                 SpUtils.getInitialize(mactivity).saveJson("neturi_ranklist",response);
-            }
         }
     }
 
@@ -226,9 +224,9 @@ private RefreshListView listview_ranklist;
         }else{
 
             adapter=new RanklistAdapter(mactivity,lists);
-            listview_ranklist.setSelection(listview_ranklist.getFirstVisiblePosition());
             //显示列表
             listview_ranklist.setAdapter(adapter);
+            listview_ranklist.setSelection(listview_ranklist.getFirstVisiblePosition());
         }
 
 
