@@ -50,7 +50,7 @@ public class NewsAdapter extends PagerAdapter implements View.OnClickListener{
     public Object instantiateItem(ViewGroup container, int position) {
         String name = imagesTitles.get(position);
         String image = imagesUrls.get(position);
-        icon_name.setText(name);
+//        icon_name.setText(name);
         //加载每个item的布局文件
         ImageView imageView = new ImageView(context);
         //给图片设置点击时间的监听
