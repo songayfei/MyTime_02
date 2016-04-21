@@ -5,6 +5,7 @@ import android.app.Service;
 import android.os.Vibrator;
 
 import com.atguigu.mytime.service.LocationService;
+import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 
 import org.xutils.x;
@@ -15,9 +16,12 @@ import org.xutils.x;
 public class MyApplication extends Application {
     //百度定位服务
     public LocationService locationService;
+    public LocationClient mLocationClient;
     public Vibrator mVibrator;
 
     private static MyApplication myinstance;
+    public static double latitude;
+    public static double longitude;
 
     public static MyApplication getMyinstance() {
         return myinstance;
@@ -32,6 +36,9 @@ public class MyApplication extends Application {
         x.Ext.init(this);
         x.Ext.setDebug(true);
         setMyinstance(this);//获取app实例
+
+        mLocationClient = new LocationClient(this.getApplicationContext());
+
         /***
          * 初始化定位sdk，建议在Application中创建
          */

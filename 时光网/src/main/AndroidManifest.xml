@@ -47,7 +47,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-<!--二维码-->
+    <!-- 二维码 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -60,7 +60,7 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
-        android:name=".Utils.MyApplication"
+        android:name="com.atguigu.mytime.Utils.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -70,33 +70,33 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="1sSuWTwyOvBgHSXz7b9boMXzwt0dxH8a" />
 
-        <activity android:name=".activity.WelcomActivity">
+        <activity android:name="com.atguigu.mytime.activity.WelcomActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.NewsActivity"></activity>
-        <activity android:name=".activity.GuideActivity" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.SelecorCityActivity" />
+        <activity android:name="com.atguigu.mytime.activity.NewsActivity" />
+        <activity android:name="com.atguigu.mytime.activity.GuideActivity" />
+        <activity android:name="com.atguigu.mytime.activity.MainActivity" />
+        <activity android:name="com.atguigu.mytime.activity.SelecorCityActivity" />
 
         <service
-            android:name=".service.CheckNetwork"
+            android:name="com.atguigu.mytime.service.CheckNetwork"
             android:enabled="true"
             android:exported="true" />
 
         <receiver
-            android:name=".Receiver.NetReceiver"
+            android:name="com.atguigu.mytime.Receiver.NetReceiver"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activity.GoodsWebViewActivity" />
-        <activity android:name=".activity.SearchGoodsActivity" />
-        <activity android:name=".activity.MallBaseActivity" />
+        <activity android:name="com.atguigu.mytime.activity.GoodsWebViewActivity" />
+        <activity android:name="com.atguigu.mytime.activity.SearchGoodsActivity" />
+        <activity android:name="com.atguigu.mytime.activity.MallBaseActivity" />
         <activity
-            android:name=".activity.SystemVideoPlayerActivity"
+            android:name="com.atguigu.mytime.activity.SystemVideoPlayerActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
@@ -293,7 +293,6 @@
                 <data android:pathPattern=".*\\.m4v" />
                 <data android:pathPattern=".*\\.mp4" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -305,30 +304,39 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="rtsp" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="http" />
                 <data android:mimeType="video/*" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="video/*" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:scheme="file" />
                 <data android:mimeType="video/*" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -340,32 +348,32 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".activity.CommentWebviewActivity"
+            android:name="com.atguigu.mytime.activity.CommentWebviewActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
-            android:name=".activity.AdvListActivity"
+            android:name="com.atguigu.mytime.activity.AdvListActivity"
             android:theme="@style/Theme.MyActivity" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
         <service
-            android:name=".service.LocationCityService"
+            android:name="com.atguigu.mytime.service.LocationCityService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
         <activity
             android:name="com.zf.myzxing.CaptureActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <!--<activity-->
-        <!--android:name="com.zf.myzxing.CaptureActivity"-->
-        <!--android:screenOrientation="portrait" >-->
-        <!--</activity>-->
+            android:screenOrientation="portrait"></activity>
+        <!-- <activity -->
+        <!-- android:name="com.zf.myzxing.CaptureActivity" -->
+        <!-- android:screenOrientation="portrait" > -->
+        <!-- </activity> -->
         <activity
             android:name="com.zf.myzxing.ShowActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.atguigu.mytime.activity.MovieDetailsActivity"></activity>
     </application>
 
 </manifest>

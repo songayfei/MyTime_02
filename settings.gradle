@@ -1,2 +1,6 @@
-include ':时光网', ':xutils_library', ':RefreshListView', ':vitamio1', ':CityList', ':app'
+include ':时光网', ':xutils_library', ':RefreshListView', ':vitamio1', ':CityList', ':app', ':library', ':pinned-section-listview-master'
 include ':baiduNaviSDK_3_1_1_SimpleDemo'
+include ':xListView'
+include ':example'
+include ':pinneActivity'
+include ':example2'
