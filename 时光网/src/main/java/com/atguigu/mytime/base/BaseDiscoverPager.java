@@ -31,4 +31,6 @@ public abstract class BaseDiscoverPager {
      * 子类加载数据的方法
      */
     public void initData(){}
+
+
 }

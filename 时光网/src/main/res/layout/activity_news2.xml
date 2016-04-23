@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_webview"
+android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+<RelativeLayout
+    android:id="@+id/rl_webview"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
 
     <LinearLayout
         android:id="@+id/ll_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager_news"
@@ -25,7 +30,7 @@
         android:id="@+id/scrollView_news"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,7 +91,7 @@
     <RelativeLayout
         android:id="@+id/rl_news_bottom"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:layout_alignParentBottom="true"
         android:background="#00000000"
         android:gravity="center_vertical">
@@ -141,6 +146,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/icon_comment" />
 
             <TextView
@@ -150,38 +156,47 @@
                 android:layout_marginLeft="35dp"
                 android:background="@drawable/find_news_detail_comment_num_icon"
                 android:text="24"
+                android:visibility="visible"
                 android:textColor="@android:color/black" />
             <ImageButton
                 android:id="@+id/pic_imglist"
-                android:layout_toRightOf="@id/comment"
-                android:visibility="gone"
-                android:layout_marginLeft="20dp"
-                android:layout_centerVertical="true"
+                android:visibility="visible"
                 android:background="@drawable/pic_imglist"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/comment_count"
+                android:layout_toRightOf="@+id/comment_count"
+                android:layout_toEndOf="@+id/comment_count" />
             <ImageButton
                 android:id="@+id/pic_download"
-                android:layout_toRightOf="@id/pic_imglist"
-                android:visibility="gone"
-                android:layout_marginLeft="20dp"
-                android:layout_centerVertical="true"
+                android:visibility="visible"
                 android:background="@drawable/pic_download"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginStart="23dp"
+                android:layout_alignBottom="@+id/pic_imglist"
+                android:layout_toRightOf="@+id/pic_imglist"
+                android:layout_toEndOf="@+id/pic_imglist" />
             <TextView
                 android:id="@+id/comment_search"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="60dp"
-                android:padding="3dp"
-                android:background="@drawable/actor_detail_unlike_background"
+                android:layout_height="100dp"
+                android:layout_marginRight="31dp"
+                android:background="@drawable/btn_line_gray_h90"
                 android:clickable="true"
-                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:gravity="center"
                 android:src="@android:color/darker_gray"
                 android:text="相关电影/影人"
-                android:textSize="25sp" />
+                android:textSize="20sp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="31dp"
+                android:layout_alignBottom="@+id/comment"
+                android:layout_alignTop="@+id/comment_count" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>
+</LinearLayout>

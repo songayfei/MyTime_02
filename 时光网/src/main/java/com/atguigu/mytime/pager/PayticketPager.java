@@ -1,16 +1,23 @@
 package com.atguigu.mytime.pager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
+import com.atguigu.mytime.activity.SelecorCityActivity;
 import com.atguigu.mytime.base.BaseDiscoverPager;
 import com.atguigu.mytime.base.BasePager;
 import com.atguigu.mytime.pager.payticket.Cinema;
@@ -21,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/4/8.
+ * Created by Administrator on 2016/4/20.
  * 购票
  */
 public class PayticketPager extends BasePager  implements View.OnClickListener {
@@ -35,13 +42,19 @@ public class PayticketPager extends BasePager  implements View.OnClickListener {
 
 
     private ImageButton ib_rearch_buyticket;
-
+    private ImageButton im_seek_back;
+    private LinearLayout search_title2;
+    private EditText tv_seek_fiml;
+    private Button tv_seek_start;
+    private RelativeLayout cinema_title;
 
     public NoScrollViewPager vp_content_buyticket;
 
     private List<BaseDiscoverPager> data;
     private boolean ismovie = true;
     private boolean isCinema = false;
+    private Cinema cinema;
+    private Boolean showNear=true;
 
     public PayticketPager(Activity mactivity) {
         super(mactivity);
@@ -56,6 +69,15 @@ public class PayticketPager extends BasePager  implements View.OnClickListener {
         btn_title_cinema_buyticket = (Button) view.findViewById(R.id.btn_title_cinema_buyticket);
         ib_rearch_buyticket = (ImageButton) view.findViewById(R.id.ib_rearch_buyticket);
         vp_content_buyticket = (NoScrollViewPager) view.findViewById(R.id.vp_content_buyticket);
+        search_title2 = (LinearLayout) view.findViewById(R.id.search_title2);
+
+        im_seek_back = (ImageButton) view.findViewById(R.id.im_seek_back);
+        tv_seek_fiml = (EditText) view.findViewById(R.id.tv_seek_fiml);
+         tv_seek_start = (Button) view.findViewById(R.id.tv_seek_start);
+        cinema_title = (RelativeLayout) view.findViewById(R.id.cinema_title);
+        im_seek_back.setOnClickListener(this);
+        tv_seek_start.setOnClickListener(this);
+        tv_seek_fiml.addTextChangedListener(new CinemaTextWatcher());
         return view;
     }
 
@@ -64,7 +86,8 @@ public class PayticketPager extends BasePager  implements View.OnClickListener {
         super.initData();
         data = new ArrayList<>();
         data.add(new MyMovie(mactivity));
-        data.add(new Cinema(mactivity));
+        cinema = new Cinema(mactivity,this);
+        data.add(cinema);
         setlistener();
         vp_content_buyticket.setAdapter(new MyPagerAdapter());
     }
@@ -104,8 +127,8 @@ public class PayticketPager extends BasePager  implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_city_buyticket :
-                //启动定位页面
-
+                Intent intent = new Intent(mactivity, SelecorCityActivity.class);
+                mactivity.startActivity(intent);
                 break;
             case R.id.btn_title_movie_buyticket :
                 //电影页面
@@ -132,14 +155,35 @@ public class PayticketPager extends BasePager  implements View.OnClickListener {
                 int item = vp_content_buyticket.getCurrentItem();
 
                 if(item==1) {
-
+                    search_title2.setVisibility(View.VISIBLE);
+                    cinema_title.setVisibility(View.GONE);
+                    showNear = false;
                 }else{
-
+                    search_title2.setVisibility(View.GONE);
+                    cinema_title.setVisibility(View.VISIBLE);
+                    showNear=true;
                 }
 
 
                 break;
+            case R.id.im_seek_back:
+                search_title2.setVisibility(View.GONE);
+                cinema_title.setVisibility(View.VISIBLE);
+                showNear=true;
+                cinema.initData2();
+
+                break;
+            case R.id.tv_seek_start:
+                //// TODO: 2016/4/22 显示
+                String resource = tv_seek_fiml.getText().toString();
+                cinema.showSearch(resource);
+                break;
         }
+    }
+
+    public boolean showNear() {
+
+        return showNear;
     }
 
     private class MyPagerAdapter extends PagerAdapter {
@@ -164,6 +208,26 @@ public class PayticketPager extends BasePager  implements View.OnClickListener {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
+        }
+    }
+
+
+    private class CinemaTextWatcher implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String resource = s.toString();
+            cinema.showSearch(resource);
+
         }
     }
 }

@@ -4,13 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+    <include layout="@layout/sousuo_title"
+        android:visibility="gone"
+         ></include>
     <RelativeLayout
+        android:id="@+id/cinema_title"
         android:gravity="center_vertical"
         android:background="#FF4052B5"
         android:padding="10dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="60dp"
+        >
         <TextView
             android:id="@+id/tv_city_buyticket"
             android:layout_centerVertical="true"
