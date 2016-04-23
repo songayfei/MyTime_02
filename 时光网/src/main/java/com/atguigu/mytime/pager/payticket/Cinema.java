@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import com.atguigu.mytime.Utils.LocationUtil;
 import com.atguigu.mytime.Utils.MyApplication;
 import com.atguigu.mytime.base.BaseDiscoverPager;
 import com.atguigu.mytime.entity.CinemaBean;
+import com.atguigu.mytime.pager.PayticketPager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,11 +40,12 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/2/29.
+ * Created by Administrator on 2016/4/22.
  */
 public class Cinema extends BaseDiscoverPager {
 
 
+    private final PayticketPager payticketPager;
     private RadioGroup rg_cinema_choose;
 
 
@@ -66,7 +69,7 @@ public class Cinema extends BaseDiscoverPager {
     private static String CINEMA_LIST_URI = "http://api.m.mtime.cn/OnlineLocationCinema/OnlineCinemasByCity.api?locationId=290&deviceToken={1}";
     private List<CinemaBean> rawCinemaBeans;
     private AnimationDrawable background;
-    private List cinemaBeans;
+    private List<CinemaBean> cinemaBeans;
 
     private int nearestCinemaPosition;
     private double currentLatitude;
@@ -79,8 +82,9 @@ public class Cinema extends BaseDiscoverPager {
     private String json;
     private String[] list;
 
-    public Cinema(Activity activity) {
+    public Cinema(Activity activity, PayticketPager payticketPager) {
         super(activity);
+        this.payticketPager =payticketPager;
     }
 
     @Override
@@ -109,7 +113,14 @@ public class Cinema extends BaseDiscoverPager {
     public void initData() {
         rb_cinema_total.isChecked();
         getDataFromNet();
+
     }
+
+    public void initData2() {
+        processData(json);
+        rb_cinema_total.setChecked(true);
+    }
+
 
     private void getDataFromNet() {
         RequestParams params = new RequestParams(CINEMA_LIST_URI);
@@ -166,7 +177,7 @@ public class Cinema extends BaseDiscoverPager {
         cinemaBeans.add(0, remove);
 
         lv_cinema_list.setAdapter(mAdapter);
-
+        oldBeans.addAll(cinemaBeans);
         //lv_cinema_list.setAdapter(new MyCinemaAdapter(activity,cinemaBean));
     }
 
@@ -237,7 +248,7 @@ public class Cinema extends BaseDiscoverPager {
                 hodler = (ViewHolder) convertView.getTag();
             }
 
-            if (position == 0 && rb_cinema_total.isChecked()) {
+            if (position == 0 && rb_cinema_total.isChecked()&&payticketPager.showNear()) {
                 hodler.iv_cinima_item_nearst_icon.setVisibility(View.VISIBLE);
                 hodler.line.setVisibility(View.VISIBLE);
             } else {
@@ -310,22 +321,26 @@ public class Cinema extends BaseDiscoverPager {
         }
     };
 
-
+    private int checkedId=R.id.rb_cinema_total;
     private class MyOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             switch (checkedId) {
                 case R.id.rb_cinema_total :
                     processData(json);
+                    checkedId=R.id.rb_cinema_total;
                     break;
                 case R.id.rb_cinema_price :
                     sortPrice();//价格排序
+                    checkedId=R.id.rb_cinema_price;
                     break;
                 case R.id.rb_cinema_near :
                     sortNear();//附近
+                    checkedId=R.id.rb_cinema_near;
                     break;
                 case R.id.rb_cinema_screen :
                     swtichScreen();
+                    checkedId=R.id.rb_cinema_screen;
                     break;
 
             }
@@ -354,11 +369,11 @@ public class Cinema extends BaseDiscoverPager {
                 switch (position) {
                     case 0:
                         list = ConstantUtils.tese;
-                        baseAdapter.notifyDataSetChanged();
+                        inner_shaixuan_Adapter.notifyDataSetChanged();
                         break;
                     default:
                         list = ConstantUtils.shagnquan;
-                        baseAdapter.notifyDataSetChanged();
+                        inner_shaixuan_Adapter.notifyDataSetChanged();
                         break;
                 }
             }
@@ -422,7 +437,7 @@ public class Cinema extends BaseDiscoverPager {
                 near.add(cinemaBean);
             }
         }
-        cinemaBeans = near;
+       // cinemaBeans = near;
         Collections.sort(cinemaBeans, new MyNearComparator());
         mAdapter.notifyDataSetChanged();//刷新适配器
     }
@@ -447,7 +462,7 @@ public class Cinema extends BaseDiscoverPager {
                 price.add(cinemaBean);
             }
         }
-        cinemaBeans = price;
+        //cinemaBeans = price;
         Collections.sort(cinemaBeans, new MyPriceComparator());
         if(SORT == NOSORT) {
             rg_cinema_choose.clearCheck();
@@ -495,7 +510,7 @@ public class Cinema extends BaseDiscoverPager {
             return (int) (lhsDistance-rhsDistance);
         }
     }
-    private class vp_alertAdapter extends PagerAdapter {
+    private class vp_alertAdapter extends PagerAdapter implements AdapterView.OnItemClickListener {
         @Override
         public int getCount() {
             return 4;
@@ -519,14 +534,29 @@ public class Cinema extends BaseDiscoverPager {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             GridView view = (GridView) View.inflate(mActivity,R.layout.grid_alert,null);
-            view.setAdapter(baseAdapter);
+            view.setOnItemClickListener(this);
+
+            view.setAdapter(inner_shaixuan_Adapter);
             container.addView(view);
             return view;
+        }
+
+        /**
+         * 分类筛选
+         * @param parent
+         * @param view
+         * @param position
+         * @param id
+         */
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
         }
     }
 
 
-    private MyBaseAdapter baseAdapter = new MyBaseAdapter();
+    private MyBaseAdapter inner_shaixuan_Adapter = new MyBaseAdapter();
+
     private class MyBaseAdapter extends BaseAdapter {
         @Override
         public int getCount() {
@@ -549,6 +579,49 @@ public class Cinema extends BaseDiscoverPager {
             TextView textView = (TextView) view.findViewById(R.id.text);
             textView.setText(list[position]);
             return view;
+            
         }
     }
+
+    public void showSearch(String s) {
+        cinemaBeans=oldBeans;
+        Beans.clear();
+        for ( CinemaBean Bean : cinemaBeans) {
+            
+            if(Bean.getCinameName().contains(s)) {
+                Beans.add(Bean);
+            }
+        }
+
+        switch (checkedId) {
+            case R.id.rb_cinema_total :
+               // processData(json);
+
+                break;
+            case R.id.rb_cinema_price :
+                sortPrice();//价格排序
+
+                break;
+            case R.id.rb_cinema_near :
+                sortNear();//附近
+
+                break;
+            case R.id.rb_cinema_screen :
+                swtichScreen();
+
+                break;
+
+        }
+
+        cinemaBeans=Beans;
+        mAdapter.notifyDataSetChanged();
+        //刷新完还原集合
+
+    }
+
+    public List<CinemaBean> Beans = new ArrayList();
+    public List<CinemaBean> oldBeans = new ArrayList();
+
+    
+    
 }
