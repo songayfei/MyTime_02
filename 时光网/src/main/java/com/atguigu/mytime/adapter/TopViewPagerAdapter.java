@@ -7,10 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.atguigu.mytime.activity.HomeWebViewActivity;
 import com.atguigu.mytime.activity.MainActivity;
 import com.atguigu.mytime.activity.homewebview.HomeTopAndButtomActivity;
-import com.atguigu.mytime.activity.homewebview.HomeTopWebViewActivity;
+import com.atguigu.mytime.activity.homewebview.ShareActivity;
 import com.atguigu.mytime.entity.HomeShopInfo;
 import com.bumptech.glide.Glide;
 
@@ -64,13 +63,9 @@ public class TopViewPagerAdapter extends PagerAdapter {
             int position = (int) v.getTag();
             switch (position) {
                 case 0:
-                    //有头有尾
-                    Intent intent = new Intent(mActivity, HomeWebViewActivity.class);
-                    intent.putExtra("url", topPosters.get(position).getUrl());
-                    mActivity.startActivity(intent);
-                    break;
                 case 1:
-                    intent = new Intent(mActivity, HomeTopWebViewActivity.class);
+                    //有头有尾
+                    Intent intent = new Intent(mActivity, ShareActivity.class);
                     intent.putExtra("url", topPosters.get(position).getUrl());
                     mActivity.startActivity(intent);
                     break;
@@ -82,7 +77,8 @@ public class TopViewPagerAdapter extends PagerAdapter {
                     break;
                 case 4:
                     MainActivity mainActivity = (MainActivity) mActivity;
-                    mainActivity.setPosition(topPosters.size() - 1);
+                    mainActivity.setPosition(2);
+                    mActivity.finish();
                     break;
             }
         }

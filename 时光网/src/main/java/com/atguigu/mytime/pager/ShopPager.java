@@ -195,6 +195,11 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
     }
 
+    @Override
+    public void showPger(String[] city_name_id) {
+
+    }
+
     private void net() {
 
         new OkhttpUtils2<MallGoodsInfos>(NetUri.MAll_LIST, mactivity, MallGoodsInfos.class, true, netError);
@@ -679,7 +684,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
             case R.id.ib_mall_home_scan:
                 //TODO implement
                 Intent intent1 = new Intent(mactivity, CaptureActivity.class);
-                mactivity.startActivityForResult(intent1, 666);
+                mactivity.startActivityForResult(intent1,666);
                 break;
             case R.id.ib_mall_home_cart:
                 //TODO implement

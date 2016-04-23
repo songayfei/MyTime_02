@@ -1,6 +1,7 @@
 package com.atguigu.mytime.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
+import com.atguigu.mytime.Utils.NetUri;
+import com.atguigu.mytime.activity.MainActivity;
+import com.atguigu.mytime.activity.homewebview.Home_movie_Activity;
 import com.atguigu.mytime.entity.HorizontalListViewInfo;
 import com.bumptech.glide.Glide;
 
@@ -52,11 +56,13 @@ public class HorizontalListViewAdapter extends BaseAdapter {
             holder.tvMovieName= (TextView) convertView.findViewById(R.id.tv_movie_name);
             holder.tvRating= (TextView) convertView.findViewById(R.id.tv_rating);
             holder.btnBuy= (Button) convertView.findViewById(R.id.btn_buy);
+            holder.btnBuy.setOnClickListener(new TicketButtomOnClickListener());
             convertView.setTag(holder);
         }else {
             holder= (ViewHolder) convertView.getTag();
         }
-        HorizontalListViewInfo.MoviesEntity moviesEntity = movies.get(position);
+        final HorizontalListViewInfo.MoviesEntity moviesEntity = movies.get(position);
+        final int movieId = moviesEntity.getMovieId();
         Glide.with(activity).load(moviesEntity.getImg()).into(holder.imMovie);//图片
         if(moviesEntity.isIs3D()&&moviesEntity.isIsIMAX3D()){
             holder.im_3d.setVisibility(View.VISIBLE);
@@ -77,11 +83,14 @@ public class HorizontalListViewAdapter extends BaseAdapter {
         }
         holder.tvMovieName.setText(titleCn);
         holder.tvRating.setText(moviesEntity.getRatingFinal() + "");//评分
+        
         //图片点击事件
         holder.imMovie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //new InterNetConn(NetUri.HLISTVIEW,activity,HomeShopInfo.class);
+                Intent intent = new Intent(activity,Home_movie_Activity.class);
+                intent.putExtra("url",NetUri.HOME_MOVIE+movieId);
+                activity.startActivity(intent);
             }
         });
         //购票Buttom 到购票页面
@@ -100,5 +109,13 @@ public class HorizontalListViewAdapter extends BaseAdapter {
         private TextView tvMovieName;
         private Button btnBuy;
     }
+    class TicketButtomOnClickListener implements View.OnClickListener {
 
+        @Override
+        public void onClick(View v) {
+            MainActivity mainActivity= (MainActivity) activity;
+            mainActivity.setPosition(1);
+            activity.finish();
+        }
+    }
 }

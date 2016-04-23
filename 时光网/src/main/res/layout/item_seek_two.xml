@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingTop="10dp"
+    android:layout_height="120dp"
+    android:minHeight="120dp">
+    <ImageView
+        android:id="@+id/im_seek_img"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        />
+    <LinearLayout
+        android:layout_toRightOf="@+id/im_seek_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        >
+        <TextView
+            android:id="@+id/tv_matching_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/seek_color03"
+            android:text="标题"/>
+        <TextView
+            android:id="@+id/tv_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/seek_color04"
+            android:layout_marginTop="8dp"
+            android:text="标题"/>
+        <TextView
+            android:id="@+id/tv_property"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/seek_color03"
+            android:layout_marginTop="10dp"
+            android:text="标题"/>
+    </LinearLayout>
+</RelativeLayout>

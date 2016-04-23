@@ -2,12 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/welcome"
+
     >
+
     <ImageView
         android:id="@+id/rl_welcom"
         android:layout_width="match_parent"
-        android:scaleType="fitXY"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@drawable/welcome"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/welcom_text"
+        android:background="@drawable/welcom_textview"
+        android:textSize="20sp" />
 
 </RelativeLayout>

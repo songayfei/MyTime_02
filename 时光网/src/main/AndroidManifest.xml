@@ -60,7 +60,7 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
-        android:name="com.atguigu.mytime.Utils.MyApplication"
+        android:name=".Utils.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -70,33 +70,32 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="1sSuWTwyOvBgHSXz7b9boMXzwt0dxH8a" />
 
-        <activity android:name="com.atguigu.mytime.activity.WelcomActivity">
+        <activity android:name=".activity.WelcomActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.atguigu.mytime.activity.NewsActivity" />
-        <activity android:name="com.atguigu.mytime.activity.GuideActivity" />
-        <activity android:name="com.atguigu.mytime.activity.MainActivity" />
-        <activity android:name="com.atguigu.mytime.activity.SelecorCityActivity" />
+        <activity android:name=".activity.GuideActivity" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.SelecorCityActivity" />
 
         <service
-            android:name="com.atguigu.mytime.service.CheckNetwork"
+            android:name=".service.CheckNetwork"
             android:enabled="true"
             android:exported="true" />
 
         <receiver
-            android:name="com.atguigu.mytime.Receiver.NetReceiver"
+            android:name=".Receiver.NetReceiver"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name="com.atguigu.mytime.activity.GoodsWebViewActivity" />
-        <activity android:name="com.atguigu.mytime.activity.SearchGoodsActivity" />
-        <activity android:name="com.atguigu.mytime.activity.MallBaseActivity" />
+        <activity android:name=".activity.GoodsWebViewActivity" />
+        <activity android:name=".activity.SearchGoodsActivity" />
+        <activity android:name=".activity.MallBaseActivity" />
         <activity
-            android:name="com.atguigu.mytime.activity.SystemVideoPlayerActivity"
+            android:name=".activity.SystemVideoPlayerActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
@@ -348,10 +347,10 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.atguigu.mytime.activity.CommentWebviewActivity"
+            android:name=".activity.CommentWebviewActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
-            android:name="com.atguigu.mytime.activity.AdvListActivity"
+            android:name=".activity.AdvListActivity"
             android:theme="@style/Theme.MyActivity" />
 
         <service
@@ -359,21 +358,31 @@
             android:enabled="true"
             android:process=":remote" />
         <service
-            android:name="com.atguigu.mytime.service.LocationCityService"
+            android:name=".service.LocationCityService"
             android:enabled="true"
             android:exported="true" />
 
         <activity
             android:name="com.zf.myzxing.CaptureActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <!-- <activity -->
         <!-- android:name="com.zf.myzxing.CaptureActivity" -->
         <!-- android:screenOrientation="portrait" > -->
         <!-- </activity> -->
+
         <activity
             android:name="com.zf.myzxing.ShowActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name="com.atguigu.mytime.activity.MovieDetailsActivity"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SeekActivity" />
+        <activity android:name=".activity.homewebview.ShareActivity" />
+        <activity android:name=".activity.homewebview.HomeTopAndButtomActivity" />
+        <activity
+            android:name=".activity.homewebview.Home_movie_Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.MovieDetailsActivity" />
+        <activity android:name=".activity.NewsActivity" />
+        <activity android:name=".activity.homewebview.Shop_WebView_Activity"/>
+        <activity android:name=".activity.homewebview.Share_news_Activity"/>
     </application>
 
 </manifest>

@@ -62,6 +62,11 @@ public class UserPager extends BasePager  implements View.OnClickListener, Obser
 
     }
 
+    @Override
+    public void showPger(String[] city_name_id) {
+
+    }
+
 
     @Override
     public void onClick(View v) {

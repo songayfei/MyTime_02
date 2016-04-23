@@ -33,5 +33,5 @@ public abstract class BasePager {
     public void clearEvent(){}
 
 
-
+    public abstract void showPger(String[] city_name_id);
 }

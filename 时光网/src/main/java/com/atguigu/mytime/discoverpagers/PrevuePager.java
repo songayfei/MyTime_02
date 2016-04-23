@@ -134,6 +134,11 @@ class PrevueOnRefreshListener implements RefreshListView.OnRefreshListener {
 
     }
 
+    @Override
+    public void showPger(String[] city_name_id) {
+
+    }
+
     /**
      * 联网加载数据
      */

@@ -14,9 +14,9 @@ import de.greenrobot.event.EventBus;
 
 public class NetReceiver extends BroadcastReceiver {
 
-
+   private  OneGetData isconnected;
     public NetReceiver() {
-
+        isconnected=new OneGetData(false);
     }
 
     @Override
@@ -25,8 +25,7 @@ public class NetReceiver extends BroadcastReceiver {
         NetworkInfo gprs = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         NetworkInfo wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         if(!gprs.isConnected()&&!wifi.isConnected()){
-            OneGetData oneGetData=new OneGetData(false);
-            EventBus.getDefault().post(oneGetData);
+            EventBus.getDefault().post(isconnected);
             new AlertDialog.Builder(context)
                         .setTitle("提示")
                         .setMessage("网络错误")

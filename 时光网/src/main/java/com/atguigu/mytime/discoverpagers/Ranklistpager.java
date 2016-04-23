@@ -151,6 +151,11 @@ private RefreshListView listview_ranklist;
         getDatafromNet();
     }
 
+    @Override
+    public void showPger(String[] city_name_id) {
+
+    }
+
     /**
      * 初始化头部
      */

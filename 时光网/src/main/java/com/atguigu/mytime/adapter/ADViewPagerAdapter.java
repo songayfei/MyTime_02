@@ -1,11 +1,13 @@
 package com.atguigu.mytime.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.atguigu.mytime.activity.homewebview.HomeTopAndButtomActivity;
 import com.atguigu.mytime.entity.HomeShopInfo;
 import com.bumptech.glide.Glide;
 
@@ -37,7 +39,16 @@ public class ADViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         position = position % advList.size();
         ImageView imageView=new ImageView(mActivity);
+        final String url = advList.get(position).getUrl();
         Glide.with(mActivity).load(advList.get(position).getImg()).into(imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, HomeTopAndButtomActivity.class);
+                intent.putExtra("url",url);
+                mActivity.startActivity(intent);
+            }
+        });
         container.addView(imageView);
         return imageView;
     }

@@ -7,9 +7,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="5dp"
         android:background="#1874CD">
 
         <ImageView
+            android:id="@+id/im_rollback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -32,6 +34,8 @@
         android:background="#EFEFEF"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:paddingBottom="5dp"
         android:paddingTop="5dp">
 
