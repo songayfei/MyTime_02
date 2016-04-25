@@ -34,6 +34,7 @@
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/huise"
                 android:gravity="center_vertical"
+                android:clickable="true"
                 android:paddingLeft="8dp"
                 android:text="影片/影人/影院 任你搜" />
 
@@ -48,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:clickable="true"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/title_bar_search_button_scan_background" />
         </LinearLayout>
@@ -120,11 +122,13 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/tv_onshow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
+            android:clickable="true"
             android:gravity="center">
 
             <TextView
@@ -138,6 +142,7 @@
                 android:textSize="18sp" />
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -154,11 +159,13 @@
             android:background="#000000" />
 
         <LinearLayout
+            android:id="@+id/tv_cinema"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
+            android:clickable="true"
             android:gravity="center">
 
             <TextView
@@ -172,6 +179,7 @@
                 android:textSize="18sp" />
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -205,6 +213,8 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_seniority01"
+            android:clickable="true"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -214,6 +224,8 @@
             android:text="时光热板" />
 
         <TextView
+            android:id="@+id/tv_seniority02"
+            android:clickable="true"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -223,6 +235,8 @@
             android:text="全球票房" />
 
         <TextView
+            android:id="@+id/tv_seniority03"
+            android:clickable="true"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -232,6 +246,8 @@
             android:text="新片预告" />
 
         <TextView
+            android:id="@+id/tv_seniority04"
+            android:clickable="true"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

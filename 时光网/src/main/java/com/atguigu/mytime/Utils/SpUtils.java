@@ -18,6 +18,8 @@ import java.io.ObjectOutputStream;
 public class SpUtils {
     public static final String GUIDE ="guide";//标识是否进入主页面
     public static final String CITY = "city_name";//城市
+    public static final String CITY_NAME = "city";//城市
+    public static final String CITY_ID = "city_id";
     /*public static final String URL = URLPath.WEB_SERVICE_URL;
     public static final String READ_ARRAY_ID = "read_news_id_array_key";//保存点击过的item的id
     public static final String PHOTOS_IMAGE = URLPath.PHOTO_IMAGE_URL;*/

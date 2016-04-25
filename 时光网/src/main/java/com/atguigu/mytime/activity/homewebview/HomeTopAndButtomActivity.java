@@ -1,19 +1,24 @@
 package com.atguigu.mytime.activity.homewebview;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.atguigu.mytime.R;
+import com.atguigu.mytime.Utils.MessageUtils;
 
 public class HomeTopAndButtomActivity extends Activity implements View.OnClickListener {
     private WebView webView;
-    private ImageButton imPre;
-    private ImageButton imNext;
-    private ImageButton imOpen;
-    private ImageButton imRefresh;
+    private ImageView imPre;
+    private ImageView imNext;
+    private ImageView imOpen;
+    private ImageView imRefresh;
+    private String url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +31,11 @@ public class HomeTopAndButtomActivity extends Activity implements View.OnClickLi
      * 初始化
      */
     private void findViews() {
-        webView = (WebView)findViewById( R.id.webView );
-        imPre = (ImageButton)findViewById( R.id.im_pre );
-        imNext = (ImageButton)findViewById( R.id.im_next );
-        imOpen = (ImageButton)findViewById( R.id.im_open );
-        imRefresh = (ImageButton)findViewById( R.id.im_refresh );
-        webView = (WebView) findViewById(R.id.webview);
+        imPre = (ImageView)findViewById( R.id.im_pre );
+        imNext = (ImageView)findViewById( R.id.im_next );
+        imOpen = (ImageView)findViewById( R.id.im_open );
+        imRefresh = (ImageView)findViewById( R.id.im_refresh );
+        webView = (WebView) findViewById(R.id.webView);
 
         imPre.setOnClickListener( this );
         imNext.setOnClickListener(this);
@@ -40,7 +44,7 @@ public class HomeTopAndButtomActivity extends Activity implements View.OnClickLi
     }
 
     private void init() {
-        String url=getIntent().getStringExtra("url");
+        url = getIntent().getStringExtra("url");
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(url);
     }
@@ -48,13 +52,20 @@ public class HomeTopAndButtomActivity extends Activity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if ( v == imPre ) {
-            // Handle clicks for imPre
+            MessageUtils.showMessage(this,"已经是第一页了");
         } else if ( v == imNext ) {
-            // Handle clicks for imNext
+            MessageUtils.showMessage(this,"已经是最后一页了");
         } else if ( v == imOpen ) {
-            // Handle clicks for imOpen
+            //通过隐式意图启动浏览器
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
         } else if ( v == imRefresh ) {
-            // Handle clicks for imRefresh
+            webView.loadUrl(url);
         }
+    }
+    public void onBack(View v) {
+        finish();
     }
 }

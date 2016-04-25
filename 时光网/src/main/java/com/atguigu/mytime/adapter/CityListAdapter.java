@@ -10,8 +10,15 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
+import com.atguigu.mytime.Utils.MyApplication;
 import com.atguigu.mytime.Utils.PinYinUtils;
+import com.atguigu.mytime.Utils.SpUtils;
 import com.atguigu.mytime.activity.MainActivity;
+import com.atguigu.mytime.entity.CityEntity;
+
+import org.xutils.DbManager;
+import org.xutils.ex.DbException;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +32,17 @@ public class CityListAdapter extends BaseAdapter {
     private Activity mActivtiy;
     private List<String> pinying;
     public String cityname;
+    private boolean value;
+    private DbManager db;
 
 
 
-    public CityListAdapter(Activity mActivtiy,List<String> cityInfos,List<String> pinying) {
+    public CityListAdapter(Activity mActivtiy, List<String> cityInfos, List<String> pinying, boolean value) {
         this.mActivtiy=mActivtiy;
         this.cityInfos=cityInfos;
         this.pinying=pinying;
+        this.value=value;
+        db = x.getDb(((MyApplication) mActivtiy.getApplication()).getDaoConfig());
     }
     public String getCityname() {
         return cityname;
@@ -88,10 +99,10 @@ public class CityListAdapter extends BaseAdapter {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView textView= (TextView) view;
                 cityname= (String) textView.getText();//获取点击的城市名
-                //点击后就到主页面
-                Intent intent = new Intent(mActivtiy, MainActivity.class);
-                intent.putExtra("cityname",cityname);
-                mActivtiy.startActivity(intent);
+                if(!value) {
+                    mActivtiy.startActivity(new Intent(mActivtiy, MainActivity.class));
+                }
+                getDBData(cityname);
                 mActivtiy.finish();
             }
         });
@@ -100,5 +111,21 @@ public class CityListAdapter extends BaseAdapter {
     static class ViewHolder{
         TextView textView;
         GridView gridView;
+    }
+    private void getDBData(String city) {
+        try {
+            List<CityEntity> all = db.selector(CityEntity.class).where("cityname", "=", city).findAll();
+            if (all != null && all.size() > 0) {
+                int id = all.get(0).getId();
+                //保存选中的城市名和id
+                SpUtils.getInitialize(mActivtiy.getApplicationContext()).save(SpUtils.CITY_NAME,city);
+                SpUtils.getInitialize(mActivtiy.getApplicationContext()).save(SpUtils.CITY_ID, id);
+                Intent intent =mActivtiy.getIntent();
+                intent.putExtra("city_name_id", new String[]{String.valueOf(id), city});
+                mActivtiy.setResult(mActivtiy.RESULT_OK, intent);
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 }

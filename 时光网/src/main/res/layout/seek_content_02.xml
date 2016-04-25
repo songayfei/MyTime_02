@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_seek_shop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/seek_text04"
+        android:textColor="@color/seek_color02"
+        android:textSize="15sp"
+        android:drawableLeft="@drawable/search_suggest_header_iv"
+        android:drawablePadding="10dp"
+        android:paddingLeft="10dp"
+        android:drawableRight="@drawable/right_arrow"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="20dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray"/>
+    <ListView
+        android:id="@+id/lv_seek_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/gray"
+        android:dividerHeight="1px"/>
+</LinearLayout>

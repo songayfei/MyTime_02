@@ -8,6 +8,7 @@ import com.atguigu.mytime.service.LocationService;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 
+import org.xutils.DbManager;
 import org.xutils.x;
 
 /**
@@ -18,6 +19,12 @@ public class MyApplication extends Application {
     public LocationService locationService;
     public LocationClient mLocationClient;
     public Vibrator mVibrator;
+    //操作数据库
+    private DbManager.DaoConfig daoConfig;
+
+    public DbManager.DaoConfig getDaoConfig() {
+        return daoConfig;
+    }
 
     private static MyApplication myinstance;
     public static double latitude;
@@ -42,9 +49,21 @@ public class MyApplication extends Application {
         /***
          * 初始化定位sdk，建议在Application中创建
          */
-
         locationService = new LocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
         SDKInitializer.initialize(getApplicationContext());
+        /**
+         * 初始化数据库
+         */
+       daoConfig=new DbManager.DaoConfig()
+       .setDbName("city_data")//数据库名
+       .setDbVersion(1)//版本号
+               //数据库升级监听
+       .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
+           @Override
+           public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
+
+           }
+       });
     }
 }

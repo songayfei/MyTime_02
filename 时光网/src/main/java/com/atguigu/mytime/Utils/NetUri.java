@@ -15,17 +15,25 @@ public class NetUri {
     //城市
     public static final String CITY_URL = "http://api.m.mtime.cn/Showtime/HotCitiesByCinema.api";
     //广告页
-    public static final String AD_LIST="http://api.m.mtime.cn/Advertisement/MobileAdvertisementInfo.api?locationId=290";
+    public static final String AD_LIST="http://api.m.mtime.cn/Advertisement/MobileAdvertisementInfo.api?locationId=";
     //首页Viewpager
     public static final String HOME_SHOP = "http://api.m.mtime.cn/PageSubArea/GetFirstPageAdvAndNews.api";
     //横向ListView
-    public static final String HLISTVIEW = "http://api.m.mtime.cn/PageSubArea/HotPlayMovies.api?locationId=290";
+    public static final String HLISTVIEW = "http://api.m.mtime.cn/PageSubArea/HotPlayMovies.api?locationId=";
     //横向ListView imageView的点击连接地址
     public static final String HLISTVIEW_ITEM = "http://api.m.mtime.cn/Showtime/MovieComments.api?";
     //homeListView下半部分
     public static final String HOME_BUTTOM = "http://api.m.mtime.cn/PageSubArea/GetHomeFeed.api?pageIndes";
     //首页下拉刷新
     public static final String HOME_BUTTOM_REF="http://api.m.mtime.cn/PageSubArea/GetHomeFeed.api?pageIndex=";
+    //城市定位
+    public static final String LOCATION_CITY="http://api.m.mtime.cn/GetCityByLongitudelatitude.api?longitude=";
+    //首页跳跳转搜索页面数据
+    public static final String SEEK_URL="http://api.m.mtime.cn/Search/HotKeyWords.api";
+    //首页搜索框的请求地址
+    public static final String SEEK_CHECK_URL="http://api.m.mtime.cn/Search/SearchSuggestionNew.api?loactionId=290j&keyword=";
+    //首页横向Listview的数据
+    public static final String HOME_MOVIE="http://m.mtime.cn/#!/movie/";
     public static final String DISCOVER_LIST = "http://api.m.mtime.cn/PageSubArea/TrailerList.api";
     public static final String DISCOVER_TOP = "http://api.m.mtime.cn/PageSubArea/GetRecommendationIndexInfo.api";
     public static final String COMMENT_LIST = "http://api.m.mtime.cn/MobileMovie/Review.api?needTop=false";
@@ -42,6 +50,7 @@ public class NetUri {
     public static final String NEWSPAGER_LIST = "http://api.m.mtime.cn/News/NewsList.api?pageIndex=1";
     public static final String COMMENT_REVIEWID = "http://m.mtime.cn/#!/review/detail/";
     public static final String COMMENT_DETAILS ="http://api.m.mtime.cn/Review/Detail.api?reviewId=";
+
     public static final String NEWS_ITEM_URI ="http://api.m.mtime.cn/News/Detail.api?newsId=";
     public static final String NEWSPAGER_LIST_BASE = "http://api.m.mtime.cn/News/NewsList.api?pageIndex=";
 }

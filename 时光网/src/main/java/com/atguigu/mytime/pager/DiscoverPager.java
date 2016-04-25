@@ -85,6 +85,12 @@ public class DiscoverPager extends BasePager{
         getTopInfoFromnet();
 
     }
+
+    @Override
+    public void showPger(String[] city_name_id) {
+
+    }
+
     /**
      * 联网请求四个页面的Top信息
      */

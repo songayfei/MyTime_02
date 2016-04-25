@@ -193,6 +193,11 @@ public class Commentpager extends BasePager implements View.OnClickListener, Ada
 
     }
 
+    @Override
+    public void showPger(String[] city_name_id) {
+
+    }
+
     public void getDatafromNet() {
         //开启动画
         loading.setVisibility(View.VISIBLE);

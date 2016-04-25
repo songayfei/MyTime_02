@@ -43,5 +43,7 @@ dependencies {
     compile files('libs/core-2.2.jar')
     compile files('libs/eventbus.jar')
     compile files('libs/locSDK_6.13.jar')
-
+    compile files('libs/zxing.jar')
+    compile files('libs/eventbus.jar')
+    compile 'org.sufficientlysecure:html-textview:1.5'
 }

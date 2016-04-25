@@ -92,6 +92,11 @@ public class PayticketPager extends BasePager  implements View.OnClickListener {
         vp_content_buyticket.setAdapter(new MyPagerAdapter());
     }
 
+    @Override
+    public void showPger(String[] city_name_id) {
+
+    }
+
 
     private void setlistener() {
         tv_city_buyticket.setOnClickListener(this);

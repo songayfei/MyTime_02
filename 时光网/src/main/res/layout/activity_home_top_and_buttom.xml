@@ -34,26 +34,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
-        <ImageButton
+        <ImageView
             android:id="@+id/im_pre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/btn_gray_pre"/>
-        <ImageButton
+        <ImageView
             android:id="@+id/im_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/btn_gray_next"/>
-        <ImageButton
+        <ImageView
             android:id="@+id/im_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/btn_gray_open"/>
-        <ImageButton
+        <ImageView
             android:id="@+id/im_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

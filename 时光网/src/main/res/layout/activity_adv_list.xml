@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:zhy="http://schemas.android.com/apk/res/com.atguigu.mytime"
+    android:id="@+id/ll_ad_image"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:background="#11000000"
-    android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/im_close"
-            android:layout_alignParentRight="true"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/home_big_dialog_close"/>
-        <ImageView
-            android:layout_below="@+id/im_close"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="25dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/order_remind_seperated_awards"/>
-    </RelativeLayout>
+    android:background="@color/av_activity"
+    android:orientation="vertical"
+    android:paddingBottom="30dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:visibility="gone"
+    >
+    <ImageView
+        android:id="@+id/im_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/popupad_close"
+        android:clickable="true" />
+
     <com.atguigu.mytime.view.RoundImageView
         android:id="@+id/im_adv"
-        android:scaleType="centerCrop"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/im_close"
+        android:clickable="true"
+        android:scaleType="centerCrop"
         zhy:borderRadius="20dp"
-        zhy:type="round"/>
-</LinearLayout>
+        zhy:type="round" />
+
+</RelativeLayout>
+

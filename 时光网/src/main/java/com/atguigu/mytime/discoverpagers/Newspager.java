@@ -144,6 +144,11 @@ public class Newspager extends BasePager implements AdapterView.OnItemClickListe
 
     }
 
+    @Override
+    public void showPger(String[] city_name_id) {
+
+    }
+
     /**
      * 联网请求数据
      */

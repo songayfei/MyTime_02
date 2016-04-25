@@ -20,9 +20,14 @@ public class CityAdapter extends BaseAdapter {
 
     public CityAdapter(Context context,List<String> cityInfos) {
         this.context=context;
-        this.cityInfos=cityInfos;
+        this.cityInfos = cityInfos;
+
     }
 
+    public void setCityInfos(List<String> newcityInfos) {
+        cityInfos = newcityInfos;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {

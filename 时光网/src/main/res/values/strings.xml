@@ -31,6 +31,16 @@
     <string name="mall_title_sea_text">搜索正版电影周边</string>
     <string name="more">更多商品</string>
 
+    <string name="locationcitymessage">系统检测到您现在的城市是</string>
+    <string name="seek_text01">几十万影视数据,百万明显资料</string>
+    <string name="seek_text02">热门搜索</string>
+    <string name="seek_text03">搜索历史</string>
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
+    <string name="seek_text04">在商城中搜索</string>
+    <string name="webview_text01">相关电影/影人</string>
+    <string name="webview_text02">加入购物车</string>
+    <string name="webview_text03">立即购买</string>
+
     <string name="xlistview_header_hint_normal">下拉刷新</string>
     <string name="xlistview_header_hint_ready">松开刷新数据</string>
     <string name="xlistview_header_hint_loading">正在加载...</string>

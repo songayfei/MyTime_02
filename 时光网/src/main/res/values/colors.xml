@@ -25,6 +25,18 @@
     <color name="green">#00CC00</color>
     <color name="white">#FFFFFF</color>
 
+    <color name="seek_color01">#F6F6F6</color>
+    <color name="seek_color02">#0075c4</color>
+    <color name="seek_color03">#000000</color>
+    <color name="seek_color04">#55000000</color>
+    <color name="webview_color05">#ffffff</color>
+    <color name="av_activity">#11000000</color>
+    <color name="welcom_text">#ffffff</color>
+    <color name="welcom_text01">#55000000</color>
+    <color name="welcom_text02">#aa0000</color>
+    <color name="welcom_text03">#FF8C00</color>
+    <color name="welcom_text04">#ffffff</color>
+
 
 
 

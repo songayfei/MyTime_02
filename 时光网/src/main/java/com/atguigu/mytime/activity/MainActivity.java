@@ -27,23 +27,28 @@ import com.atguigu.mytime.pager.UserPager;
 import java.util.ArrayList;
 import java.util.List;
 
-public  class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity {
     private static final int WHAT_EXIT = 0;
+    public static final int SCANNIN_GREQUEST_CODE = 666;//带回调启动
+    public  static final int RESULT_CITY_IDANDNAME = 888;
     private RadioGroup rg_main;
     private List<BasePager> pagers;
-    public  int position;
-    private boolean isExit=true;
+    public int position;
+    private boolean isExit = true;
+    //城市名和城市id
+    private String city_name;
+    private int city_id;
 
     public void setPosition(int position) {
-        this.position = position;
-
+        this.position=position;
+        setFragment();
     }
 
-    private Handler handler = new Handler(){
-        public void handleMessage(Message msg){
-            switch (msg.what){
-                case  WHAT_EXIT:
-                    isExit=true;
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case WHAT_EXIT:
+                    isExit = true;
                     break;
             }
         }
@@ -52,14 +57,19 @@ public  class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        rg_main = (RadioGroup)findViewById(R.id.rg_main);
+        rg_main = (RadioGroup) findViewById(R.id.rg_main);
+        //保存选中的城市
+        getCityData();
         initArrView();
+    }
 
+    private void getCityData() {
 
     }
 
+
     private void initArrView() {
-        pagers=new ArrayList<>();
+        pagers = new ArrayList<>();
         pagers.add(new HomePager(this));
         pagers.add(new PayticketPager(this));
         pagers.add(new ShopPager(this));
@@ -68,10 +78,7 @@ public  class MainActivity extends FragmentActivity {
         //设置监听
         rg_main.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
         rg_main.check(R.id.rb_home);
-
     }
-
-
     class MyOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
 
         @Override
@@ -138,6 +145,8 @@ public  class MainActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
+        //点击后就保存一个标识
+        SpUtils.getInitialize(getApplicationContext()).save(SpUtils.GUIDE, true);
         //关闭所有子类的内存对象
         for(int i=0;i<pagers.size();i++){
             pagers.get(i).clearEvent();
@@ -154,5 +163,26 @@ public  class MainActivity extends FragmentActivity {
         return super.onTouchEvent(event);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case SCANNIN_GREQUEST_CODE:
+                if(resultCode==RESULT_OK){
+                    Bundle bundle = data.getExtras();
+                    //显示扫描到的内容
+                    String result = bundle.getString("result");
+                    //显示
+                    Bitmap bitmap = (Bitmap) data.getParcelableExtra("bitmap");
+                }
+                break;
+            case RESULT_CITY_IDANDNAME:
+                if(resultCode==RESULT_OK){
+                    String[] city_name_id = data.getStringArrayExtra("city_name_id");
+                    pagers.get(position).showPger(city_name_id);
+                }
 
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

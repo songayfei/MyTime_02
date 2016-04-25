@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/seek_color02"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <ImageButton
+            android:id="@+id/im_seek_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/find_news_img_detail_top_left_arrow" />
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_weight="1">
+        <EditText
+            android:id="@+id/tv_seek_fiml"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/edittext"
+            android:drawableLeft="@drawable/title_bar_search_zoomin"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:hint="找影片/影院/影人"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp" />
+          <ImageButton
+              android:id="@+id/im_seek_scan"
+              android:layout_alignParentRight="true"
+              android:layout_centerVertical="true"
+              android:layout_marginRight="40dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/title_bar_search_button_scan_background"
+              />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_seek_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:text="搜索"
+
+            android:clickable="true"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/seek_content_01"
+            android:id="@+id/default_view"
+            android:visibility="gone"
+            />
+
+        <include layout="@layout/seek_content_02"
+            android:id="@+id/seek_text_01"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+</LinearLayout>

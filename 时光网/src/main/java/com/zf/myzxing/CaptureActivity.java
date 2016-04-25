@@ -34,6 +34,7 @@ import java.util.Map;
 
 public final class CaptureActivity extends Activity implements
 		SurfaceHolder.Callback {
+	private static final int SCANNIN_SETREQUEST_CODE = 666;
 	private Button btn_back;
 	private Button btn_torch;
 	private boolean isTorchOn = false;
@@ -215,9 +216,11 @@ public final class CaptureActivity extends Activity implements
 		 * 在此返回
 		 */
 		Intent intent = getIntent();
-		intent.putExtra("msg", msg);
-
-		setResult(666,intent);
+		Bundle bundle = new Bundle();
+		bundle.putString("result", msg);
+		bundle.putParcelable("bitmap", barcode);
+		intent.putExtras(bundle);
+		setResult(RESULT_OK,intent);
 		finish();
 //		Intent intent = new Intent(CaptureActivity.this, ShowActivity.class);
 //		Bundle bundle = new Bundle();
