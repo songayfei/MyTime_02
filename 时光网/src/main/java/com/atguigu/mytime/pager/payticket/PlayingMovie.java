@@ -1,6 +1,7 @@
 package com.atguigu.mytime.pager.payticket;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,10 +9,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.atguigu.mytime.R;
 import com.atguigu.mytime.Utils.CacheUtils;
 import com.atguigu.mytime.Utils.ConstantUtils;
+import com.atguigu.mytime.activity.MoviesItemActivity;
 import com.atguigu.mytime.adapter.PMListViewAdapte;
 import com.atguigu.mytime.base.BaseDiscoverPager;
 import com.atguigu.mytime.entity.PlayingMovieBean;
@@ -116,14 +119,15 @@ public class PlayingMovie extends BaseDiscoverPager {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             PlayingMovieBean.MsEntity msEntity = movieBean.getMs().get(position);
-            //Intent intent = new Intent(activity, PlayMovieItemActivity1.class);
+            Toast.makeText(mActivity, "进不去啊", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mActivity, MoviesItemActivity.class);
 //            Intent intent = new Intent(mActivity, PlayMovieItemActivity.class);
 //           Bundle bundle=new Bundle();
 //           bundle.putSerializable(PlayMovieItemActivity.MOVIELISTPOSITION, msEntity);
 //           intent.putExtras(bundle);
 //            intent.putExtra(PlayMovieItemActivity.MOVIELISTPOSITION,position);
 //            intent.putExtra(PlayMovieItemActivity.MOVIEID,msEntity.getId());
-//            mActivity.startActivity(intent);
+           mActivity.startActivity(intent);
         }
     }
 }

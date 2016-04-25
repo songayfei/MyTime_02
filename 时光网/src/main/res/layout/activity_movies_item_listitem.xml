@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:background="@drawable/actor_detail_top_background">
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:background="@drawable/actor_detail_red_arc">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/linearLayout2"
+                            android:layout_alignLeft="@+id/linearLayout2"
+                            android:layout_alignStart="@+id/linearLayout2"
+                            android:layout_marginBottom="23dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="105分钟"
+
+                                android:textColor="#000000" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="3sp"
+                                android:text="冒险/剧情/家庭"
+                                android:textColor="#000000" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2016年4月15日中国上映"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="30dp"
+                                android:background="@drawable/bt_line_gray_66"
+                                android:text="我想看"
+                                android:textColor="#000000" />
+
+                            <Button
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="40dp"
+                                android:background="@drawable/bt_line_green_66"
+                                android:text="我要评分"
+                                android:textColor="#FF6FA51D" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="105dp"
+                        android:layout_height="158dp"
+                        android:layout_alignBottom="@+id/relativeLayout"
+
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/get" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="黑豹和黑熊竟也能配一脸"
+                        android:textColor="#FFFF8D0E"
+                        android:gravity="center"
+                        android:drawableLeft="@drawable/quot_film_on"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40sp"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
+                        android:background="@drawable/bt_big_orange"
+                        android:text="查影讯/购票"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.atguigu.mytime.view.ObservableScrollView
+            android:id="@+id/ObservableScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:background="@drawable/actor_detail_top_background">
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:background="@drawable/actor_detail_red_arc">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/linearLayout2"
+                            android:layout_alignLeft="@+id/linearLayout2"
+                            android:layout_alignStart="@+id/linearLayout2"
+                            android:layout_marginBottom="23dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="105分钟"
+
+                                android:textColor="#000000" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="3sp"
+                                android:text="冒险/剧情/家庭"
+                                android:textColor="#000000" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2016年4月15日中国上映"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="30dp"
+                                android:background="@drawable/bt_line_gray_66"
+                                android:text="我想看"
+                                android:textColor="#000000" />
+
+                            <Button
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="40dp"
+                                android:background="@drawable/bt_line_green_66"
+                                android:text="我要评分"
+                                android:textColor="#FF6FA51D" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="105dp"
+                        android:layout_height="158dp"
+                        android:layout_alignBottom="@+id/relativeLayout"
+
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/get" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="黑豹和黑熊竟也能配一脸"
+                        android:textColor="#FFFF8D0E"
+                        android:gravity="center"
+                        android:drawableLeft="@drawable/quot_film_on"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40sp"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
+                        android:background="@drawable/bt_big_orange"
+                        android:text="查影讯/购票"/>
+                </LinearLayout>
+
+                <com.atguigu.mytime.view.ExpandableTextView
+                    android:id="@+id/expandable_TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    expandableTextView:maxCollapsedLines="4"
+                    >
+                    <TextView
+                        android:id="@id/expandable_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="16sp"
+                        android:text="冰雪女王弗雷娅（艾米莉·布朗特饰）。;
+                    "
+                        android:textColor="#666666" />
+
+                    <ImageButton
+                        android:id="@id/expand_collapse"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_margin="16dp"
+                        android:layout_gravity="center"
+                        android:background="@color/transparent_dailog"/>
+                </com.atguigu.mytime.view.ExpandableTextView>
+
+                <ListView
+                    android:id="@+id/listview_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></ListView>
+                <LinearLayout
+                    android:id="@+id/ll_ping"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+        </com.atguigu.mytime.view.ObservableScrollView>
+
+        <RelativeLayout
+            android:id="@+id/rl_top"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#0075c4"
+            android:visibility="gone">
+            <!-- 七个字符-->
+            <TextView
+                android:id="@+id/tv__namepaly_movie_details_buyticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="猎神"
+                android:textSize="21sp" />
+
+            <ImageButton
+                android:id="@+id/ib_back_movie_details_buyticket"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/tv__namepaly_movie_details_buyticket"
+                android:layout_marginLeft="19dp"
+                android:layout_marginStart="19dp"
+                android:background="@drawable/btn_gray_pre"
+                android:padding="5dp" />
+
+            <ImageButton
+                android:id="@+id/zan"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignTop="@+id/tv__namepaly_movie_details_buyticket"
+                android:layout_marginEnd="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_toLeftOf="@+id/share_paly_movie_details_buyticket"
+                android:layout_toStartOf="@+id/share_paly_movie_details_buyticket"
+                android:background="@drawable/icon_my_home_favorites_45x45"
+                android:padding="5dp" />
+
+            <ImageButton
+                android:id="@+id/share_paly_movie_details_buyticket"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/zan"
+                android:layout_marginEnd="18dp"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/title_bar_search_zoomin"
+                android:padding="5dp" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+</RelativeLayout>

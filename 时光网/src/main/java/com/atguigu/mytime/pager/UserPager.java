@@ -13,7 +13,7 @@ import com.atguigu.mytime.view.ObservableScrollView;
 import com.zf.myzxing.CaptureActivity;
 
 /**
- * Created by Administrator on 2016/4/7.
+ * Created by Administrator on 2016/4/20.
  */
 public class UserPager extends BasePager  implements View.OnClickListener, ObservableScrollView.Callbacks {
 

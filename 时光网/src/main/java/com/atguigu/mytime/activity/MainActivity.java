@@ -36,6 +36,7 @@ public  class MainActivity extends FragmentActivity {
 
     public void setPosition(int position) {
         this.position = position;
+
     }
 
     private Handler handler = new Handler(){
@@ -53,6 +54,8 @@ public  class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         rg_main = (RadioGroup)findViewById(R.id.rg_main);
         initArrView();
+
+
     }
 
     private void initArrView() {
@@ -65,7 +68,10 @@ public  class MainActivity extends FragmentActivity {
         //设置监听
         rg_main.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
         rg_main.check(R.id.rb_home);
+
     }
+
+
     class MyOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
 
         @Override
