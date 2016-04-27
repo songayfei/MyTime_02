@@ -1,14 +1,14 @@
 package com.atguigu.mytime.activity.homewebview;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
 
-public class Shop_WebView_Activity extends AppCompatActivity {
+public class Shop_WebView_Activity extends Activity {
     private WebView wvShop;
     private ImageView imShareRollback;
     private ImageView imShareCollect;

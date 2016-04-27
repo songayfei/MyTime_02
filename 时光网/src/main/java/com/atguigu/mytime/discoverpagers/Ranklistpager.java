@@ -64,7 +64,7 @@ private RefreshListView listview_ranklist;
         listview_ranklist.setIsPullLoadmore(true);
         listview_ranklist.setIsRefresh(true);
         loading = (ImageView) view.findViewById(R.id.loading);
-        loading_bg = (ImageView) view.findViewById(R.id.loading_bg);
+        loading_bg = (ImageView) view.findViewById(R.id.loading_failed);
         loading_failed = (ImageView) view.findViewById(R.id.loading_failed);
         //设置监听
         loading_failed.setOnClickListener(new View.OnClickListener() {

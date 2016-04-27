@@ -1,11 +1,13 @@
 package com.atguigu.mytime.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/4/11.
  */
-public class HomeListViewInfo {
+public class HomeListViewInfo implements Serializable{
 
 
     /**
@@ -51,7 +53,7 @@ public class HomeListViewInfo {
         return data;
     }
 
-    public static class DataEntity {
+    public static class DataEntity implements Serializable{
         private String title;
         private String titlesmall;
         private int publishTime;
@@ -78,6 +80,86 @@ public class HomeListViewInfo {
         private String nickname;
         private String rating;
         private String summaryInfo;
+
+        private ArrayList<MoviesEntity> movies;
+
+        public ArrayList<MoviesEntity> getMovies() {
+            return movies;
+        }
+
+        public void setMovies(ArrayList<MoviesEntity> movies) {
+            this.movies = movies;
+        }
+
+        public class MoviesEntity{
+           private String name;
+           private String posterUrl;
+           private int decade;
+           private double rating;
+
+           public String getName() {
+               return name;
+           }
+
+           public void setName(String name) {
+               this.name = name;
+           }
+
+           public String getPosterUrl() {
+               return posterUrl;
+           }
+
+           public void setPosterUrl(String posterUrl) {
+               this.posterUrl = posterUrl;
+           }
+
+           public int getDecade() {
+               return decade;
+           }
+
+           public void setDecade(int decade) {
+               this.decade = decade;
+           }
+
+           public double getRating() {
+               return rating;
+           }
+
+           public void setRating(double rating) {
+               this.rating = rating;
+           }
+       }
+
+        private List<ImagesEntity> images;
+
+        public List<ImagesEntity> getImages() {
+            return images;
+        }
+
+        public void setImages(List<ImagesEntity> images) {
+            this.images = images;
+        }
+
+        public class ImagesEntity implements Serializable {
+            private String desc;
+            private String url1;
+
+            public String getDesc() {
+                return desc;
+            }
+
+            public void setDesc(String desc) {
+                this.desc = desc;
+            }
+
+            public String getUrl1() {
+                return url1;
+            }
+
+            public void setUrl1(String url1) {
+                this.url1 = url1;
+            }
+        }
 
         public String getSummaryInfo() {
             return summaryInfo;

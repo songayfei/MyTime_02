@@ -11,6 +11,16 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+    allprojects {
+        repositories {
+            mavenCentral()
+        }
+    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -46,4 +56,7 @@ dependencies {
     compile files('libs/zxing.jar')
     compile files('libs/eventbus.jar')
     compile 'org.sufficientlysecure:html-textview:1.5'
+    compile files('libs/gradle-wrapper.jar')
+    compile project(':PhotoView_library')
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.11'
 }

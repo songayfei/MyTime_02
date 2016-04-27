@@ -8,7 +8,6 @@
     <color name="transparent">#9000</color>
 
 
-
     <color name="contents_text">#ff000000</color>
     <color name="encode_view">#ffffffff</color>
     <color name="possible_result_points">#c0ffbd21</color> <!-- Android standard ICS color -->
@@ -36,6 +35,7 @@
     <color name="welcom_text02">#aa0000</color>
     <color name="welcom_text03">#FF8C00</color>
     <color name="welcom_text04">#ffffff</color>
+    <color name="welcom_text05">#0e000000</color>
 
 
 

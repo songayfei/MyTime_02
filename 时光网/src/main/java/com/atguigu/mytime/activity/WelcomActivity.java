@@ -96,9 +96,12 @@ public class WelcomActivity extends Activity {
      */
     private void getNetWorkData() {
         int  cityId = SpUtils.getInitialize(this).getValue(SpUtils.CITY_ID, 0);
-        String url= NetUri.AD_LIST+cityId;
-        //联网请求广告数据
-        new InterNetConn(url, this, AdvListInfo.class);
+        if(cityId!=0) {
+            String url = NetUri.AD_LIST + cityId;
+            //联网请求广告数据
+            new InterNetConn(url, this, AdvListInfo.class);
+        }
+
     }
 
     public void onEventMainThread(AdvListInfo advListInfo) {
@@ -139,7 +142,6 @@ public class WelcomActivity extends Activity {
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(rl_welcom);
                     tv_time.setVisibility(View.VISIBLE);
-                    tv_time.setText("5");
                     handler.sendEmptyMessage(WATH_TIME);
                 } else {
                     if (value) {

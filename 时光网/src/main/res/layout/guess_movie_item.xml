@@ -34,9 +34,8 @@
             android:id="@+id/im_news"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            app:layout_widthPercent= "30%"
-            android:background="#00ff00"
+            android:scaleType="centerCrop"
+            app:layout_widthPercent= "31%"
             />
     </com.zhy.android.percent.support.PercentLinearLayout>
 </LinearLayout>

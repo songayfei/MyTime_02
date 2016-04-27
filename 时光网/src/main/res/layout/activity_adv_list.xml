@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:zhy="http://schemas.android.com/apk/res/com.atguigu.mytime"
+    xmlns:app= "http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_ad_image"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,13 +12,17 @@
     android:paddingRight="10dp"
     android:visibility="gone"
     >
+    <!---->
     <ImageView
         android:id="@+id/im_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_alignParentRight="true"
+        android:scaleType="centerInside"
+        android:clickable="true"
         android:background="@drawable/popupad_close"
-        android:clickable="true" />
+        app:layout_heightPercent= "20%w"
+        app:layout_widthPercent= "12%w"/>
 
     <com.atguigu.mytime.view.RoundImageView
         android:id="@+id/im_adv"
@@ -25,9 +30,9 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/im_close"
         android:clickable="true"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         zhy:borderRadius="20dp"
         zhy:type="round" />
 
-</RelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>
 

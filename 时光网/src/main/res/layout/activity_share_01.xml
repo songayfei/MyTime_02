@@ -4,18 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <WebView
-        android:id="@+id/share_webview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_heightPercent="100%"
-        app:layout_widthPercent="100%" />
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/seek_color02"
-        app:layout_heightPercent="10%"
+        app:layout_heightPercent="8%"
         app:layout_widthPercent="100%">
 
         <ImageView
@@ -44,31 +38,42 @@
             android:background="@drawable/title_bar_share"
             android:layout_marginRight="10dp" />
     </RelativeLayout>
-    <LinearLayout
+    <ScrollView
         android:layout_below="@+id/rl_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
             android:id="@+id/tv_content_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/seek_color03"
+            android:layout_marginLeft="10dp"
             android:textSize="20dp"
             android:text="百题"/>
         <TextView
             android:id="@+id/tv_issue_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="百题"/>
-        <org.sufficientlysecure.htmltextview.HtmlTextView
+        <!--<TextView
+            android:id="@+id/htv_news_detail_content"
+            android:padding="5dp"
+            android:text="内容"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />-->
+        <WebView
             android:id="@+id/htv_news_detail_content"
             android:padding="5dp"
             android:text="内容"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    </ScrollView>
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -82,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/reply" />
+            android:background="@drawable/reply"/>
 
         <TextView
             android:id="@+id/tv_comment_count"
@@ -109,11 +114,5 @@
             android:text="@string/webview_text01"
             android:textSize="20sp" />
     </com.zhy.android.percent.support.PercentRelativeLayout>
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gif_loading"
-        android:layout_centerInParent="true"
-        android:src="@drawable/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+    <include layout="@layout/anim_loading"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>

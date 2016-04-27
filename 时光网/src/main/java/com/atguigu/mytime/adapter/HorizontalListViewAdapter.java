@@ -93,11 +93,13 @@ public class HorizontalListViewAdapter extends BaseAdapter {
                 activity.startActivity(intent);
             }
         });
+
         //购票Buttom 到购票页面
         holder.btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MainActivity mainActivity= (MainActivity) activity;
+                mainActivity.setPosition(1);
             }
         });
         return convertView;

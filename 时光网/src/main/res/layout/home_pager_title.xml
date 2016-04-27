@@ -42,7 +42,7 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="15dp"
-                android:background="#55000000" />
+                android:background="@color/result_minor_text" />
 
             <ImageView
                 android:id="@+id/im_dimension"
@@ -100,8 +100,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:drawablePadding="5dp"
+            android:clickable="true"
             android:drawableRight="@drawable/home_hotplay_right_arrow"
-            android:text="共50部"
             android:textColor="#FFA500" />
     </RelativeLayout>
 
@@ -114,11 +114,12 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
-        android:background="#55000000" />
+        android:background="@color/result_minor_text" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -192,7 +193,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#55000000" />
+        android:background="@color/result_minor_text" />
 
     <View
         android:layout_width="match_parent"
@@ -260,7 +261,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#55000000" />
+        android:background="@color/result_minor_text" />
 
     <View
         android:layout_width="match_parent"
@@ -299,10 +300,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="时光精选"
-            android:textColor="#000000" />
+            android:text="@string/home_text01"
+            android:textColor="@color/seek_color03" />
 
         <TextView
+            android:id="@+id/tv_all_movie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -310,11 +312,11 @@
             android:drawablePadding="5dp"
             android:drawableRight="@drawable/home_hotplay_right_arrow"
             android:text="全部"
-            android:textColor="#FFA500" />
+            android:textColor="@color/welcom_text03" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#55000000" />
+        android:background="@color/result_minor_text" />
 </LinearLayout>

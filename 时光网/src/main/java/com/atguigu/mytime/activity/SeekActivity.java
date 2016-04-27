@@ -104,7 +104,6 @@ public class SeekActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            suggestions=null;
             String param = params[0];
             if (param.length() > 0) {
                 String url = NetUri.SEEK_CHECK_URL + param;

@@ -16,6 +16,9 @@ public class CityEntity {
     @Column(name = "id",isId = true,autoGen = true)
     private int id;
 
+    @Column(name = "cityid")
+    private int cityid;
+
     @Column(name = "cityname")
     private String cityname;
 
@@ -24,6 +27,15 @@ public class CityEntity {
 
     @Column(name = "pinyinShort")
     private String pinyinShort;
+
+
+    public int getCityid() {
+        return cityid;
+    }
+
+    public void setCityid(int cityid) {
+        this.cityid = cityid;
+    }
 
     public int getCount() {
         return count;

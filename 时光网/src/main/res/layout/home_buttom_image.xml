@@ -29,28 +29,28 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_widthPercent="58%"
-            android:scaleType="fitXY"
-            android:background="#00ffff"/>
+            android:scaleType="centerCrop"
+            />
         <ImageView
             android:layout_alignParentRight="true"
-            android:scaleType="fitXY"
+            android:scaleType="center"
             android:id="@+id/im_02"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_heightPercent="49%"
             app:layout_widthPercent="40%"
-            android:background="#0000ff"
+
             />
         <ImageView
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:scaleType="fitXY"
+            android:scaleType="center"
             android:id="@+id/im_03"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_heightPercent="49%"
             app:layout_widthPercent="40%"
-            android:background="#0000ff"
+
             />
     </com.zhy.android.percent.support.PercentRelativeLayout>
     <include layout="@layout/home_listview_time"/>
