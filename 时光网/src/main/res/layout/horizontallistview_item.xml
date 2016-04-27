@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/im_movie"
             android:clickable="true"
-            android:scaleType="fitXY"
+            android:scaleType="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <TextView
@@ -39,9 +39,9 @@
 
     <TextView
         android:id="@+id/tv_movie_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:gravity="center"
         android:layout_marginTop="5dp"
         android:text="火锅英雄"
         android:textColor="#000000" />

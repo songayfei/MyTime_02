@@ -48,9 +48,9 @@
             <ImageView
                 android:id="@+id/im_news"
                 android:layout_width="match_parent"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:layout_height="match_parent"
-                android:background="#00ff00" />
+                 />
 
             <ImageView
                 android:id="@+id/im_news_play"

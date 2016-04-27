@@ -381,8 +381,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MovieDetailsActivity" />
         <activity android:name=".activity.NewsActivity" />
-        <activity android:name=".activity.homewebview.Shop_WebView_Activity"/>
-        <activity android:name=".activity.homewebview.Share_news_Activity"/>
+        <activity android:name=".activity.homewebview.Shop_WebView_Activity" />
+        <activity android:name=".activity.homewebview.Share_news_Activity" />
+        <activity android:name=".activity.NewsImageActivity"></activity>
     </application>
 
 </manifest>

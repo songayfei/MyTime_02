@@ -8,8 +8,8 @@
         android:id="@+id/tv_All_shop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
         android:clickable="true">
 
         <TextView
@@ -17,10 +17,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="电影商城"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textColor="@color/seek_color03"
+            android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/tv_all_shops"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -28,7 +29,7 @@
             android:drawablePadding="5dp"
             android:drawableRight="@drawable/home_hotplay_right_arrow"
             android:text="全部商品"
-            android:textColor="#FFA500" />
+            android:textColor="@color/welcom_text03" />
     </RelativeLayout>
 
     <com.zhy.android.percent.support.PercentRelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -47,7 +48,7 @@
             app:layout_widthPercent="40%">
             <ImageView
                 android:id="@+id/im_shop01"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <TextView
@@ -81,7 +82,7 @@
             app:layout_widthPercent="60%">
             <ImageView
                 android:id="@+id/im_shop02"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <TextView
@@ -110,13 +111,12 @@
             android:layout_toRightOf="@+id/ll_shop01"
             android:background="@drawable/edittext02"
             android:orientation="vertical"
-            android:scaleType="fitXY"
             android:padding="0.5px"
             app:layout_heightPercent="36%"
             app:layout_widthPercent="30%">
             <ImageView
                 android:id="@+id/im_shop03"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <TextView   
@@ -145,13 +145,12 @@
             android:layout_toRightOf="@+id/ll_shop03"
             android:background="@drawable/edittext02"
             android:orientation="vertical"
-            android:scaleType="fitXY"
             android:padding="0.5px"
             app:layout_heightPercent="36%"
             app:layout_widthPercent="30%">
             <ImageView
                 android:id="@+id/im_shop04"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <TextView
@@ -179,13 +178,12 @@
             android:layout_below="@+id/ll_shop01"
             android:background="@drawable/edittext02"
             android:orientation="vertical"
-            android:scaleType="fitXY"
             android:padding="0.5px"
             app:layout_heightPercent="34%"
             app:layout_widthPercent="40%">
             <ImageView
                 android:id="@+id/im_shop05"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <TextView
@@ -214,13 +212,12 @@
             android:layout_toRightOf="@+id/ll_shop05"
             android:background="@drawable/edittext02"
             android:orientation="vertical"
-            android:scaleType="fitXY"
             android:padding="0.5px"
-            app:layout_heightPercent="35%"
+            app:layout_heightPercent="36%"
             app:layout_widthPercent="60%">
             <ImageView
                 android:id="@+id/im_shop06"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <TextView

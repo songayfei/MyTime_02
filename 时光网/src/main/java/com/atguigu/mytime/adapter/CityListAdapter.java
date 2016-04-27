@@ -116,7 +116,7 @@ public class CityListAdapter extends BaseAdapter {
         try {
             List<CityEntity> all = db.selector(CityEntity.class).where("cityname", "=", city).findAll();
             if (all != null && all.size() > 0) {
-                int id = all.get(0).getId();
+                int id = all.get(0).getCityid();
                 //保存选中的城市名和id
                 SpUtils.getInitialize(mActivtiy.getApplicationContext()).save(SpUtils.CITY_NAME,city);
                 SpUtils.getInitialize(mActivtiy.getApplicationContext()).save(SpUtils.CITY_ID, id);

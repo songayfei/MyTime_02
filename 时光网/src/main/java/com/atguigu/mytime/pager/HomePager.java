@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.Message;
@@ -27,6 +26,7 @@ import com.atguigu.mytime.Utils.NetUri;
 import com.atguigu.mytime.Utils.SpUtils;
 import com.atguigu.mytime.activity.AdvListActivity;
 import com.atguigu.mytime.activity.MainActivity;
+import com.atguigu.mytime.activity.NewsImageActivity;
 import com.atguigu.mytime.activity.SeekActivity;
 import com.atguigu.mytime.activity.SelecorCityActivity;
 import com.atguigu.mytime.activity.homewebview.Share_news_Activity;
@@ -51,10 +51,9 @@ import com.bumptech.glide.Glide;
 import com.zf.myzxing.CaptureActivity;
 import com.zhy.android.percent.support.PercentFrameLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import de.greenrobot.event.EventBus;
 
@@ -71,11 +70,7 @@ public class HomePager extends BasePager {
     private boolean isrefresh = false;//是否下拉刷新
     private int index = 1;//下拉刷新次数
 
-    private ImageView im_load;
-    private ImageView im_load_anim;
-    private ImageView im_backimg;
-    private RefreshListView lv_home;
-    private AnimationDrawable anim;
+
     //服务
     private NetReceiver receiver;
     private ViewPager vpTitle;
@@ -125,6 +120,8 @@ public class HomePager extends BasePager {
     private ImageView imShop06;
     private TextView tvShopName06;
     private TextView tvNameState06;
+    private TextView tv_all_shops;
+    private TextView tv_all_movie;
     private ArrayList<HomeShopInfo.TopPostersEntity> topPosters;
     private HomeShopInfo.AreaSecondEntity areaSecond;
     //判断是否有网络
@@ -149,6 +146,9 @@ public class HomePager extends BasePager {
     private HomeContentAdapter listbuttomadapter;
     private Intent intent;
     private int cityId;
+    private ImageView loading_failed;
+    private RefreshListView lv_home;
+    private RelativeLayout gif_loading;
 
     private void findViews(View view) {
         vpTitle = (NoScrollViewPager) view.findViewById(R.id.vp_title);
@@ -196,37 +196,59 @@ public class HomePager extends BasePager {
 
         tv_cinema = (LinearLayout) view.findViewById(R.id.tv_cinema);
         tv_onshow = (LinearLayout) view.findViewById(R.id.tv_onshow);
+        tv_all_shops = (TextView) view.findViewById(R.id.tv_all_shops);
+        tv_all_movie = (TextView) view.findViewById(R.id.tv_all_movie);
+
 
         String city_name = SpUtils.getInitialize(mactivity.getApplicationContext()).getValue(SpUtils.CITY_NAME, "");
         cityId = SpUtils.getInitialize(mactivity.getApplicationContext()).getValue(SpUtils.CITY_ID, 0);
+        LogUtils.d(TAG,cityId+"");
 
         tv_seniority01.setOnClickListener(new SeniorityOnClickListener());
         tv_seniority02.setOnClickListener(new SeniorityOnClickListener());
         tv_seniority03.setOnClickListener(new SeniorityOnClickListener());
         tv_seniority04.setOnClickListener(new SeniorityOnClickListener());
+        //时光精选
+        tv_all_movie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setMainPager(3);
+            }
+        });
+        //所有商品
+        tv_all_shops.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setMainPager(2);
+            }
+        });
+        //共多少不电影
+        tvState02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setMainPager(1);
+            }
+        });
 
         //即将上线
         tv_onshow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity mainActivity = (MainActivity) mactivity;
-                mainActivity.setPosition(1);
+                setMainPager(1);
             }
         });
         //同城影院
         tv_cinema.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity mainActivity = (MainActivity) mactivity;
-                mainActivity.setPosition(1);
+                setMainPager(1);
             }
         });
         //电影商城
         tvAllShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity mainActivity = (MainActivity) mactivity;
-                mainActivity.setPosition(2);
+                setMainPager(2);
             }
         });
         if (!TextUtils.isEmpty(city_name)) {
@@ -249,7 +271,7 @@ public class HomePager extends BasePager {
                 mactivity.startActivity(intent);
             }
         });
-        im_load.setOnClickListener(new MyImageOnClickListener());
+        loading_failed.setOnClickListener(new MyImageOnClickListener());
         //点击扫描二维码
         imDimension.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,12 +283,11 @@ public class HomePager extends BasePager {
         });
     }
 
-    private void findView(View view) {
-        im_load = (ImageView) view.findViewById(R.id.im_load);
-        im_backimg = (ImageView) view.findViewById(R.id.im_backimg);
-        im_load_anim = (ImageView) view.findViewById(R.id.im_load_anim);
-        lv_home = (RefreshListView) view.findViewById(R.id.lv_home);
+    private void setMainPager(int pager) {
+        MainActivity mainActivity = (MainActivity) mactivity;
+        mainActivity.setPosition(pager);
     }
+
 
     public HomePager(Activity mactivity) {
         super(mactivity);
@@ -280,7 +301,7 @@ public class HomePager extends BasePager {
         //检查网络
         View view = View.inflate(mactivity, R.layout.home_pager, null);
         View headView = View.inflate(mactivity, R.layout.home_pager_title, null);
-        findView(view);
+        findViews01(view);
         findViews(headView);
         //查询一启动就启动动画
         getNetConnected();
@@ -291,15 +312,19 @@ public class HomePager extends BasePager {
         return view;
     }
 
-    private void getNetConnected() {
-        anim = (AnimationDrawable) im_load_anim.getBackground();
+    private void findViews01(View view) {
+        loading_failed = (ImageView)view.findViewById(R.id.loading_failed);
+        lv_home =(RefreshListView)view.findViewById(R.id.lv_home);
+        gif_loading = (RelativeLayout)view.findViewById(R.id.gif_loading);
 
+    }
+
+    private void getNetConnected() {
         connected = MessageUtils.isConnected(mactivity);
         if (connected) {
-            im_load.setVisibility(View.GONE);
+            loading_failed.setVisibility(View.GONE);
         } else {
-            im_load.setVisibility(View.VISIBLE);
-            im_load_anim.setVisibility(View.GONE);
+            loading_failed.setVisibility(View.VISIBLE);
         }
     }
 
@@ -315,7 +340,6 @@ public class HomePager extends BasePager {
      */
     public void onEventMainThread(StringBuffer cityname) {
         if (!TextUtils.isEmpty(cityname)) {
-
             String name = cityname.toString();
             String[] split = name.split(",");
             String cityurl = NetUri.LOCATION_CITY + split[1] + "&latitude=" + split[2] + "&cityName=";
@@ -334,7 +358,7 @@ public class HomePager extends BasePager {
 
     private void showSelectorCityDailog(final LocationCityEntity cityEntity) {
         String locationcitymessage = mactivity.getString(R.string.locationcitymessage);
-        locationcitymessage += cityEntity.getName() + "是否切换城市";
+        locationcitymessage += cityEntity.getName() + R.string.cityMessage;
         new AlertDialog.Builder(mactivity)
                 .setMessage(locationcitymessage)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -344,6 +368,9 @@ public class HomePager extends BasePager {
                         cityId = cityEntity.getCityId();
                         SpUtils.getInitialize(mactivity.getApplicationContext()).save(SpUtils.CITY_NAME, cityEntity.getName());
                         SpUtils.getInitialize(mactivity.getApplicationContext()).save(SpUtils.CITY_ID, cityId);
+                        topPosters=null;
+                        advList=null;
+                        data=null;
                         getNetData();
                     }
                 })
@@ -358,9 +385,7 @@ public class HomePager extends BasePager {
     class MyImageOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            im_backimg.setVisibility(View.VISIBLE);
-            im_load_anim.setVisibility(View.VISIBLE);
-            anim.start();
+            gif_loading.setVisibility(View.VISIBLE);
             getNetData();
         }
     }
@@ -369,29 +394,15 @@ public class HomePager extends BasePager {
      * 联网请求数据
      */
     private void getNetData() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                anim.start();
-            }
-        }, 500);
         new InterNetConn(NetUri.HOME_SHOP, mactivity, HomeShopInfo.class);//ViewPager数据
-
-
     }
 
     public void onEventMainThread(OneGetData isconnected) {
         if (!isconnected.isObtinData()) {
-            anim.stop();
-            im_backimg.setVisibility(View.GONE);
-            im_load_anim.setVisibility(View.GONE);
-            im_load.setVisibility(View.VISIBLE);
+            gif_loading.setVisibility(View.GONE);
             MessageUtils.showMessage(mactivity, "连接数据失败");
         } else {
-            im_backimg.setVisibility(View.GONE);
-            im_load_anim.setVisibility(View.GONE);
-            im_load.setVisibility(View.GONE);
+            gif_loading.setVisibility(View.GONE);
         }
     }
 
@@ -436,10 +447,10 @@ public class HomePager extends BasePager {
      * @param shopInfo
      */
     public void onEventMainThread(HomeShopInfo shopInfo) {
+        //数据加载成功隐藏帧动画
         setTopViewPager(shopInfo);
-        String url = NetUri.HLISTVIEW + cityId;
         //请求横向的数据
-        new InterNetConn(url, mactivity, HorizontalListViewInfo.class);//横向LsitView的数据
+        new InterNetConn(NetUri.HLISTVIEW + cityId, mactivity, HorizontalListViewInfo.class);//横向LsitView的数据
     }
 
     /**
@@ -463,12 +474,13 @@ public class HomePager extends BasePager {
      * @param listViewInfo
      */
     private void refreshListData(HomeListViewInfo listViewInfo) {
-        List<HomeListViewInfo.DataEntity> datainfo = listViewInfo.getData();
+        ArrayList<HomeListViewInfo.DataEntity> datainfo = (ArrayList<HomeListViewInfo.DataEntity>) listViewInfo.getData();
         if (datainfo.size() > 0 && datainfo != null) {
+            data.addAll(datainfo);
             //定位ListView到item的最后一条
             listbuttomadapter.setData(datainfo);
-            lv_home.setSelection(lv_home.getLastVisiblePosition());
-            listbuttomadapter.notifyDataSetChanged();
+            lv_home.setSelection(lv_home.getLastVisiblePosition() + 1);
+            //listbuttomadapter.notifyDataSetChanged();
             isrefresh = true;
         }
     }
@@ -483,21 +495,54 @@ public class HomePager extends BasePager {
         if (data.size() > 0 && data != null) {
             listbuttomadapter = new HomeContentAdapter(mactivity, data);
             lv_home.setAdapter(listbuttomadapter);
+            //设置下拉刷新
+            lv_home.setOnRefreshListener(new RefreshListView.OnRefreshListener() {
+                @Override
+                public void onPullDownRefresh() {
+
+                }
+
+
+                @Override
+                public void onLoadMore() {
+                    isrefresh = true;
+                    index++;
+                    String url = NetUri.HOME_BUTTOM_REF + index;
+                    new InterNetConn(url, mactivity, HomeListViewInfo.class);
+                }
+            });
+            lv_home.onFinishRefresh(true);
+
             lv_home.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    HomeListViewInfo.DataEntity dataEntity = data.get(position);
+
+                    HomeListViewInfo.DataEntity dataEntity = (HomeListViewInfo.DataEntity) listbuttomadapter.getItem(position-2);
                     switch (dataEntity.getTag()) {
                         case "图集":
+                            List<HomeListViewInfo.DataEntity.ImagesEntity> images = dataEntity.getImages();
+                            intent = new Intent(mactivity, NewsImageActivity.class);
+                            intent.putExtra("images", (Serializable) images);
+                            intent.putExtra("id", dataEntity.getId());
+                            intent.putExtra("title", dataEntity.getTitle());
+                            mactivity.startActivity(intent);
                             break;
                         case "简讯":
-                            if(dataEntity.getDataType()==0) {
+                            if (dataEntity.getDataType() == 0) {
                                 Intent intent = new Intent(mactivity, Share_news_Activity.class);
-                                intent.putExtra("id",dataEntity.getId());
+                                intent.putExtra("id", dataEntity.getId());
+                                mactivity.startActivity(intent);
+                            } else if (dataEntity.getDataType() == 1) {
+                                images = dataEntity.getImages();
+                                intent = new Intent(mactivity, NewsImageActivity.class);
+                                intent.putExtra("images", (Serializable) images);
+                                intent.putExtra("id", dataEntity.getId());
+                                intent.putExtra("title", dataEntity.getTitle());
                                 mactivity.startActivity(intent);
                             }
                             break;
                         case "影评":
+
                             break;
                         case "头条":
                             break;
@@ -511,29 +556,12 @@ public class HomePager extends BasePager {
                         case "日韩新片":
                         case "精彩短片":
                         case "港台佳片":
+                            break;
 
                     }
                 }
             });
-            //设置下拉刷新
-            lv_home.setOnRefreshListener(new RefreshListView.OnRefreshListener() {
-                @Override
-                public void onPullDownRefresh() {
 
-                }
-
-                /**
-                 * 上拉加载更多
-                 */
-                @Override
-                public void onLoadMore() {
-                    isrefresh = true;
-                    index++;
-                    String url = NetUri.HOME_BUTTOM_REF + index;
-                    new InterNetConn(url, mactivity, HomeListViewInfo.class);
-                }
-            });
-            lv_home.onFinishRefresh(true);
         }
     }
 
@@ -553,10 +581,7 @@ public class HomePager extends BasePager {
         advList = (ArrayList<HomeShopInfo.AdvListEntity>) shopInfo.getAdvList();
         if (topPosters != null && topPosters.size() > 0) {
             //联网请求成功
-            anim.stop();
-            im_backimg.setVisibility(View.GONE);
-            im_load_anim.setVisibility(View.GONE);
-            im_load.setVisibility(View.GONE);
+            gif_loading.setVisibility(View.GONE);
             for (int i = 0; i < topPosters.size(); i++) {
                 ImageView imageView = new ImageView(mactivity);
                 imageView.setImageResource(R.drawable.img_point_selector);
@@ -577,6 +602,8 @@ public class HomePager extends BasePager {
             vpTitle.addOnPageChangeListener(new MyOnPageChangeListener02());
             handler.sendEmptyMessage(WHAT_TOP_PAGER);
 
+        }else {
+            loading_failed.setVisibility(View.VISIBLE);
         }
         if (advList.size() > 0 && advList != null) {
             for (int i = 0; i < advList.size(); i++) {

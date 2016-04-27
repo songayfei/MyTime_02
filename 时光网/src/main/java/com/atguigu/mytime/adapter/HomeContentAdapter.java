@@ -30,6 +30,8 @@ public class HomeContentAdapter extends BaseAdapter {
     private static final int NEW_FILM = 5;//欧美新片
     private static final int OVERSEAS = 6;
     private static final int PRIZE_MOVIE = 7;
+    private static final int CRUNCHIES=8;
+    private static final int REVIEW=9;
 
     private Activity mActivity;
     private List<HomeListViewInfo.DataEntity> data;
@@ -44,10 +46,11 @@ public class HomeContentAdapter extends BaseAdapter {
     }
     public void setData(List<HomeListViewInfo.DataEntity> datainfo) {
             data.addAll(datainfo);
+            notifyDataSetChanged();
     }
     @Override
     public int getViewTypeCount() {
-        return 8;
+        return 10;
     }
 
     @Override
@@ -75,6 +78,12 @@ public class HomeContentAdapter extends BaseAdapter {
                 break;
             case "海外佳片":
                 viewType = OVERSEAS;
+                break;
+            case "榜单":
+                viewType=CRUNCHIES;
+                break;
+            case "经典回顾":
+                viewType=REVIEW;
                 break;
             case "获奖佳片":
             case "日韩新片":
@@ -160,7 +169,7 @@ public class HomeContentAdapter extends BaseAdapter {
             case FILM_REVIEW://影评
                 //图文混排
                 SpannableStringBuilder ssb=new SpannableStringBuilder(dataEntity.getSummaryInfo());
-                ssb.setSpan(new ImageSpan(mActivity, R.drawable.quote_mark), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ssb.setSpan(new ImageSpan(mActivity, R.drawable.quote_mark),0,0,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.tvTitle.setText(dataEntity.getTitle());
                 holder.tvTitlen.setText(ssb);
                 Glide.with(mActivity).load(dataEntity.getRelatedObj().getImage())
@@ -228,12 +237,31 @@ public class HomeContentAdapter extends BaseAdapter {
                 holder.tvTitle.setText(dataEntity.getTitleCn());
                 holder.tvTitlen.setText(dataEntity.getTitleEn());
                 holder.tvCommentCount.setText(dataEntity.getContent());
-                holder.tv_tag.setText(dataEntity.getTag());
+                /*holder.tv_tag.setText(dataEntity.getTag());*/
                 Glide.with(mActivity).load(dataEntity.getImage())
                         .error(R.drawable.img_default)
                         .placeholder(R.drawable.img_default)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder.imNews);
+                break;
+            case CRUNCHIES:
+                holder.tvTitle.setText(dataEntity.getTitle());
+                holder.tvCommentCount.setText(dataEntity.getMemo());
+                Glide.with(mActivity).load(dataEntity.getMovies().get(0).getPosterUrl()).into(holder.im_noe);
+                Glide.with(mActivity).load(dataEntity.getMovies().get(1).getPosterUrl()).into(holder.im_twe);
+                Glide.with(mActivity).load(dataEntity.getMovies().get(2).getPosterUrl()).into(holder.im_three);
+                holder.tv_grade01.setText(dataEntity.getMovies().get(0).getRating() + "");
+                holder.tv_grade02.setText(dataEntity.getMovies().get(1).getRating() + "");
+                holder.tv_grade03.setText(dataEntity.getMovies().get(2).getRating() + "");
+                holder.tv_movie_name01.setText(dataEntity.getMovies().get(0).getName()+"\n("+dataEntity.getMovies().get(0).getDecade()+")");
+                holder.tv_movie_name02.setText(dataEntity.getMovies().get(1).getName()+"\n("+dataEntity.getMovies().get(1).getDecade()+")");
+                holder.tv_movie_name03.setText(dataEntity.getMovies().get(2).getName()+"\n("+dataEntity.getMovies().get(2).getDecade()+")");
+                break;
+            case REVIEW:
+                holder.tvTitle.setText(dataEntity.getTitleCn());
+                holder.tvTitlen.setText(dataEntity.getTitleEn());
+                holder.tvCommentCount.setText(dataEntity.getContent());
+                Glide.with(mActivity).load(dataEntity.getImage()).into(holder.imNews);
                 break;
         }
 
@@ -257,6 +285,8 @@ public class HomeContentAdapter extends BaseAdapter {
             case FILM_REVIEW:
             case OVERSEAS:
             case PRIZE_MOVIE:
+            case CRUNCHIES:
+            case REVIEW:
                 holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
                 holder.tvCommentCount = (TextView) convertView.findViewById(R.id.tv_commentcount);
                 break;
@@ -337,6 +367,23 @@ public class HomeContentAdapter extends BaseAdapter {
                 holder.imNews = (ImageView) convertView.findViewById(R.id.im_news);
                 holder.tv_tag= (TextView) convertView.findViewWithTag(R.id.tv_tag);
                 break;
+            case CRUNCHIES://榜单
+                convertView=View.inflate(mActivity,R.layout.item_home_list_crunchies,null);
+                holder.im_noe= (ImageView) convertView.findViewById(R.id.im_noe);
+                holder.im_twe= (ImageView) convertView.findViewById(R.id.im_twe);
+                holder.im_three= (ImageView) convertView.findViewById(R.id.im_three);
+                holder.tv_grade01= (TextView) convertView.findViewById(R.id.tv_grade01);
+                holder.tv_grade02= (TextView) convertView.findViewById(R.id.tv_grade02);
+                holder.tv_grade03= (TextView) convertView.findViewById(R.id.tv_grade03);
+                holder.tv_movie_name01= (TextView) convertView.findViewById(R.id.tv_movie_name01);
+                holder.tv_movie_name02= (TextView) convertView.findViewById(R.id.tv_movie_name02);
+                holder.tv_movie_name03= (TextView) convertView.findViewById(R.id.tv_movie_name03);
+                break;
+            case REVIEW://经典回顾
+                convertView=View.inflate(mActivity,R.layout.item_movie_review,null);
+                holder.tvTitlen= (TextView) convertView.findViewById(R.id.tv_titlen);
+                holder.imNews= (ImageView) convertView.findViewById(R.id.im_news);
+                break;
 
 
         }
@@ -373,6 +420,15 @@ public class HomeContentAdapter extends BaseAdapter {
         TextView tvHotcomment;
 
         TextView tv_tag;
-
+        //榜单
+        ImageView im_noe;
+        ImageView im_twe;
+        ImageView im_three;
+        TextView tv_grade01;
+        TextView tv_grade02;
+        TextView tv_grade03;
+        TextView tv_movie_name01;
+        TextView tv_movie_name02;
+        TextView tv_movie_name03;
     }
 }

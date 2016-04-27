@@ -19,6 +19,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
+        android:text="5"
         android:gravity="center"
         android:visibility="gone"
         android:textColor="@color/welcom_text"

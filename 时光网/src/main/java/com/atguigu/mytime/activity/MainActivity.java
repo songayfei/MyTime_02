@@ -1,11 +1,9 @@
 package com.atguigu.mytime.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -39,12 +37,30 @@ public class MainActivity extends FragmentActivity {
     public int position;
     private boolean isExit = true;
     //城市名和城市id
-    private String city_name;
-    private int city_id;
+
 
     public void setPosition(int position) {
         this.position=position;
+        switch (position){
+            case 0:
+                rg_main.check(R.id.rb_home);
+                break;
+            case 1:
+                rg_main.check(R.id.rb_payticket);
+                break;
+            case 2:
+                rg_main.check(R.id.rb_shop);
+                break;
+            case 3:
+                rg_main.check(R.id.rb_discover);
+                break;
+            case 4:
+                rg_main.check(R.id.rb_user);
+                break;
+        }
         setFragment();
+
+
     }
 
     private Handler handler = new Handler() {
@@ -60,7 +76,7 @@ public class MainActivity extends FragmentActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rg_main = (RadioGroup) findViewById(R.id.rg_main);
@@ -115,7 +131,6 @@ public class MainActivity extends FragmentActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.content_main, new Fragment() {
-            @Nullable
             @Override
             public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                 BasePager basePager = getBasePaer();
@@ -175,11 +190,7 @@ public class MainActivity extends FragmentActivity {
         switch (requestCode){
             case SCANNIN_GREQUEST_CODE:
                 if(resultCode==RESULT_OK){
-                    Bundle bundle = data.getExtras();
-                    //显示扫描到的内容
-                    String result = bundle.getString("result");
-                    //显示
-                    Bitmap bitmap = (Bitmap) data.getParcelableExtra("bitmap");
+
                 }
                 break;
             case RESULT_CITY_IDANDNAME:
@@ -187,7 +198,6 @@ public class MainActivity extends FragmentActivity {
                     String[] city_name_id = data.getStringArrayExtra("city_name_id");
                     pagers.get(position).showPger(city_name_id);
                 }
-
         }
 
         super.onActivityResult(requestCode, resultCode, data);

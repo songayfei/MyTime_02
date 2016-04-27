@@ -3,7 +3,6 @@ package com.atguigu.mytime.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.atguigu.mytime.R;
@@ -29,6 +29,7 @@ import com.atguigu.mytime.Utils.SpUtils;
 import com.atguigu.mytime.adapter.CityAdapter;
 import com.atguigu.mytime.adapter.CityListAdapter;
 import com.atguigu.mytime.entity.CityEntity;
+import com.atguigu.mytime.entity.OneGetData;
 import com.atguigu.mytime.entity.SelectorCityInfo;
 import com.atguigu.mytime.net.InterNetConn;
 import com.atguigu.mytime.service.LocationCityService;
@@ -41,7 +42,6 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -59,8 +59,7 @@ public class SelecorCityActivity extends Activity {
     private TextView tvCancel;
 
     private ImageView im_load;
-    private ImageView im_load_anim;
-    private ImageView im_backimg;
+    private RelativeLayout gif_loading;
 
     private TextView tv_currentcity;
     private NoScrollGridView gv_hotcity;
@@ -70,9 +69,6 @@ public class SelecorCityActivity extends Activity {
     private ImageView im_rollback;
 
     private boolean isNetwork;
-    private AnimationDrawable anim;
-    private SelectorCityInfo selectorCityInfo;
-    private ArrayList<SelectorCityInfo.PEntity> cityDataP;
     boolean inSearchMode = false;//根据状态装配不同的数据
     //文本输入框的监听
     private TextWatcher watcher = new TextWatcher() {
@@ -176,29 +172,24 @@ public class SelecorCityActivity extends Activity {
      * 初始化界面布局
      */
     private void findViews() {
-
         setContentView(R.layout.activity_selecor_city);
         EventBus.getDefault().register(this);
+
         //获取数据库
-        db = x.getDb(((MyApplication)getApplication()).getDaoConfig());
+        db = x.getDb(((MyApplication) getApplication()).getDaoConfig());
         headview = View.inflate(this, R.layout.hot_ciyts, null);
         tv_currentcity = (TextView)headview.findViewById(R.id.tv_currentcity);
         gv_hotcity = (NoScrollGridView)headview.findViewById(R.id.gv_hotcity);
-
-
-
 
 
         im_rollback = (ImageView) findViewById(R.id.im_rollback);
         tvCity = (EditText) findViewById(R.id.tv_city);
         tvCancel = (TextView) findViewById(R.id.tv_cancel);
         lvClassifiedCity = (ListView) findViewById(R.id.lv_classified_city);
-
+        //加载失败的图片
         im_load = (ImageView) findViewById(R.id.im_load);
-        im_backimg = (ImageView) findViewById(R.id.im_backimg);
-        im_load_anim = (ImageView) findViewById(R.id.im_load_anim);
-
-        anim = (AnimationDrawable) im_load_anim.getBackground();
+        //gif图片
+        gif_loading = (RelativeLayout)findViewById(R.id.gif_loading);
 
         lvClassifiedCity.addHeaderView(headview);
 
@@ -208,6 +199,7 @@ public class SelecorCityActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (inSearchMode) {
+                    inSearchMode=false;
                     //获取城市名
                     String cityname = citysData.get(position);
                     //保存选中的城市名
@@ -220,12 +212,13 @@ public class SelecorCityActivity extends Activity {
                 }
             }
         });
+        /*
+        点击联网加载数据
+         */
         im_load.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                im_backimg.setVisibility(View.VISIBLE);
-                im_load_anim.setVisibility(View.VISIBLE);
-                anim.start();
+                gif_loading.setVisibility(View.VISIBLE);
                 loadData();
             }
         });
@@ -246,15 +239,21 @@ public class SelecorCityActivity extends Activity {
     }
 
     /**
-     * 保存点击的城市数据保存到全局变量
+     * 保存点击的城市数据保存到Sp
      *
      * @param city
      */
     private void getDBData(String city) {
+        String cityname=null;
         try {
-            List<CityEntity> all = db.selector(CityEntity.class).where("cityname", "=", city).findAll();
+            for(int i=0;i<cityall.size();i++){
+                if(cityall.get(i).getCityname().contains(city)){
+                    cityname=cityall.get(i).getCityname();
+                }
+            }
+            List<CityEntity> all = db.selector(CityEntity.class).where("cityname", "=", cityname).findAll();
             if (all != null && all.size() > 0) {
-                int id = all.get(0).getId();
+                int id = all.get(0).getCityid();
                 //保存选中的城市名和id
                 SpUtils.getInitialize(getApplicationContext()).save(SpUtils.CITY_NAME,city);
                 SpUtils.getInitialize(getApplicationContext()).save(SpUtils.CITY_ID, id);
@@ -306,26 +305,28 @@ public class SelecorCityActivity extends Activity {
 
     public void onEventMainThread(StringBuffer cityname) {
         if (!TextUtils.isEmpty(cityname)&&!"".equals(cityname)) {
-            String name = cityname.toString();
-            String[] split = name.split(",");
-            String city_name=null;
-            for(int i=0;i<cityInfos.size();i++){
-                if(cityInfos.get(i).contains(split[0])){
-                    city_name=cityInfos.get(i);
-                }
-            }
-            tv_currentcity.setText(city_name);
+            String name = cityname.toString().split(",")[0];
+            tv_currentcity.setText(name);
         } else {
-            tv_currentcity.setText("北京");
+            tv_currentcity.setText(R.string.loading_city);
         }
     }
-
+    public void onEventMainThread(OneGetData isconnected){
+        if (!isconnected.isObtinData()) {
+            gif_loading.setVisibility(View.GONE);
+            im_load.setVisibility(View.VISIBLE);
+            MessageUtils.showMessage(getApplicationContext(), "连接数据失败");
+        } else {
+            gif_loading.setVisibility(View.GONE);
+        }
+    }
     /**
      * 加载数据
      */
     private List<CityEntity> cityall;
 
     private void loadData() {
+
         //查询是否进入过主页面
         value = SpUtils.getInitialize(this).getValue(SpUtils.GUIDE, false);
         //查询数据是否有相关数据
@@ -335,19 +336,14 @@ public class SelecorCityActivity extends Activity {
             e.printStackTrace();
         }
         if (cityall != null && cityall.size() > 0) {
+            gif_loading.setVisibility(View.GONE);
             //获取城市列表数据
             getAdapterData(cityall);
         } else {
-            if (isNetwork) {
+
                 //联网请求数据
                 new InterNetConn(NetUri.CITY_URL, getApplicationContext(), SelectorCityInfo.class);
-            } else {
-                im_load.setVisibility(View.VISIBLE);
-                im_backimg.setVisibility(View.GONE);
-                im_load_anim.setVisibility(View.GONE);
-                anim.stop();
-                MessageUtils.showMessage(getApplicationContext(), "加载数据失败");
-            }
+
         }
     }
 
@@ -383,19 +379,17 @@ public class SelecorCityActivity extends Activity {
     private CityEntity cityEntity;
 
     private void getCityAllData(SelectorCityInfo cityDataP) {
-        ArrayList<SelectorCityInfo.PEntity> cityallnetdata = (ArrayList<SelectorCityInfo.PEntity>) cityDataP.getP();
         cityall = new ArrayList<>();
+        ArrayList<SelectorCityInfo.PEntity> cityallnetdata = (ArrayList<SelectorCityInfo.PEntity>) cityDataP.getP();
         if (cityallnetdata.size() > 0 && cityallnetdata != null) {
             im_load.setVisibility(View.GONE);
-            im_backimg.setVisibility(View.GONE);
-            im_load_anim.setVisibility(View.GONE);
-            anim.stop();
+            gif_loading.setVisibility(View.GONE);
             for (int i = 0; i < cityallnetdata.size(); i++) {
                 //创建城市实体对象
                 cityEntity = new CityEntity();
                 cityEntity.setCount(cityallnetdata.get(i).getCount());
                 cityEntity.setCityname(cityallnetdata.get(i).getN());
-                cityEntity.setId(cityallnetdata.get(i).getId());
+                cityEntity.setCityid(cityallnetdata.get(i).getId());
                 cityEntity.setPinyinFull(cityallnetdata.get(i).getPinyinFull());
                 cityEntity.setPinyinShort(cityallnetdata.get(i).getPinyinShort());
                 cityall.add(cityEntity);
@@ -407,6 +401,10 @@ public class SelecorCityActivity extends Activity {
                     e.printStackTrace();
                 }
             }
+        }else {
+            im_load.setVisibility(View.VISIBLE);
+            gif_loading.setVisibility(View.GONE);
+            MessageUtils.showMessage(getApplicationContext(), "加载数据失败");
         }
         getAdapterData(cityall);
     }
@@ -425,12 +423,12 @@ public class SelecorCityActivity extends Activity {
                 hotcitys.add(cityall.get(i).getCityname());//前12个放入热门城市集合中
             }
             cityInfos.add(cityall.get(i).getCityname());
-            String word = cityall.get(i).getPinyinFull().substring(0, 1);//获取城市首字字母拼音
+            String word = PinYinUtils.getPinYin(cityall.get(i).getCityname()).substring(0, 1);//获取城市首字字母拼音
             if (!pinying.contains(word)) {//判断是否包含在该集合中
                 pinying.add(word);
             }
         }
-        //城市排序
+       /* //城市排序
         Collections.sort(cityInfos, new Comparator<String>() {
             @Override
             public int compare(String lhs, String rhs) {
@@ -438,14 +436,9 @@ public class SelecorCityActivity extends Activity {
                 String str2 = PinYinUtils.getPinYin(rhs).substring(0, 1);
                 return str1.compareTo(str2);
             }
-        });
+        });*/
         //拼音排序排序
-        Collections.sort(pinying, new Comparator<String>() {
-            @Override
-            public int compare(String lhs, String rhs) {
-                return lhs.compareTo(rhs);
-            }
-        });
+        Collections.sort(pinying);
 
         //热门城市
         cityAdapter = new CityAdapter(getApplicationContext(), hotcitys);

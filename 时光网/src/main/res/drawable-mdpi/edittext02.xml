@@ -9,7 +9,7 @@
                 android:color="#ffffff"/>
             <stroke
                 android:width="0.5px"
-                android:color="#505050"/>
+                android:color="@color/result_minor_text"/>
         </shape>
     </item>
 </layer-list>

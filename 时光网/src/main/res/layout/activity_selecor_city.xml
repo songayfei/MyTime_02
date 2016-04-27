@@ -69,7 +69,7 @@
         android:layout_height="wrap_content">
 
         <include layout="@layout/load_image" />
-
+        <include layout="@layout/anim_loading"/>
         <ListView
             android:id="@+id/lv_classified_city"
             android:layout_width="match_parent"

@@ -5,8 +5,8 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/load_image"/>
-
+    <include layout="@layout/loading03"/>
+    <include layout="@layout/anim_loading"/>
     <com.atguigu.refreshlistview.RefreshListView
         android:id="@+id/lv_home"
         android:layout_width="match_parent"

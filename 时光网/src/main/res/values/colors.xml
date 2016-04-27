@@ -35,4 +35,5 @@
     <color name="welcom_text02">#aa0000</color>
     <color name="welcom_text03">#FF8C00</color>
     <color name="welcom_text04">#ffffff</color>
+    <color name="welcom_text05">#0e000000</color>
 </resources>
