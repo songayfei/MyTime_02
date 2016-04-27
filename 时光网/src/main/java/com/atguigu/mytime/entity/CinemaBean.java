@@ -3,7 +3,7 @@ package com.atguigu.mytime.entity;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/3/1.
+ * Created by Administrator on 2016/4/17.
  */
 public class CinemaBean {
 

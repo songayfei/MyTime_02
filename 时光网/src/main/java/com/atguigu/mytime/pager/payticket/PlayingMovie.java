@@ -28,7 +28,7 @@ import org.xutils.x;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/2/29.
+ 上映了
  */
 public class PlayingMovie extends BaseDiscoverPager {
     @ViewInject(R.id.lv_playing_movie)

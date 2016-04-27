@@ -33,6 +33,8 @@ public class MoviesItemActivity extends Activity {
         new OkhttpUtils2<pingrun>("http://api.m.mtime.cn/Showtime/MovieComments.api?movieId=207872&pageIndex=1", this, pingrun.class,true);
         expandable_textView = (ExpandableTextView)findViewById(R.id.expandable_TextView);
         expandable_textView.setText("冰雪女王弗雷娅（艾米莉·布朗特饰）是邪恶女王拉文纳（查理兹·塞隆饰）的妹妹。拉文纳通过魔镜得知妹妹的女儿将会成为世界上最美的女人。弗雷娅在一次意外中失去了孩子，丧子之痛激发了弗雷娅巨大的魔力，从一个善良温柔的女人变成了冷酷无情的冰雪女王，不仅创建了千里冰封的冰雪王国，更是在王国内制定了不准相爱的规则。猎人（克里斯·海姆斯沃斯饰）与女勇士（杰西卡·查斯坦饰）的爱情之路被迫终止，作为弗雷娅培养的部下，二人经历艰难后将合力对抗两大女王，不仅是一场为爱而展开的斗争，更是一场推翻女王统治的为争取自由而引发的正邪大战[3]  。");
+
+
     }
 
     public void onEventMainThread(pingrun event) {

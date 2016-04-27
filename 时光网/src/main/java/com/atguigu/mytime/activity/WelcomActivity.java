@@ -36,7 +36,6 @@ public class WelcomActivity extends Activity {
     private boolean value;
     private TextView tv_time;
     private List<AdvListInfo.AdvListEntity> advList;
-
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -65,6 +64,8 @@ public class WelcomActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcom);
+
+
         rl_welcom = (ImageView) findViewById(R.id.rl_welcom);
         tv_time = (TextView) findViewById(R.id.tv_time);
         tv_time.setVisibility(View.GONE);

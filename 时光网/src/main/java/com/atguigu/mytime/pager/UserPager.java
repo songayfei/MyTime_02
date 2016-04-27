@@ -33,6 +33,7 @@ public class UserPager extends BasePager  implements View.OnClickListener, Obser
 
     public UserPager(Activity mactivity) {
         super(mactivity);
+        ;
     }
 
     @Override

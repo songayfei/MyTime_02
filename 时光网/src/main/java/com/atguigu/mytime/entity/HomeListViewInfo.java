@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/4/11.
+ * Created by Administrator on 2016/4/18.
  */
 public class HomeListViewInfo implements Serializable{
 

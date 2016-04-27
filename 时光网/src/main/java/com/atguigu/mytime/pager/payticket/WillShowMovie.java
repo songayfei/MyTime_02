@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/2/29.
+ * 即将上映
  */
 public class WillShowMovie extends BaseDiscoverPager implements AdapterView.OnItemClickListener {
 
@@ -105,7 +105,7 @@ public class WillShowMovie extends BaseDiscoverPager implements AdapterView.OnIt
         rcy_willshowmovie.setAdapter(new MyRcyclerViewAdapter(mActivity, willShowMovieBean));
         //listview设置适配器
        // lv_willshowmovie.setHeaderView(View.inflate(activity, R.layout.month_bar, null));
-//        String[] group = {"3月","4月","5月"};
+//
         getChild(willShowMovieBean);
 //        PinnedHeaderExpandableAdapter adapter = new PinnedHeaderExpandableAdapter(childData, group, activity,lv_willshowmovie);
 //        lv_willshowmovie.setAdapter(adapter);
@@ -151,6 +151,9 @@ public class WillShowMovie extends BaseDiscoverPager implements AdapterView.OnIt
     }
 
     private WillShowMovieBean parseData(String result) {
+
+
+
         return new Gson().fromJson(result,WillShowMovieBean.class);
     }
 }

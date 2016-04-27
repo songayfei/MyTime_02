@@ -23,7 +23,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/3/1.
+ * 即将上映
  */
 public class MyWillShowMovieListAdapter extends SectionedBaseAdapter {
 
@@ -43,7 +43,6 @@ public class MyWillShowMovieListAdapter extends SectionedBaseAdapter {
         testSet = new LinkedHashSet<Integer>();
         for (WillShowMovieBean.MoviecomingsEntity entity : moviecomings) {
             testSet.add(entity.getRMonth());
-
         }
 
         names = new ArrayList<>();
@@ -67,18 +66,7 @@ public class MyWillShowMovieListAdapter extends SectionedBaseAdapter {
            sectionItems.add(objects);
            list.add(count);
            count=0;
-
-
        }
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -200,7 +188,6 @@ public class MyWillShowMovieListAdapter extends SectionedBaseAdapter {
                 Toast.makeText(activity, "PlayMovieItemActivity", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         return convertView;
     }

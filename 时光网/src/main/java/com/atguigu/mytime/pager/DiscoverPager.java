@@ -47,6 +47,7 @@ public class DiscoverPager extends BasePager{
 
     public DiscoverPager(Activity mactivity) {
         super(mactivity);
+
     }
 
     @Override

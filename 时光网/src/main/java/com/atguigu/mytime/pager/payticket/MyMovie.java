@@ -16,9 +16,7 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 
-/**
- * Created by Administrator on 2016/2/29.
- */
+
 public class MyMovie extends BaseDiscoverPager {
 
     @ViewInject(R.id.tablayout_movie_pager)

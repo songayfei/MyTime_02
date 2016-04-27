@@ -58,6 +58,7 @@ public class PayticketPager extends BasePager  implements View.OnClickListener {
 
     public PayticketPager(Activity mactivity) {
         super(mactivity);
+        ;
     }
 
     @Override

@@ -211,4 +211,5 @@ public final class ViewfinderView extends View {
 			lineDrawable.setCallback(null);
 		}
 	}
+
 }

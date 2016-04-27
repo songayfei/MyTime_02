@@ -23,7 +23,7 @@ public class OkhttpUtils2<T>{
     private Class aClass;
     private String url;
     private T t;
-    private Activity activity;
+    private static Activity activity;
     private static LoadingDailog dailog;
     private ImageView errow;
     /**
@@ -135,5 +135,11 @@ public class OkhttpUtils2<T>{
         Log.e("TAG","EventBus.getDefault().post(t);");
         EventBus.getDefault().post(t);
     }
+
+    public static void stop(){
+        dailog=null;
+        activity=null;
+    }
+
 }
 

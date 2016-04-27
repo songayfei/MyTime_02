@@ -149,7 +149,9 @@ public class Cinema extends BaseDiscoverPager {
 
     private void processData(String result) {
         json = result;
-        cinemaBeans = getList(0);
+
+       // cinemaBeans = getList(0);
+        cinemaBeans=new ArrayList<>();
         //动画结束
         background.stop();
         iv_loading.setVisibility(View.GONE);
@@ -171,8 +173,9 @@ public class Cinema extends BaseDiscoverPager {
             if (nearDistance > distance) {
                 nearestCinemaPosition = i;
             }
-            cinemaBeans.add(cinemaBean);
+            //cinemaBeans.add(cinemaBean);
         }
+        cinemaBeans.addAll(rawCinemaBeans);
         CinemaBean remove = (CinemaBean) cinemaBeans.remove(nearestCinemaPosition);
         cinemaBeans.add(0, remove);
 
@@ -462,7 +465,7 @@ public class Cinema extends BaseDiscoverPager {
                 price.add(cinemaBean);
             }
         }
-        //cinemaBeans = price;
+
         Collections.sort(cinemaBeans, new MyPriceComparator());
         if(SORT == NOSORT) {
             rg_cinema_choose.clearCheck();

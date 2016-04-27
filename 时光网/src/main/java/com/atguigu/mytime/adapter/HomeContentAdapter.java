@@ -46,11 +46,10 @@ public class HomeContentAdapter extends BaseAdapter {
     }
     public void setData(List<HomeListViewInfo.DataEntity> datainfo) {
             data.addAll(datainfo);
-            notifyDataSetChanged();
     }
     @Override
     public int getViewTypeCount() {
-        return 10;
+        return 8;
     }
 
     @Override
@@ -169,7 +168,7 @@ public class HomeContentAdapter extends BaseAdapter {
             case FILM_REVIEW://影评
                 //图文混排
                 SpannableStringBuilder ssb=new SpannableStringBuilder(dataEntity.getSummaryInfo());
-                ssb.setSpan(new ImageSpan(mActivity, R.drawable.quote_mark),0,0,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ssb.setSpan(new ImageSpan(mActivity, R.drawable.quote_mark), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.tvTitle.setText(dataEntity.getTitle());
                 holder.tvTitlen.setText(ssb);
                 Glide.with(mActivity).load(dataEntity.getRelatedObj().getImage())

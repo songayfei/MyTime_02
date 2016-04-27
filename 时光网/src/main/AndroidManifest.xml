@@ -77,25 +77,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.GuideActivity" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.SelecorCityActivity" />
+        <activity android:name="com.atguigu.mytime.activity.NewsActivity" />
+        <activity android:name="com.atguigu.mytime.activity.GuideActivity" />
+        <activity android:name="com.atguigu.mytime.activity.MainActivity" />
+        <activity android:name="com.atguigu.mytime.activity.SelecorCityActivity" />
 
         <service
-            android:name=".service.CheckNetwork"
+            android:name="com.atguigu.mytime.service.CheckNetwork"
             android:enabled="true"
             android:exported="true" />
 
         <receiver
-            android:name=".Receiver.NetReceiver"
+            android:name="com.atguigu.mytime.Receiver.NetReceiver"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activity.GoodsWebViewActivity" />
-        <activity android:name=".activity.SearchGoodsActivity" />
-        <activity android:name=".activity.MallBaseActivity" />
+        <activity android:name="com.atguigu.mytime.activity.GoodsWebViewActivity" />
+        <activity android:name="com.atguigu.mytime.activity.SearchGoodsActivity" />
+        <activity android:name="com.atguigu.mytime.activity.MallBaseActivity" />
         <activity
-            android:name=".activity.SystemVideoPlayerActivity"
+            android:name="com.atguigu.mytime.activity.SystemVideoPlayerActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
@@ -347,10 +348,10 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".activity.CommentWebviewActivity"
+            android:name="com.atguigu.mytime.activity.CommentWebviewActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
-            android:name=".activity.AdvListActivity"
+            android:name="com.atguigu.mytime.activity.AdvListActivity"
             android:theme="@style/Theme.MyActivity" />
 
         <service
@@ -358,18 +359,17 @@
             android:enabled="true"
             android:process=":remote" />
         <service
-            android:name=".service.LocationCityService"
+            android:name="com.atguigu.mytime.service.LocationCityService"
             android:enabled="true"
             android:exported="true" />
 
         <activity
             android:name="com.zf.myzxing.CaptureActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"></activity>
         <!-- <activity -->
         <!-- android:name="com.zf.myzxing.CaptureActivity" -->
         <!-- android:screenOrientation="portrait" > -->
         <!-- </activity> -->
-
         <activity
             android:name="com.zf.myzxing.ShowActivity"
             android:screenOrientation="portrait" />
@@ -381,9 +381,6 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MovieDetailsActivity" />
         <activity android:name=".activity.NewsActivity" />
-        <activity android:name=".activity.homewebview.Shop_WebView_Activity" />
-        <activity android:name=".activity.homewebview.Share_news_Activity" />
-        <activity android:name=".activity.NewsImageActivity"></activity>
         <activity android:name=".activity.homewebview.Shop_WebView_Activity"/>
         <activity android:name=".activity.homewebview.Share_news_Activity"/>
         <activity

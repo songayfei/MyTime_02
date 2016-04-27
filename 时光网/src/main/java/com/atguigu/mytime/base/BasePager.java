@@ -34,4 +34,9 @@ public abstract class BasePager {
 
 
     public abstract void showPger(String[] city_name_id);
+
+
+    public void stopAll() {
+
+    }
 }

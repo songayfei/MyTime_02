@@ -70,10 +70,6 @@ public class LocationCityService extends Service {
                 MyApplication application = MyApplication.getMyinstance();
                 application. latitude = location.getLatitude();
                 application.longitude = location.getLongitude();
-
-
-
-
             }
         }
     };

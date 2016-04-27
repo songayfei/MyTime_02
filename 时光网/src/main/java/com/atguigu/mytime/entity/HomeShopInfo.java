@@ -3,7 +3,7 @@ package com.atguigu.mytime.entity;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/4/10.
+ * Created by Administrator on 2016/4/19.
  * 主页商品信息实体类
  */
 public class HomeShopInfo {

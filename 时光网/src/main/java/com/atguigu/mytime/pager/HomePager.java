@@ -43,6 +43,7 @@ import com.atguigu.mytime.entity.HorizontalListViewInfo;
 import com.atguigu.mytime.entity.LocationCityEntity;
 import com.atguigu.mytime.entity.OneGetData;
 import com.atguigu.mytime.net.InterNetConn;
+import com.atguigu.mytime.net.OkhttpUtils2;
 import com.atguigu.mytime.service.LocationCityService;
 import com.atguigu.mytime.view.HorizontalListView;
 import com.atguigu.mytime.view.NoScrollViewPager;
@@ -67,6 +68,7 @@ public class HomePager extends BasePager {
     private static final int SCANNIN_GREQUEST_CODE = 666;
     public static final int RESULT_CITY_IDANDNAME = 888;
     private static final String TAG = HomePager.class.getSimpleName();
+    private final EventBus eventBus;
     private boolean isrefresh = false;//是否下拉刷新
     private int index = 1;//下拉刷新次数
 
@@ -291,7 +293,9 @@ public class HomePager extends BasePager {
 
     public HomePager(Activity mactivity) {
         super(mactivity);
-        EventBus.getDefault().register(this);
+
+        eventBus = EventBus.getDefault();
+        eventBus.register(this);
     }
 
     @Override
@@ -800,5 +804,10 @@ public class HomePager extends BasePager {
            MainActivity mainActivity= (MainActivity) mactivity;
             mainActivity.setPosition(3);
         }
+    }
+    @Override
+    public void stopAll(){
+        eventBus.unregister(this);
+        OkhttpUtils2.stop();
     }
 }

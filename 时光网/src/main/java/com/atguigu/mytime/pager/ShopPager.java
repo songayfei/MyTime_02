@@ -79,12 +79,13 @@ public class ShopPager extends BasePager implements View.OnClickListener {
     private List<PriceBean.ResultEntity> prices;
     private HashMap<Integer, Integer> priceMap;
     private int num=0;
+    private final EventBus eventBus;
 
     public ShopPager(Activity mactivity) {
         super(mactivity);
 
-        EventBus.getDefault().register(this);
-
+        eventBus = EventBus.getDefault();
+        eventBus.register(this);
     }
 
     @Override
@@ -339,12 +340,10 @@ public class ShopPager extends BasePager implements View.OnClickListener {
      * @param
      */
     public void showTitle() {
-        Log.e("yag", "ymy");
 
         //顶部ViewPager部分在屏幕上的Y轴坐标
         vpMallHead.getLocationOnScreen(location);
         int mtopViewPagerOnScreenY = location[1];
-        Log.e("vpMallHeadHeight-------", vpMallHeadHeight + "");
         if (mtopViewPagerOnScreenY < -50) {
             mall_home_title.setVisibility(View.VISIBLE);
             float i = -((float) mtopViewPagerOnScreenY) / 500;
@@ -606,6 +605,7 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
                 ImageView imageView = new ImageView(mactivity);
 
+                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -613,11 +613,9 @@ public class ShopPager extends BasePager implements View.OnClickListener {
                         if (position == 3) {
 
                             intent.putExtra("URL", "http://mall.wv.mtime.cn/" + mallGoodsInfos.getScrollImg().get(position).getUrl());
-                            Log.e("tag", "我就绿卡看==");
                             mactivity.startActivity(intent);
                             return;
                         }
-                        Log.e("tag", "我就绿卡看222==");
                         intent.putExtra("URL", mallGoodsInfos.getScrollImg().get(position).getUrl());
                         mactivity.startActivity(intent);
                     }
@@ -715,6 +713,9 @@ public class ShopPager extends BasePager implements View.OnClickListener {
 
 
     }
-
+    @Override
+    public void stopAll(){
+        eventBus.unregister(this);
+    }
 
 }

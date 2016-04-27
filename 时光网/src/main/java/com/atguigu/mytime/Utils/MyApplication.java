@@ -2,14 +2,21 @@ package com.atguigu.mytime.Utils;
 
 import android.app.Application;
 import android.app.Service;
+import android.content.ComponentCallbacks2;
+import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 
 import com.atguigu.mytime.service.LocationService;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import org.xutils.DbManager;
 import org.xutils.x;
+
+import java.util.Timer;
 
 /**
  * Created by Administrator on 2016/4/8.
@@ -44,6 +51,9 @@ public class MyApplication extends Application {
         x.Ext.setDebug(true);
         setMyinstance(this);//获取app实例
 
+        refWatcher = LeakCanary.install(this);
+        Timer timer = new Timer();
+
         mLocationClient = new LocationClient(this.getApplicationContext());
 
         /***
@@ -65,5 +75,27 @@ public class MyApplication extends Application {
 
            }
        });
+    }
+    private RefWatcher refWatcher;
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApplication application = (MyApplication) context
+                .getApplicationContext();
+        return application.refWatcher;
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Log.d(MyApplication.class.getSimpleName(), "onLowMemory and clear cache.");
+
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        Log.d(MyApplication.class.getSimpleName(), "onTrimMemory and level is " + level);
+        if (level >= ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
+
+        }
+        super.onTrimMemory(level);
     }
 }

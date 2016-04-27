@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @Author YfSong
  * @Time 10:18
- * Created by YfSong on 2016/4/11.
+ * Created by YfSong on 2016/4/19.
  */
 public class MallGoodsInfos {
 
